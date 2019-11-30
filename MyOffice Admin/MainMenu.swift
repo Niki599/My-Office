@@ -15,4 +15,9 @@ class MainMenu: UIViewController {
         // Do any additional setup after loading the view.
         
     }
+    @IBAction func buttonBack(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "MainMenu")
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
