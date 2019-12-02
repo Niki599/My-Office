@@ -18,6 +18,10 @@ class SignIn: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        setupView()
+    }
+    
+    func setupView() {
         let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(gesture)
         if (UserDefaults.standard.bool(forKey: "dataAvailability")) {

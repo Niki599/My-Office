@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28F2C2BC78E1E69D19641D73 /* Pods_MyOffice_AdminTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A44275E30DC687723EA5733 /* Pods_MyOffice_AdminTests.framework */; };
+		476ADA4E23959D7E0030C0A5 /* TableEmployees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */; };
 		47D8309C2392AF2900DB9168 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D8309B2392AF2900DB9168 /* AppDelegate.swift */; };
 		47D8309E2392AF2900DB9168 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D8309D2392AF2900DB9168 /* SceneDelegate.swift */; };
 		47D830A02392AF2900DB9168 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D8309F2392AF2900DB9168 /* SignIn.swift */; };
@@ -43,6 +44,7 @@
 		3001DE43C614AF3D96CA17E3 /* Pods-MyOffice AdminTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice AdminTests.release.xcconfig"; path = "Target Support Files/Pods-MyOffice AdminTests/Pods-MyOffice AdminTests.release.xcconfig"; sourceTree = "<group>"; };
 		35A38B5DE0AEE19151B5A8A7 /* Pods-MyOffice Admin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice Admin.release.xcconfig"; path = "Target Support Files/Pods-MyOffice Admin/Pods-MyOffice Admin.release.xcconfig"; sourceTree = "<group>"; };
 		38806FAB2C2B6DEB173A4371 /* Pods-MyOffice AdminTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice AdminTests.debug.xcconfig"; path = "Target Support Files/Pods-MyOffice AdminTests/Pods-MyOffice AdminTests.debug.xcconfig"; sourceTree = "<group>"; };
+		476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableEmployees.swift; sourceTree = "<group>"; };
 		47D830982392AF2900DB9168 /* MyOffice Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyOffice Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47D8309B2392AF2900DB9168 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47D8309D2392AF2900DB9168 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				47D8309D2392AF2900DB9168 /* SceneDelegate.swift */,
 				47D8309F2392AF2900DB9168 /* SignIn.swift */,
 				47D830CB2392B31000DB9168 /* MainMenu.swift */,
+				476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */,
 				47D830A12392AF2900DB9168 /* Main.storyboard */,
 				47D830A42392AF2A00DB9168 /* Assets.xcassets */,
 				47D830A62392AF2A00DB9168 /* LaunchScreen.storyboard */,
@@ -414,6 +417,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				476ADA4E23959D7E0030C0A5 /* TableEmployees.swift in Sources */,
 				47D830A02392AF2900DB9168 /* SignIn.swift in Sources */,
 				47D8309C2392AF2900DB9168 /* AppDelegate.swift in Sources */,
 				47D8309E2392AF2900DB9168 /* SceneDelegate.swift in Sources */,
