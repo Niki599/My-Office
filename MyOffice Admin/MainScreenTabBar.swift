@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MainMenu: UITabBarController {
+class MainScreenTabBar: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -22,7 +22,7 @@ class MainMenu: UITabBarController {
     
     @IBAction func buttonBack(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "MainMenu")
+        let vc = storyboard.instantiateViewController(withIdentifier: "SignIn")
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -28,7 +28,7 @@ class SignIn: UIViewController {
             loginTextField.text = UserDefaults.standard.string(forKey: "login")
             passwordTextField.text = UserDefaults.standard.string(forKey: "password")
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "MainMenu")
+            let vc = storyboard.instantiateViewController(withIdentifier: "MainScreenTabBar")
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -41,7 +41,7 @@ class SignIn: UIViewController {
                     let base = Database.database().reference().child("users").child(hams!)
                     base.updateChildValues(["check":false])
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let vc = storyboard.instantiateViewController(withIdentifier: "MainMenu")
+                    let vc = storyboard.instantiateViewController(withIdentifier: "MainScreenTabBar")
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
                 else {

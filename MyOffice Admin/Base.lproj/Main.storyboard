@@ -109,25 +109,16 @@
                                 <rect key="frame" x="73" y="375" width="173" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Подключиться"/>
-                                <connections>
-                                    <action selector="buttonBack:" destination="ki6-v5-a3P" eventType="touchUpInside" id="1CJ-hk-qLG"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Scu-Da-5BT">
                                 <rect key="frame" x="73" y="413" width="174" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Отключиться"/>
-                                <connections>
-                                    <action selector="buttonBack:" destination="ki6-v5-a3P" eventType="touchUpInside" id="ypn-up-wp5"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rX2-fT-dx2">
                                 <rect key="frame" x="73" y="451" width="174" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Таблица посещаемости"/>
-                                <connections>
-                                    <action selector="buttonBack:" destination="ki6-v5-a3P" eventType="touchUpInside" id="kTb-F6-mXY"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -139,10 +130,10 @@
             </objects>
             <point key="canvasLocation" x="1910.625" y="-217.6056338028169"/>
         </scene>
-        <!--Main Menu-->
+        <!--Main Screen Tab Bar-->
         <scene sceneID="WlF-Rg-N7i">
             <objects>
-                <tabBarController storyboardIdentifier="MainMenu" id="hxK-x2-ijV" customClass="MainMenu" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainScreenTabBar" id="hxK-x2-ijV" customClass="MainScreenTabBar" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="apx-5e-KLg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -207,14 +198,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="okY-d9-o0W">
-                                <rect key="frame" x="179" y="376" width="49" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </switch>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TvQ-ui-sA6">
                                 <rect key="frame" x="95" y="197" width="131" height="69"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="okY-d9-o0W">
+                                <rect key="frame" x="179" y="376" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

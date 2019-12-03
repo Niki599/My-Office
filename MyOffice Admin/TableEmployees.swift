@@ -105,7 +105,6 @@ class TableEmployyes: UIViewController, UITableViewDelegate, UITableViewDataSour
                         }
                     })
             }
-        sleep(2)
         createTable()
         
         
