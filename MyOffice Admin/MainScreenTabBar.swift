@@ -20,9 +20,4 @@ class MainScreenTabBar: UITabBarController {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func buttonBack(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "SignIn")
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
 }

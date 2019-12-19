@@ -21,6 +21,7 @@
 		3A3637B42396604C00C7E7E4 /* arrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637A92396604C00C7E7E4 /* arrowLeft.png */; };
 		3A3637B52396604C00C7E7E4 /* sigma.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637AA2396604C00C7E7E4 /* sigma.png */; };
 		3A3637B62396604C00C7E7E4 /* update.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637AB2396604C00C7E7E4 /* update.png */; };
+		3A9A470823AB99D500E1D388 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A470723AB99D400E1D388 /* ControlView.swift */; };
 		3ADA0E7D239EE3C4002838AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3ADA0E7C239EE3C4002838AA /* GoogleService-Info.plist */; };
 		3ADA0E7E239EE3C4002838AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3ADA0E7C239EE3C4002838AA /* GoogleService-Info.plist */; };
 		3ADA0E7F239EE3C4002838AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3ADA0E7C239EE3C4002838AA /* GoogleService-Info.plist */; };
@@ -72,6 +73,7 @@
 		3A3637A92396604C00C7E7E4 /* arrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowLeft.png; sourceTree = "<group>"; };
 		3A3637AA2396604C00C7E7E4 /* sigma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sigma.png; sourceTree = "<group>"; };
 		3A3637AB2396604C00C7E7E4 /* update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = update.png; sourceTree = "<group>"; };
+		3A9A470723AB99D400E1D388 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 		3ADA0E7C239EE3C4002838AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableEmployees.swift; sourceTree = "<group>"; };
 		47D830982392AF2900DB9168 /* MyOffice Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyOffice Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,6 +194,7 @@
 				47D8309D2392AF2900DB9168 /* SceneDelegate.swift */,
 				47D8309F2392AF2900DB9168 /* SignIn.swift */,
 				47D830CB2392B31000DB9168 /* MainScreenTabBar.swift */,
+				3A9A470723AB99D400E1D388 /* ControlView.swift */,
 				476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */,
 				47D830A12392AF2900DB9168 /* Main.storyboard */,
 				47D830A42392AF2A00DB9168 /* Assets.xcassets */,
@@ -485,6 +488,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A9A470823AB99D500E1D388 /* ControlView.swift in Sources */,
 				476ADA4E23959D7E0030C0A5 /* TableEmployees.swift in Sources */,
 				47D830A02392AF2900DB9168 /* SignIn.swift in Sources */,
 				47D8309C2392AF2900DB9168 /* AppDelegate.swift in Sources */,
@@ -665,16 +669,18 @@
 			baseConfigurationReference = F3603210D2630BA0624F380D /* Pods-MyOffice Admin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M4W3BABN5H;
+				DEVELOPMENT_TEAM = DX3UD6TV65;
 				INFOPLIST_FILE = "MyOffice Admin/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "aleph0.MyOffice-Admin";
+				PRODUCT_BUNDLE_IDENTIFIER = "aleph0.MyOffice-Adminl";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -685,16 +691,18 @@
 			baseConfigurationReference = 35A38B5DE0AEE19151B5A8A7 /* Pods-MyOffice Admin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M4W3BABN5H;
+				DEVELOPMENT_TEAM = DX3UD6TV65;
 				INFOPLIST_FILE = "MyOffice Admin/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "aleph0.MyOffice-Admin";
+				PRODUCT_BUNDLE_IDENTIFIER = "aleph0.MyOffice-Adminl";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
