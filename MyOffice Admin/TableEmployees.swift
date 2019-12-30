@@ -6,18 +6,146 @@
 //  Copyright © 2019 user. All rights reserved.
 //
 
-import Foundation
 import Firebase
+import UIKit
 
-class TableEmployyes: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TableEmployyes: UIViewController {
     
     var check = [Int]()
     var email = [String]()
     var name = [String]()
     var phone = [String]()
     var surname = [String]()
-    //DataSource
     var data = ["","","","",""]
+    let identifire = "MyCell"
+    
+    var titleTable: UILabel!
+    var tableEmployeer: UITableView!
+    var backgroundView: UIView!
+    var updateButton: UIButton!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        requestDate()
+        setupView()
+    }
+    
+    func setupView() {
+        
+        backgroundView = UIView()
+        backgroundView.backgroundColor = .white
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(backgroundView)
+        
+        titleTable = UILabel()
+        titleTable.text = "Таблица сотрудников"
+        titleTable.translatesAutoresizingMaskIntoConstraints = false
+        titleTable.textAlignment = .center
+        view.addSubview(titleTable)
+        
+        tableEmployeer = UITableView()
+        tableEmployeer.translatesAutoresizingMaskIntoConstraints = false
+        tableEmployeer.register(UITableViewCell.self, forCellReuseIdentifier: identifire)
+        tableEmployeer.delegate = self
+        tableEmployeer.dataSource = self
+        tableEmployeer.layer.borderWidth = 1.0
+        view.addSubview(tableEmployeer)
+        
+        updateButton = UIButton()
+        updateButton.addTarget(self, action: #selector(updateTable), for: .touchUpInside)
+        updateButton.translatesAutoresizingMaskIntoConstraints = false
+        updateButton.setImage(UIImage(imageLiteralResourceName: "update.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
+        view.addSubview(updateButton)
+    }
+    
+    @objc func updateTable () {
+        requestDate()
+    }
+    
+    func requestDate() {
+        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
+            self.data = ["","","","",""]
+            self.name.removeAll()
+            self.surname.removeAll()
+            self.check.removeAll()
+            let base = Database.database().reference().child("users")
+            print(base)
+            base.observe(.value, with:  { (snapshot) in
+                guard let value = snapshot.value, snapshot.exists() else { return }
+                let dict: NSDictionary = value as! NSDictionary
+                for (_, item) in dict {
+                    for (k, i) in item as! NSDictionary {
+                        if (k as? String == "name") {
+                            self.name.append((i as! String))
+                            print(i)
+                        }
+                        if (k as? String == "surname") {
+                            self.surname.append((i as! String))
+                            print(i)
+                        }
+                        if (k as? String == "check") {
+                            self.check.append(i as! Int)
+                            print(i)
+                        }
+                    }
+                }
+                for i in 0...4 {
+                    self.data[i] = self.name[i] + " " + self.surname[i] + " "
+                    if  String(self.check[i]) == "0" {
+                        self.data[i] += "Нет на месте"
+                    }
+                    else {
+                        self.data[i] += "На рабочем месте"
+                    }
+                    self.tableEmployeer.reloadData()
+                }
+            })
+        }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        NSLayoutConstraint.activate([
+            
+            backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            titleTable.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
+            titleTable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleTable.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
+            
+            tableEmployeer.topAnchor.constraint(equalTo: titleTable.bottomAnchor, constant: 25),
+            tableEmployeer.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor),
+            tableEmployeer.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor),
+            tableEmployeer.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor),
+            
+            updateButton.centerYAnchor.constraint(equalTo: titleTable.centerYAnchor),
+            updateButton.heightAnchor.constraint(equalToConstant: 40),
+            updateButton.widthAnchor.constraint(equalToConstant: 40),
+            updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -5)
+            
+        ])
+    }
+    
+    func info() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "Info")
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+extension TableEmployyes : UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+}
+
+extension TableEmployyes : UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -28,122 +156,9 @@ class TableEmployyes: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: identifire, for: indexPath)
-                        
-//        Auth.auth().signIn(withEmail: "b@mail.ru", password: "123456") { (user, error) in
-//            let hams = Auth.auth().currentUser?.uid
-//            print(hams)
-//            let base = Database.database().reference().child("users").child(hams!)
-//            base.updateChildValues(["check":false])
-//            print(base)
-//            base.observeSingleEvent(of: .value, with: { (snapshot) in
-//
-//                let userDict = snapshot.value as! [String: Any]
-//
-//                let email = userDict["name"] as! String
-//                let yetki = userDict["surname"] as! String
-//                print("email: \(email)  yetki: \(yetki)")
-//            })
-//        }
-    
         cell.textLabel?.text = data[indexPath.row]
         return cell
     }
     
-    //Delegate
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
-    }
-    
-//    @IBOutlet weak var tableEmployeer: UITableView!
-    var tableEmployeer = UITableView()
-    let identifire = "MyCell"
-
-
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        return 2
-//    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        Auth.auth().signIn(withEmail: "b@mail.ru", password: "123456") { (user, error) in
-                    let hams = Auth.auth().currentUser?.uid
-        //          print(hams)
-                    let base = Database.database().reference().child("users")
-                  print(base)
-                    base.observe(.value, with:  { (snapshot) in
-                    guard let value = snapshot.value, snapshot.exists() else { return }
-                    let dict: NSDictionary = value as! NSDictionary
-                        for (_, item) in dict {
-                            for (k, i) in item as! NSDictionary {
-                                if (k as? String == "name") {
-                                    self.name.append((i as! String))
-                                    print(i)
-                                    }
-                                if (k as? String == "surname") {
-                                    self.surname.append((i as! String))
-                                    print(i)
-                                    }
-                                if (k as? String == "check") {
-                                    self.check.append(i as! Int)
-                                    print(i)
-                                    }
-                            }
-                        }
-                        for i in 0...4 {
-                            self.data[i] = self.name[i] + " " + self.surname[i] + " "
-                            if  String(self.check[i]) == "0" {
-                                self.data[i] += "Нет на месте"
-                            }
-                            else {
-                                self.data[i] += "На рабочем месте"
-                            }
-                            self.tableEmployeer.reloadData()
-                        }
-                    })
-            }
-        createTable()
-        
-        
-//        tableEmployeer.rowHeight = 45
-//        tableEmployeer.numberOfRows(inSection: 15)
-//        tableEmployeer.sectionFooterHeight = 22
-//        tableEmployeer.sectionHeaderHeight = 22
-//        tableEmployeer.isScrollEnabled = true
-//        tableEmployeer.showsVerticalScrollIndicator = true
-//        tableEmployeer.isUserInteractionEnabled = true
-//        tableEmployeer.bounces = true
-
-    
-}
-    
-    func createTable() {
-        self.tableEmployeer = UITableView(frame: CGRect.init(x: 0, y: 60, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 150), style: .plain)
-        tableEmployeer.register(UITableViewCell.self, forCellReuseIdentifier: identifire)
-        
-        self.tableEmployeer.delegate = self
-        self.tableEmployeer.dataSource = self
-        
-        tableEmployeer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        view.addSubview(tableEmployeer)
-    }
-    
-    
-    @IBAction func buttonBack(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "Check")
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    
-    @IBAction func info(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "Info")
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
 }
 

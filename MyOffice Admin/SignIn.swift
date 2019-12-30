@@ -17,8 +17,7 @@ class SignIn: UIViewController {
     private var mainLogo: UIImageView!
     private var loginButton: UIButton!
     private var backgroundView: UIView!
-    private var checkBox: UIButton!
-    private var rememberMe: UILabel!
+    private var enteryLabel: UILabel!
     private var check: Bool = true
     let logoImage = UIImage(imageLiteralResourceName: "sebbia-logo.jpg").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     let checkBoxImage = UIImage(imageLiteralResourceName: "checkBox.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
@@ -36,11 +35,18 @@ class SignIn: UIViewController {
             passwordTextField.text = UserDefaults.standard.string(forKey: "password")
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "MainScreenTabBar")
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.navigationController?.pushViewController(vc, animated: false)
         }
-
+        
     }
-    
+    deinit {
+        loginTextField = nil
+        passwordTextField = nil
+        mainLogo = nil
+        loginButton = nil
+        backgroundView = nil
+        enteryLabel = nil
+    }
     func setupView() {
         
         backgroundView = UIView()
@@ -58,20 +64,28 @@ class SignIn: UIViewController {
         loginTextField.draw(CGRect.init())
         loginTextField.translatesAutoresizingMaskIntoConstraints = false
         loginTextField.placeholder = "Логин"
-        loginTextField.textAlignment = .center
+        loginTextField.autocapitalizationType = .none
+        loginTextField.textAlignment = .left
         view.addSubview(loginTextField)
         
+        
         passwordTextField = UITextField()
-        passwordTextField.draw(CGRect.init())
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x:0.0, y:100.0, width: passwordTextField.frame.width, height: passwordTextField.frame.height - 1)
+        bottomLine.backgroundColor = UIColor.black.cgColor
+        //        passwordTextField.borderStyle = UITextField.BorderStyle.none
+        passwordTextField.layer.addSublayer(bottomLine)
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.placeholder = "Пароль"
-        passwordTextField.textAlignment = .center
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.textAlignment = .left
+        passwordTextField.clipsToBounds = true
         view.addSubview(passwordTextField)
         
         loginButton = UIButton()
         loginButton.layer.borderWidth = 1
         loginButton.layer.cornerRadius = 5
-        loginButton.setTitle("Вход", for: .normal)
+        loginButton.setTitle("Присоединиться", for: .normal)
         loginButton.setTitleColor(.black, for: .normal)
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.backgroundColor = UIColor.init(red: 0.0/255.0, green: 50.0/255.0, blue: 233.0/255.0, alpha: 1)
@@ -81,29 +95,22 @@ class SignIn: UIViewController {
         loginButton.clipsToBounds = true
         view.addSubview(loginButton)
         
-        rememberMe = UILabel()
-        rememberMe.translatesAutoresizingMaskIntoConstraints = false
-        rememberMe.layer.borderColor = UIColor.black.cgColor
-        rememberMe.text = "Запомнить"
-        rememberMe.font = UIFont.italicSystemFont(ofSize: 8)
-        rememberMe.clipsToBounds = true
-        view.addSubview(rememberMe)
+        enteryLabel = UILabel()
+        enteryLabel.translatesAutoresizingMaskIntoConstraints = false
+        enteryLabel.layer.borderColor = UIColor.black.cgColor
+        enteryLabel.text = "Добро пожаловать в SEBBIA"
+        enteryLabel.numberOfLines = 3
+        enteryLabel.font = UIFont.italicSystemFont(ofSize: 32)
+        enteryLabel.clipsToBounds = true
+        view.addSubview(enteryLabel)
         
-        checkBox = UIButton()
-        checkBox.layer.borderWidth = 1
-        checkBox.translatesAutoresizingMaskIntoConstraints = false
-        checkBox.layer.cornerRadius = 5
-        checkBox.backgroundColor = UIColor.white
-        checkBox.layer.borderColor = UIColor.init(red: 6.0/255.0, green: 150.0/255.0, blue: 254.0/255.0, alpha: 1).cgColor
-        checkBox.clipsToBounds = true
-        checkBox.addTarget(self, action:#selector(automaticLogin), for: .touchUpInside)
-        view.addSubview(checkBox)
     }
     
     override func viewDidLayoutSubviews() {
         
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
+        let space = screenWidth/2
         
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -113,19 +120,20 @@ class SignIn: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            mainLogo.topAnchor.constraint(equalTo: self.view.topAnchor,constant: screenHeight/4 ),
-            mainLogo.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            mainLogo.topAnchor.constraint(equalTo: self.view.topAnchor,constant: space / 1.8 ),
+            //            mainLogo.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            mainLogo.leadingAnchor.constraint(equalTo: self.view.safeArea.leadingAnchor,constant: space / 4 ),
             //            mainLogo.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            mainLogo.widthAnchor.constraint(equalToConstant: 120),
-            mainLogo.heightAnchor.constraint(equalToConstant: 120),
+            mainLogo.widthAnchor.constraint(equalToConstant: space / 4),
+            mainLogo.heightAnchor.constraint(equalTo: mainLogo.widthAnchor),
             
         ])
         
         NSLayoutConstraint.activate([
-            loginTextField.topAnchor.constraint(equalTo: mainLogo.bottomAnchor, constant: 14),
-            loginTextField.leadingAnchor.constraint(equalTo: mainLogo.leadingAnchor, constant: -60),
-            loginTextField.trailingAnchor.constraint(equalTo: mainLogo.trailingAnchor, constant: 60),
-            loginTextField.heightAnchor.constraint(equalToConstant: 40)
+            loginTextField.topAnchor.constraint(equalTo: enteryLabel.bottomAnchor, constant: space / 3),
+            loginTextField.leadingAnchor.constraint(equalTo: enteryLabel.leadingAnchor, constant: 20),
+            loginTextField.trailingAnchor.constraint(equalTo: enteryLabel.trailingAnchor, constant: -20),
+            loginTextField.heightAnchor.constraint(equalToConstant: 44)
         ])
         
         NSLayoutConstraint.activate([
@@ -136,35 +144,21 @@ class SignIn: UIViewController {
             
         ])
         
+        
         NSLayoutConstraint.activate([
-            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 14),
-            loginButton.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
-            loginButton.widthAnchor.constraint(equalToConstant: 190),
-//            loginButton.heightAnchor.constraint(equalTo: passwordTextField.heightAnchor,constant: 7),
-            loginButton.bottomAnchor.constraint(equalTo: rememberMe.bottomAnchor)
+            loginButton.bottomAnchor.constraint(equalTo: self.view.safeArea.bottomAnchor, constant: -44),
+            //            loginButton.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
+            loginButton.centerXAnchor.constraint(equalTo: self.view.safeArea.centerXAnchor),
+            loginButton.widthAnchor.constraint(equalTo: enteryLabel.widthAnchor),
+            loginButton.heightAnchor.constraint(equalTo: passwordTextField.heightAnchor),
+            //            loginButton.bottomAnchor.constraint(equalTo: rememberMe.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            checkBox.topAnchor.constraint(equalTo: loginButton.topAnchor),
-            checkBox.leadingAnchor.constraint(equalTo: loginButton.trailingAnchor, constant: 10),
-//            checkBox.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor ),
-//            checkBox.bottomAnchor.constraint(equalTo: loginButton.bottomAnchor),
-            checkBox.heightAnchor.constraint(equalTo: loginButton.heightAnchor,constant: -7),
-            checkBox.widthAnchor.constraint(equalTo: checkBox.heightAnchor),
+            enteryLabel.leadingAnchor.constraint(equalTo: mainLogo.leadingAnchor),
+            enteryLabel.topAnchor.constraint(equalTo: mainLogo.bottomAnchor, constant: 44),
+            enteryLabel.trailingAnchor.constraint(equalTo: self.view.safeArea.trailingAnchor, constant: -space/4)
         ])
-        
-        NSLayoutConstraint.activate([
-                   rememberMe.topAnchor.constraint(equalTo: checkBox.bottomAnchor),
-            rememberMe.centerXAnchor.constraint(equalTo: checkBox.centerXAnchor),
-                   rememberMe.heightAnchor.constraint(equalToConstant: 10)
-               ])
-        
-        
-        
-    }
-    
-    func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return .portrait
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -172,45 +166,46 @@ class SignIn: UIViewController {
         self.viewDidLayoutSubviews()
     }
     
-    @objc func automaticLogin() {
-
-        if (checkBox.isSelected == false && check == true) {
-            check = false
-            UserDefaults.standard.set(true, forKey: "dataAvailability")
-            UserDefaults.standard.set(loginTextField.text, forKey: "login")
-            UserDefaults.standard.set(passwordTextField.text, forKey: "password")
-            checkBox.setImage(checkBoxImage, for: .normal)
-            return
-        }
-        if (checkBox.isSelected == false && check == false) {
-            check = true
-            UserDefaults.standard.set(false, forKey: "dataAvailability")
-            checkBox.setImage(.none, for: .normal)
-    }
-    }
-    
     @objc func loginAction() {
+        self.loginButton.isUserInteractionEnabled = false
+        self.loginTextField.isUserInteractionEnabled = false
+        self.passwordTextField.isUserInteractionEnabled = false
         if (loginTextField.text != nil && passwordTextField.text != nil) {
             Auth.auth().signIn(withEmail: loginTextField.text!, password: passwordTextField.text!, completion: { (user, error) in
-                if (error == nil) {
+                if ((user) != nil) {
+                    
                     let hams = Auth.auth().currentUser?.uid
                     let base = Database.database().reference().child("users").child(hams!)
                     base.updateChildValues(["check":false])
+                    
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let vc = storyboard.instantiateViewController(withIdentifier: "MainScreenTabBar")
                     self.navigationController?.pushViewController(vc, animated: true)
+                    
+                    UserDefaults.standard.set(true, forKey: "dataAvailability")
+                    UserDefaults.standard.set(self.loginTextField.text, forKey: "login")
+                    UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
+                    self.loginButton.isUserInteractionEnabled = true
+                    self.loginTextField.isUserInteractionEnabled = true
+                    self.passwordTextField.isUserInteractionEnabled = true
                 }
                 else {
                     if let appDomain = Bundle.main.bundleIdentifier {
                         UserDefaults.standard.removePersistentDomain(forName: appDomain)
+                        self.loginButton.isUserInteractionEnabled = true
+                        self.loginTextField.isUserInteractionEnabled = true
+                        self.passwordTextField.isUserInteractionEnabled = true
                     }
                 }
             })
-
+            
         }
         else {
             loginTextField.layer.borderColor = UIColor.red.cgColor
             passwordTextField.layer.borderColor = UIColor.red.cgColor
+            self.loginButton.isUserInteractionEnabled = true
+            self.loginTextField.isUserInteractionEnabled = true
+            self.passwordTextField.isUserInteractionEnabled = true
         }
     }
 }

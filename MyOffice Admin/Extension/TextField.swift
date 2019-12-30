@@ -11,7 +11,7 @@ import UIKit
 extension UITextField
 {
     open override func draw(_ rect: CGRect) {
-        self.layer.cornerRadius = 3.0
+        self.layer.borderWidth.
         self.layer.borderWidth = 1.0
         self.layer.borderColor = UIColor.init(red: 6.0/255.0, green: 150.0/255.0, blue: 254.0/255.0, alpha: 1).cgColor
         self.layer.masksToBounds = true

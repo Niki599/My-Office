@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		28F2C2BC78E1E69D19641D73 /* Pods_MyOffice_AdminTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A44275E30DC687723EA5733 /* Pods_MyOffice_AdminTests.framework */; };
 		3A03FFAB239ED26600FB59FF /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A03FFAA239ED26600FB59FF /* UIView.swift */; };
-		3A26A3812396671A000ED21E /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26A3802396671A000ED21E /* TextField.swift */; };
 		3A3637AC2396604C00C7E7E4 /* employee.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637A12396604B00C7E7E4 /* employee.png */; };
 		3A3637AD2396604C00C7E7E4 /* sebbia-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637A22396604B00C7E7E4 /* sebbia-logo.jpg */; };
 		3A3637AE2396604C00C7E7E4 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637A32396604B00C7E7E4 /* settings.png */; };
@@ -21,7 +20,9 @@
 		3A3637B42396604C00C7E7E4 /* arrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637A92396604C00C7E7E4 /* arrowLeft.png */; };
 		3A3637B52396604C00C7E7E4 /* sigma.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637AA2396604C00C7E7E4 /* sigma.png */; };
 		3A3637B62396604C00C7E7E4 /* update.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637AB2396604C00C7E7E4 /* update.png */; };
-		3A9A470823AB99D500E1D388 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A470723AB99D400E1D388 /* ControlView.swift */; };
+		3A9E503A23B25FDF00B41754 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E503923B25FDF00B41754 /* MainScreen.swift */; };
+		3AC495EB23BA2BF900A5974F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC495EA23BA2BF900A5974F /* UserModel.swift */; };
+		3AC495F023BA412700A5974F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */; };
 		3ADA0E7D239EE3C4002838AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3ADA0E7C239EE3C4002838AA /* GoogleService-Info.plist */; };
 		3ADA0E7E239EE3C4002838AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3ADA0E7C239EE3C4002838AA /* GoogleService-Info.plist */; };
 		3ADA0E7F239EE3C4002838AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3ADA0E7C239EE3C4002838AA /* GoogleService-Info.plist */; };
@@ -31,7 +32,6 @@
 		47D830A02392AF2900DB9168 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D8309F2392AF2900DB9168 /* SignIn.swift */; };
 		47D830A32392AF2900DB9168 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47D830A12392AF2900DB9168 /* Main.storyboard */; };
 		47D830A52392AF2A00DB9168 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47D830A42392AF2A00DB9168 /* Assets.xcassets */; };
-		47D830A82392AF2A00DB9168 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47D830A62392AF2A00DB9168 /* LaunchScreen.storyboard */; };
 		47D830B32392AF2B00DB9168 /* MyOffice_AdminTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D830B22392AF2B00DB9168 /* MyOffice_AdminTests.swift */; };
 		47D830BE2392AF2B00DB9168 /* MyOffice_AdminUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D830BD2392AF2B00DB9168 /* MyOffice_AdminUITests.swift */; };
 		47D830CC2392B31000DB9168 /* MainScreenTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D830CB2392B31000DB9168 /* MainScreenTabBar.swift */; };
@@ -61,7 +61,6 @@
 		35A38B5DE0AEE19151B5A8A7 /* Pods-MyOffice Admin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice Admin.release.xcconfig"; path = "Target Support Files/Pods-MyOffice Admin/Pods-MyOffice Admin.release.xcconfig"; sourceTree = "<group>"; };
 		38806FAB2C2B6DEB173A4371 /* Pods-MyOffice AdminTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice AdminTests.debug.xcconfig"; path = "Target Support Files/Pods-MyOffice AdminTests/Pods-MyOffice AdminTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3A03FFAA239ED26600FB59FF /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
-		3A26A3802396671A000ED21E /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		3A3637A12396604B00C7E7E4 /* employee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = employee.png; sourceTree = "<group>"; };
 		3A3637A22396604B00C7E7E4 /* sebbia-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sebbia-logo.jpg"; sourceTree = "<group>"; };
 		3A3637A32396604B00C7E7E4 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
@@ -73,7 +72,9 @@
 		3A3637A92396604C00C7E7E4 /* arrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowLeft.png; sourceTree = "<group>"; };
 		3A3637AA2396604C00C7E7E4 /* sigma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sigma.png; sourceTree = "<group>"; };
 		3A3637AB2396604C00C7E7E4 /* update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = update.png; sourceTree = "<group>"; };
-		3A9A470723AB99D400E1D388 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
+		3A9E503923B25FDF00B41754 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		3AC495EA23BA2BF900A5974F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		3AC495EF23BA412700A5974F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3ADA0E7C239EE3C4002838AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableEmployees.swift; sourceTree = "<group>"; };
 		47D830982392AF2900DB9168 /* MyOffice Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyOffice Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +83,6 @@
 		47D8309F2392AF2900DB9168 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		47D830A22392AF2900DB9168 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		47D830A42392AF2A00DB9168 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		47D830A72392AF2A00DB9168 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47D830AE2392AF2B00DB9168 /* MyOffice AdminTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyOffice AdminTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47D830B22392AF2B00DB9168 /* MyOffice_AdminTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOffice_AdminTests.swift; sourceTree = "<group>"; };
 		47D830B42392AF2B00DB9168 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -139,7 +139,6 @@
 		3A26A37F239666E7000ED21E /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				3A26A3802396671A000ED21E /* TextField.swift */,
 				3A03FFAA239ED26600FB59FF /* UIView.swift */,
 			);
 			path = Extension;
@@ -192,13 +191,14 @@
 				3ABB1F8C2396553E0006CF57 /* Resourses */,
 				47D8309B2392AF2900DB9168 /* AppDelegate.swift */,
 				47D8309D2392AF2900DB9168 /* SceneDelegate.swift */,
+				3A9E503923B25FDF00B41754 /* MainScreen.swift */,
+				3AC495EA23BA2BF900A5974F /* UserModel.swift */,
 				47D8309F2392AF2900DB9168 /* SignIn.swift */,
 				47D830CB2392B31000DB9168 /* MainScreenTabBar.swift */,
-				3A9A470723AB99D400E1D388 /* ControlView.swift */,
 				476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */,
 				47D830A12392AF2900DB9168 /* Main.storyboard */,
+				3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */,
 				47D830A42392AF2A00DB9168 /* Assets.xcassets */,
-				47D830A62392AF2A00DB9168 /* LaunchScreen.storyboard */,
 				3ADA0E7C239EE3C4002838AA /* GoogleService-Info.plist */,
 			);
 			path = "MyOffice Admin";
@@ -344,10 +344,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47D830A82392AF2A00DB9168 /* LaunchScreen.storyboard in Resources */,
 				3A3637B02396604C00C7E7E4 /* house.png in Resources */,
 				3ADA0E7D239EE3C4002838AA /* GoogleService-Info.plist in Resources */,
 				3A3637AE2396604C00C7E7E4 /* settings.png in Resources */,
+				3AC495F023BA412700A5974F /* LaunchScreen.storyboard in Resources */,
 				3A3637B42396604C00C7E7E4 /* arrowLeft.png in Resources */,
 				3A3637B62396604C00C7E7E4 /* update.png in Resources */,
 				3A3637B22396604C00C7E7E4 /* icons8-Ð¾ÑÐ¼ÐµÑÐµÐ½Ð½ÑÐ¹-ÑÐµÐºÐ±Ð¾ÐºÑ-100.png in Resources */,
@@ -488,12 +488,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A9A470823AB99D500E1D388 /* ControlView.swift in Sources */,
 				476ADA4E23959D7E0030C0A5 /* TableEmployees.swift in Sources */,
 				47D830A02392AF2900DB9168 /* SignIn.swift in Sources */,
+				3AC495EB23BA2BF900A5974F /* UserModel.swift in Sources */,
 				47D8309C2392AF2900DB9168 /* AppDelegate.swift in Sources */,
 				3A03FFAB239ED26600FB59FF /* UIView.swift in Sources */,
-				3A26A3812396671A000ED21E /* TextField.swift in Sources */,
+				3A9E503A23B25FDF00B41754 /* MainScreen.swift in Sources */,
 				47D8309E2392AF2900DB9168 /* SceneDelegate.swift in Sources */,
 				47D830CC2392B31000DB9168 /* MainScreenTabBar.swift in Sources */,
 			);
@@ -531,20 +531,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3AC495EF23BA412700A5974F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		47D830A12392AF2900DB9168 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				47D830A22392AF2900DB9168 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		47D830A62392AF2A00DB9168 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				47D830A72392AF2A00DB9168 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
