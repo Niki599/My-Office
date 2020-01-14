@@ -27,8 +27,8 @@ class TableEmployyes: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestDate()
         setupView()
+        requestData()
     }
     
     func setupView() {
@@ -53,18 +53,15 @@ class TableEmployyes: UIViewController {
         view.addSubview(tableEmployeer)
         
         updateButton = UIButton()
-        updateButton.addTarget(self, action: #selector(updateTable), for: .touchUpInside)
+        updateButton.addTarget(self, action: #selector(requestData), for: .touchUpInside)
         updateButton.translatesAutoresizingMaskIntoConstraints = false
         updateButton.setImage(UIImage(imageLiteralResourceName: "update.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
         view.addSubview(updateButton)
     }
     
-    @objc func updateTable () {
-        requestDate()
-    }
-    
-    func requestDate() {
-        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
+    @objc func requestData() {
+        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!,
+                           password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
             self.data = ["","","","",""]
             self.name.removeAll()
             self.surname.removeAll()
@@ -74,25 +71,25 @@ class TableEmployyes: UIViewController {
             base.observe(.value, with:  { (snapshot) in
                 guard let value = snapshot.value, snapshot.exists() else { return }
                 let dict: NSDictionary = value as! NSDictionary
-                for (_, item) in dict {
-                    for (k, i) in item as! NSDictionary {
-                        if (k as? String == "name") {
-                            self.name.append((i as! String))
-                            print(i)
+                for (_, uidEmployeer) in dict {
+                    for (fieldName, valueOfField) in uidEmployeer as! NSDictionary {
+                        if (fieldName as? String == "name") {
+                            self.name.append((valueOfField as! String))
+                            print(valueOfField)
                         }
-                        if (k as? String == "surname") {
-                            self.surname.append((i as! String))
-                            print(i)
+                        if (fieldName as? String == "surname") {
+                            self.surname.append((valueOfField as! String))
+                            print(valueOfField)
                         }
-                        if (k as? String == "check") {
-                            self.check.append(i as! Int)
-                            print(i)
+                        if (fieldName as? String == "check") {
+                            self.check.append(valueOfField as! Int)
+                            print(valueOfField)
                         }
                     }
                 }
                 for i in 0...4 {
                     self.data[i] = self.name[i] + " " + self.surname[i] + " "
-                    if  String(self.check[i]) == "0" {
+                    if  self.check[i] == 0 {
                         self.data[i] += "Нет на месте"
                     }
                     else {
