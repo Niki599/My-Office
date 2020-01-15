@@ -16,7 +16,7 @@ class TableEmployyes: UIViewController {
     var name = [String]()
     var phone = [String]()
     var surname = [String]()
-    var data = ["","","","",""]
+    var data = ["", "", "", "", ""]
     let identifire = "MyCell"
     
     var titleTable: UILabel!
@@ -24,6 +24,7 @@ class TableEmployyes: UIViewController {
     var backgroundView: UIView!
     var updateButton: UIButton!
     
+    var quantityEmployeers: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,48 +63,53 @@ class TableEmployyes: UIViewController {
     @objc func requestData() {
         Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!,
                            password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
-            self.data = ["","","","",""]
-            self.name.removeAll()
-            self.surname.removeAll()
-            self.check.removeAll()
-            let base = Database.database().reference().child("users")
-            print(base)
-            base.observe(.value, with:  { (snapshot) in
-                guard let value = snapshot.value, snapshot.exists() else { return }
-                let dict: NSDictionary = value as! NSDictionary
-                for (_, uidEmployeer) in dict {
-                    for (fieldName, valueOfField) in uidEmployeer as! NSDictionary {
-                        if (fieldName as? String == "name") {
-                            self.name.append((valueOfField as! String))
-                            print(valueOfField)
-                        }
-                        if (fieldName as? String == "surname") {
-                            self.surname.append((valueOfField as! String))
-                            print(valueOfField)
-                        }
-                        if (fieldName as? String == "check") {
-                            self.check.append(valueOfField as! Int)
-                            print(valueOfField)
-                        }
-                    }
-                }
-                for i in 0...4 {
-                    self.data[i] = self.name[i] + " " + self.surname[i] + " "
-                    if  self.check[i] == 0 {
-                        self.data[i] += "Нет на месте"
-                    }
-                    else {
-                        self.data[i] += "На рабочем месте"
-                    }
-                    self.tableEmployeer.reloadData()
-                }
-            })
+                            for i in 0...self.data.count-1 {
+                                self.data[i] = ""
+                            }
+                            self.name.removeAll()
+                            self.surname.removeAll()
+                            self.check.removeAll()
+                            self.quantityEmployeers = 0
+                            let base = Database.database().reference().child("users")
+                            print(base)
+                            base.observe(.value, with:  { (snapshot) in
+                                guard let value = snapshot.value, snapshot.exists() else { return }
+                                let dict: NSDictionary = value as! NSDictionary
+                                for (_, _) in dict {
+                                    self.quantityEmployeers += 1
+                                }
+                                for (_, uidEmployeerInfo) in dict {
+                                    for (fieldName, valueOfField) in uidEmployeerInfo as! NSDictionary {
+                                        if (fieldName as? String == "name") {
+                                            self.name.append((valueOfField as! String))
+//                                            print(valueOfField)
+                                        }
+                                        if (fieldName as? String == "surname") {
+                                            self.surname.append((valueOfField as! String))
+//                                            print(valueOfField)
+                                        }
+                                        if (fieldName as? String == "check") {
+                                            self.check.append(valueOfField as! Int)
+//                                            print(valueOfField)
+                                        }
+                                    }
+                                }
+                                for i in 0...self.quantityEmployeers-1 {
+                                    self.data[i] = self.name[i] + " " + self.surname[i] + " "
+                                    if  self.check[i] == 0 {
+                                        self.data[i] += "Нет на месте"
+                                    }
+                                    else {
+                                        self.data[i] += "На рабочем месте"
+                                    }
+                                    self.tableEmployeer.reloadData()
+                                }
+                            })
         }
     }
     
     override func viewWillLayoutSubviews() {
         NSLayoutConstraint.activate([
-            
             backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
@@ -122,7 +128,6 @@ class TableEmployyes: UIViewController {
             updateButton.heightAnchor.constraint(equalToConstant: 40),
             updateButton.widthAnchor.constraint(equalToConstant: 40),
             updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -5)
-            
         ])
     }
     
@@ -154,8 +159,22 @@ extension TableEmployyes : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: identifire, for: indexPath)
         cell.textLabel?.text = data[indexPath.row]
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath {
+        case [0, 0]:
+            print(indexPath)
+        case [0, 1]:
+            print(indexPath)
+        default:
+            print("hui")
+        }
+    }
+    
+//    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {}
     
 }
 

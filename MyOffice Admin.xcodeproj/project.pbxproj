@@ -73,7 +73,7 @@
 		3A9E503923B25FDF00B41754 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		3AC495EA23BA2BF900A5974F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3AC495EF23BA412700A5974F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableEmployees.swift; sourceTree = "<group>"; };
+		476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableEmployees.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		47C2731223CDEAFE005361B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		47D830982392AF2900DB9168 /* MyOffice Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyOffice Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47D8309B2392AF2900DB9168 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
