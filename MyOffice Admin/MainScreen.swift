@@ -101,7 +101,6 @@ class MainScreen: UIViewController {
             
 //            infoConnection.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>)
             
-            
         ])
     }
     

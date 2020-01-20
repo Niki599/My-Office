@@ -26,6 +26,8 @@ class TableEmployyes: UIViewController {
     
     var quantityEmployeers: Int!
     
+    var constraints: [NSLayoutConstraint]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -58,6 +60,27 @@ class TableEmployyes: UIViewController {
         updateButton.translatesAutoresizingMaskIntoConstraints = false
         updateButton.setImage(UIImage(imageLiteralResourceName: "update.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
         view.addSubview(updateButton)
+        
+        constraints = [
+            backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            titleTable.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
+            titleTable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleTable.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
+            
+            tableEmployeer.topAnchor.constraint(equalTo: titleTable.bottomAnchor, constant: 25),
+            tableEmployeer.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor),
+            tableEmployeer.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor),
+            tableEmployeer.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor),
+            
+            updateButton.centerYAnchor.constraint(equalTo: titleTable.centerYAnchor),
+            updateButton.heightAnchor.constraint(equalToConstant: 40),
+            updateButton.widthAnchor.constraint(equalToConstant: 40),
+            updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -5)
+        ]
     }
     
     @objc func requestData() {
@@ -79,18 +102,20 @@ class TableEmployyes: UIViewController {
                                     self.quantityEmployeers += 1
                                 }
                                 for (_, uidEmployeerInfo) in dict {
-                                    for (fieldName, valueOfField) in uidEmployeerInfo as! NSDictionary {
-                                        if (fieldName as? String == "name") {
-                                            self.name.append((valueOfField as! String))
+                                    for (_, categ) in uidEmployeerInfo as! NSDictionary {
+                                        for (fieldName, valueOfField) in categ as! NSDictionary {
+                                            if (fieldName as? String == "name") {
+                                                self.name.append(valueOfField as! String)
 //                                            print(valueOfField)
-                                        }
-                                        if (fieldName as? String == "surname") {
-                                            self.surname.append((valueOfField as! String))
+                                            }
+                                            if (fieldName as? String == "surname") {
+                                                self.surname.append(valueOfField as! String)
 //                                            print(valueOfField)
-                                        }
-                                        if (fieldName as? String == "check") {
-                                            self.check.append(valueOfField as! Int)
+                                            }
+                                            if (fieldName as? String == "check") {
+                                                self.check.append(valueOfField as! Int)
 //                                            print(valueOfField)
+                                            }
                                         }
                                     }
                                 }
@@ -109,26 +134,8 @@ class TableEmployyes: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        NSLayoutConstraint.activate([
-            backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            
-            titleTable.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
-            titleTable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleTable.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
-            
-            tableEmployeer.topAnchor.constraint(equalTo: titleTable.bottomAnchor, constant: 25),
-            tableEmployeer.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor),
-            tableEmployeer.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor),
-            tableEmployeer.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor),
-            
-            updateButton.centerYAnchor.constraint(equalTo: titleTable.centerYAnchor),
-            updateButton.heightAnchor.constraint(equalToConstant: 40),
-            updateButton.widthAnchor.constraint(equalToConstant: 40),
-            updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -5)
-        ])
+        NSLayoutConstraint.deactivate(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
     func info() {
@@ -153,13 +160,13 @@ extension TableEmployyes : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: identifire, for: indexPath)
         cell.textLabel?.text = data[indexPath.row]
-        cell.accessoryType = .disclosureIndicator
+        cell.accessoryType = .detailDisclosureButton
         return cell
     }
     
@@ -174,7 +181,9 @@ extension TableEmployyes : UITableViewDataSource {
         }
     }
     
-//    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {}
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        print("hui")
+    }
     
 }
 
