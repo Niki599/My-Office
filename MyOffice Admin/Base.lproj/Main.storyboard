@@ -34,12 +34,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IqA-Lb-U9f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1491" y="130"/>
+            <point key="canvasLocation" x="-1404" y="130"/>
         </scene>
         <!--Item 2-->
         <scene sceneID="8A3-Hu-RCH">
             <objects>
-                <viewController storyboardIdentifier="TableEmployees" id="M7T-Q9-2QV" customClass="TableEmployyes" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainScreen" id="M7T-Q9-2QV" customClass="MainScreen" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item 2" id="HYw-in-ouU"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6eF-nX-FdS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -49,7 +49,7 @@
         <!--Item 1-->
         <scene sceneID="9nD-7y-d5e">
             <objects>
-                <viewController id="ki6-v5-a3P" customClass="MainScreen" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ki6-v5-a3P" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item 1" id="vXO-WQ-fm1"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WYo-Sx-6fs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -59,7 +59,7 @@
         <!--Item-->
         <scene sceneID="tDA-vk-MdJ">
             <objects>
-                <viewController id="SFv-Pa-6d1" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TableEmployyes" id="SFv-Pa-6d1" customClass="TableEmployyes" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cvp-1V-SYD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
