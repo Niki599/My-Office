@@ -23,7 +23,9 @@
 		3A9E503A23B25FDF00B41754 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E503923B25FDF00B41754 /* MainScreen.swift */; };
 		3AC495EB23BA2BF900A5974F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC495EA23BA2BF900A5974F /* UserModel.swift */; };
 		3AC495F023BA412700A5974F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */; };
-		476ADA4E23959D7E0030C0A5 /* TableEmployees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */; };
+		47414E9723D70DBD00C1EE7D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47414E9623D70DBD00C1EE7D /* TableViewCell.swift */; };
+		47414E9923D7155D00C1EE7D /* ProfileEmployeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */; };
+		476ADA4E23959D7E0030C0A5 /* TableEmployeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476ADA4D23959D7E0030C0A5 /* TableEmployeer.swift */; };
 		47C2731323CDEAFE005361B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47C2731223CDEAFE005361B7 /* GoogleService-Info.plist */; };
 		47D8309C2392AF2900DB9168 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D8309B2392AF2900DB9168 /* AppDelegate.swift */; };
 		47D8309E2392AF2900DB9168 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D8309D2392AF2900DB9168 /* SceneDelegate.swift */; };
@@ -73,7 +75,9 @@
 		3A9E503923B25FDF00B41754 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		3AC495EA23BA2BF900A5974F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3AC495EF23BA412700A5974F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableEmployees.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		47414E9623D70DBD00C1EE7D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEmployeer.swift; sourceTree = "<group>"; };
+		476ADA4D23959D7E0030C0A5 /* TableEmployeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableEmployeer.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		47C2731223CDEAFE005361B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		47D830982392AF2900DB9168 /* MyOffice Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyOffice Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47D8309B2392AF2900DB9168 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +164,13 @@
 			path = Resourses;
 			sourceTree = "<group>";
 		};
+		47414E9323D70D6500C1EE7D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		47D8308F2392AF2900DB9168 = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +196,7 @@
 		47D8309A2392AF2900DB9168 /* MyOffice Admin */ = {
 			isa = PBXGroup;
 			children = (
+				47414E9323D70D6500C1EE7D /* Model */,
 				3A26A37F239666E7000ED21E /* Extension */,
 				3ABB1F8C2396553E0006CF57 /* Resourses */,
 				3AC495EA23BA2BF900A5974F /* UserModel.swift */,
@@ -193,7 +205,9 @@
 				47D8309F2392AF2900DB9168 /* SignIn.swift */,
 				47D830CB2392B31000DB9168 /* MainScreenTabBar.swift */,
 				3A9E503923B25FDF00B41754 /* MainScreen.swift */,
-				476ADA4D23959D7E0030C0A5 /* TableEmployees.swift */,
+				476ADA4D23959D7E0030C0A5 /* TableEmployeer.swift */,
+				47414E9623D70DBD00C1EE7D /* TableViewCell.swift */,
+				47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */,
 				47D830A12392AF2900DB9168 /* Main.storyboard */,
 				3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */,
 				47D830A42392AF2A00DB9168 /* Assets.xcassets */,
@@ -484,13 +498,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				476ADA4E23959D7E0030C0A5 /* TableEmployees.swift in Sources */,
+				476ADA4E23959D7E0030C0A5 /* TableEmployeer.swift in Sources */,
 				47D830A02392AF2900DB9168 /* SignIn.swift in Sources */,
 				3AC495EB23BA2BF900A5974F /* UserModel.swift in Sources */,
+				47414E9723D70DBD00C1EE7D /* TableViewCell.swift in Sources */,
 				47D8309C2392AF2900DB9168 /* AppDelegate.swift in Sources */,
 				3A03FFAB239ED26600FB59FF /* UIView.swift in Sources */,
 				3A9E503A23B25FDF00B41754 /* MainScreen.swift in Sources */,
 				47D8309E2392AF2900DB9168 /* SceneDelegate.swift in Sources */,
+				47414E9923D7155D00C1EE7D /* ProfileEmployeer.swift in Sources */,
 				47D830CC2392B31000DB9168 /* MainScreenTabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

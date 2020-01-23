@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class MainScreen: UIViewController {
     
@@ -22,6 +24,11 @@ class MainScreen: UIViewController {
         super.viewDidLoad()
         setupViews()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
     }
     
     func setupViews() {
@@ -49,6 +56,7 @@ class MainScreen: UIViewController {
         connectionButton.translatesAutoresizingMaskIntoConstraints = false
 //        connectionButton.addTarget(self, action:#selector(connectionButton), for: .touchUpInside)
         connectionButton.clipsToBounds = true
+        connectionButton.addTarget(nil, action: #selector(joinToWork), for: .touchUpInside)
         view.addSubview(connectionButton)
         
         exitButton = UIButton()
@@ -109,9 +117,21 @@ class MainScreen: UIViewController {
         self.viewDidLayoutSubviews()
     }
     
+    @objc func joinToWork() {
+        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
+        if ((user) != nil) {
+            let hams = Auth.auth().currentUser?.uid
+            let base = Database.database().reference().child("users2").child(hams!)
+            base.updateChildValues(["check":true])
+            }})
+
+    }
+    
     @objc func exitAction() {
         self.navigationController?.popViewController(animated: true)
         UserDefaults.standard.set(false, forKey: "dataAvailability")
+//        let appDomain = Bundle.main.bundleIdentifier
+//        UserDefaults.standard.removePersistentDomain(forName: appDomain!)
     }
     
 }

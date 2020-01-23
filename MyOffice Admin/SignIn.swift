@@ -19,8 +19,8 @@ class SignIn: UIViewController {
     private var backgroundView: UIView!
     private var enteryLabel: UILabel!
     private var check: Bool = true
-    let logoImage = UIImage(imageLiteralResourceName: "sebbia-logo.jpg").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
-    let checkBoxImage = UIImage(imageLiteralResourceName: "checkBox.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
+    private let logoImage = UIImage(imageLiteralResourceName: "sebbia-logo.jpg").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
+    private let checkBoxImage = UIImage(imageLiteralResourceName: "checkBox.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     
     
     override func viewDidLoad() {
@@ -39,6 +39,12 @@ class SignIn: UIViewController {
         }
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
+    }
+    
     deinit {
         loginTextField = nil
         passwordTextField = nil
@@ -47,6 +53,7 @@ class SignIn: UIViewController {
         backgroundView = nil
         enteryLabel = nil
     }
+    
     func setupView() {
         
         backgroundView = UIView()
@@ -170,26 +177,51 @@ class SignIn: UIViewController {
         self.loginButton.isUserInteractionEnabled = false
         self.loginTextField.isUserInteractionEnabled = false
         self.passwordTextField.isUserInteractionEnabled = false
-        if (loginTextField.text != nil && passwordTextField.text != nil) {
+        if !(loginTextField.text! == "" || passwordTextField.text! == "") {
             Auth.auth().signIn(withEmail: loginTextField.text!, password: passwordTextField.text!, completion: { (user, error) in
                 if ((user) != nil) {
                     
                     let hams = Auth.auth().currentUser?.uid
-                    let base = Database.database().reference().child("users").child(hams!)
-                    base.updateChildValues(["check":false])
+                    let base = Database.database().reference().child("users")
                     
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let vc = storyboard.instantiateViewController(withIdentifier: "MainScreenTabBar")
-                    self.navigationController?.pushViewController(vc, animated: true)
-                    
+                    let t = Thread {
+                        base.observe(.value, with:  { (snapshot) in
+                            guard let value = snapshot.value, snapshot.exists() else { return }
+                            let dict: NSDictionary = value as! NSDictionary
+                            for (uid, uidEmployeerInfo) in dict {
+                                if ((uid as! String) == hams) {
+                                    for (_, categ) in uidEmployeerInfo as! NSDictionary {
+                                        for (fieldName, valueOfField) in categ as! NSDictionary {
+                                            if fieldName as? String == "admin" {
+                                                UserDefaults.standard.set(valueOfField as! Bool, forKey: "admin")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        })
+                    }
+
+                    t.stackSize = 1024 * 16
+                    t.start()
+        
                     UserDefaults.standard.set(true, forKey: "dataAvailability")
                     UserDefaults.standard.set(self.loginTextField.text, forKey: "login")
                     UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
                     self.loginButton.isUserInteractionEnabled = true
                     self.loginTextField.isUserInteractionEnabled = true
                     self.passwordTextField.isUserInteractionEnabled = true
+                    self.loginTextField.text = ""
+                    self.passwordTextField.text = ""
+                    
+                    DispatchQueue.main.async {
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let vc = storyboard.instantiateViewController(withIdentifier: "MainScreenTabBar")
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
                 }
                 else {
+                    // Очистка всего UserDefaults
                     if let appDomain = Bundle.main.bundleIdentifier {
                         UserDefaults.standard.removePersistentDomain(forName: appDomain)
                         self.loginButton.isUserInteractionEnabled = true
@@ -201,8 +233,12 @@ class SignIn: UIViewController {
             
         }
         else {
-            loginTextField.layer.borderColor = UIColor.red.cgColor
-            passwordTextField.layer.borderColor = UIColor.red.cgColor
+            if (loginTextField.text == "") {
+                loginTextField.layer.backgroundColor = .init(srgbRed: 0, green: 255, blue: 0, alpha: 1)
+            }
+            if (passwordTextField.text == "") {
+                passwordTextField.layer.backgroundColor = .init(srgbRed: 0, green: 255, blue: 0, alpha: 1)
+            }
             self.loginButton.isUserInteractionEnabled = true
             self.loginTextField.isUserInteractionEnabled = true
             self.passwordTextField.isUserInteractionEnabled = true
@@ -218,3 +254,4 @@ extension SignIn : UITextFieldDelegate {
     }
     
 }
+

@@ -3,7 +3,6 @@
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -36,41 +35,35 @@
             </objects>
             <point key="canvasLocation" x="-1404" y="130"/>
         </scene>
-        <!--Item 2-->
+        <!--Main Screen-->
         <scene sceneID="8A3-Hu-RCH">
             <objects>
                 <viewController storyboardIdentifier="MainScreen" id="M7T-Q9-2QV" customClass="MainScreen" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 2" id="HYw-in-ouU"/>
+                    <tabBarItem key="tabBarItem" image="house" catalog="system" id="HYw-in-ouU"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6eF-nX-FdS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1910.625" y="457.3943661971831"/>
+            <point key="canvasLocation" x="1716" y="130"/>
         </scene>
-        <!--Item 1-->
+        <!--Profile Employeer-->
         <scene sceneID="9nD-7y-d5e">
             <objects>
-                <viewController id="ki6-v5-a3P" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="vXO-WQ-fm1"/>
+                <viewController storyboardIdentifier="ProfileEmployeer" id="ki6-v5-a3P" customClass="ProfileEmployeer" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="person" catalog="system" id="vXO-WQ-fm1"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WYo-Sx-6fs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1910.625" y="-217.6056338028169"/>
+            <point key="canvasLocation" x="1716" y="-545"/>
         </scene>
-        <!--Item-->
+        <!--Table Employeer-->
         <scene sceneID="tDA-vk-MdJ">
             <objects>
-                <viewController storyboardIdentifier="TableEmployyes" id="SFv-Pa-6d1" customClass="TableEmployyes" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Cvp-1V-SYD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="ZsH-eq-pL8"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="FGY-r1-S4O"/>
+                <viewController storyboardIdentifier="TableEmployeer" id="SFv-Pa-6d1" customClass="TableEmployeer" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="table" catalog="system" id="FGY-r1-S4O"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rGk-Tf-Ldw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="900" y="988"/>
+            <point key="canvasLocation" x="1716" y="814"/>
         </scene>
         <!--Main Screen Tab Bar-->
         <scene sceneID="WlF-Rg-N7i">
@@ -94,8 +87,9 @@
         <!--Navigation Controller-->
         <scene sceneID="uNP-SM-ieF">
             <objects>
-                <navigationController navigationBarHidden="YES" id="aHp-ki-9um" sceneMemberID="viewController">
+                <navigationController id="aHp-ki-9um" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9M0-Ck-BJf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -117,4 +111,9 @@
             <point key="canvasLocation" x="138.75" y="129.92957746478874"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="house" catalog="system" width="64" height="54"/>
+        <image name="person" catalog="system" width="64" height="58"/>
+        <image name="table" catalog="system" width="64" height="46"/>
+    </resources>
 </document>
