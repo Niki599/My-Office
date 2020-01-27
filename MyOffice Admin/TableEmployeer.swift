@@ -6,6 +6,7 @@
 //  Copyright © 2019 user. All rights reserved.
 //
 
+import Foundation
 import Firebase
 import UIKit
 
@@ -63,42 +64,6 @@ class TableEmployeer: UIViewController {
         label.text = "Всего"
         return label
     }()
-
-
-//    private lazy var labelDate: UILabel = {
-//        var label = UILabel()
-//        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-//        label.font = UIFont.italicSystemFont(ofSize: 12)
-//        label.textAlignment = .center
-//        label.text = "3 ноября"
-//        return label
-//    }()
-//    private lazy var labelComming: UILabel = {
-//        var label = UILabel()
-//        label.textColor = UIColor(red: 0, green: 0.721, blue: 0.029, alpha: 1)
-//        label.font = UIFont.italicSystemFont(ofSize: 12)
-//        label.textAlignment = .center
-//        label.text = "10:30"
-//        return label
-//    }()
-//    private lazy var labelLeaving: UILabel = {
-//        var label = UILabel()
-//        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-//        label.font = UIFont.italicSystemFont(ofSize: 12)
-//        label.textAlignment = .center
-//        label.text = "19:45"
-//        return label
-//    }()
-//    private lazy var labelTimeOfWorking: UILabel = {
-//        var label = UILabel()
-//        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-//        label.font = UIFont.italicSystemFont(ofSize: 12)
-//        label.textAlignment = .center
-//        label.text = "9.22 ч"
-//        return label
-//    }()
-
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -270,47 +235,7 @@ extension TableEmployeer : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  tableView.dequeueReusableCell(withIdentifier: identifire, for: indexPath)
-//        let cell = UITableViewCell(style: .default, reuseIdentifier: identifire)
-//        cell.textLabel?.text = data[indexPath.row]
-        let labelDate = UILabel()
-        labelDate.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        labelDate.font = UIFont.italicSystemFont(ofSize: 13)
-        labelDate.textAlignment = .center
-        labelDate.numberOfLines = 0
-        labelDate.text = "3 ноября"
-        let labelComming = UILabel()
-        labelComming.textColor = UIColor(red: 0, green: 0.721, blue: 0.029, alpha: 1)
-        labelComming.font = UIFont.italicSystemFont(ofSize: 13)
-        labelComming.textAlignment = .center
-        labelComming.text = "10:30"
-        let labelLeaving = UILabel()
-        labelLeaving.textColor = UIColor(red: 0.721, green: 0.029, blue: 0, alpha: 1)
-        labelLeaving.font = UIFont.italicSystemFont(ofSize: 13)
-        labelLeaving.textAlignment = .center
-        labelLeaving.text = "19:45"
-        let labelTimeOfWorking = UILabel()
-        labelTimeOfWorking.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        labelTimeOfWorking.font = UIFont.italicSystemFont(ofSize: 13)
-        labelTimeOfWorking.textAlignment = .center
-        labelTimeOfWorking.text = "9.22 ч"
-        // Зеленый фон нажатия
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor(red: 0.954, green: 1, blue: 0.956, alpha: 1)
-        cell.selectedBackgroundView = backgroundView
-        
-        let stackViewCell = UIStackView(arrangedSubviews: [labelDate, labelComming, labelLeaving, labelTimeOfWorking])
-        stackViewCell.axis = .horizontal
-        stackViewCell.alignment = .center
-        stackViewCell.distribution = .fillEqually
-        stackViewCell.translatesAutoresizingMaskIntoConstraints = false
-        cell.contentView.addSubview(stackViewCell)
-        
-        stackViewCell.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor).isActive = true
-        stackViewCell.topAnchor.constraint(equalTo: cell.contentView.topAnchor).isActive = true
-        cell.contentView.trailingAnchor.constraint(equalTo: stackViewCell.trailingAnchor).isActive = true
-        cell.contentView.bottomAnchor.constraint(equalTo: stackViewCell.bottomAnchor).isActive = true
-//        cell.accessoryType = .detailDisclosureButton
+        let cell = TableViewCell(style: .default, reuseIdentifier: "MyCell")
         return cell
     }
     

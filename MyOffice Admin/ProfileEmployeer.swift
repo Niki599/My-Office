@@ -196,6 +196,7 @@ class ProfileEmployeer: UIViewController {
         let buttonExit = UIButton()
         buttonExit.setTitle("Выход", for: .normal)
         buttonExit.setTitleColor(.red, for: .normal)
+        buttonExit.setTitleColor(UIColor(red: 255, green: 0, blue: 0, alpha: 0.5), for: .highlighted)
         buttonExit.addTarget(nil, action: #selector(exitAction), for: .touchUpInside)
         buttonExit.backgroundColor = .none
         buttonExit.translatesAutoresizingMaskIntoConstraints = false

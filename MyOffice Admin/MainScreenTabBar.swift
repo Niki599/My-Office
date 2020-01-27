@@ -23,7 +23,7 @@ class MainScreenTabBar: UITabBarController {
 //        } else {
 //            self.viewControllers = [vc2, vc1, vc3]
 //        }
-        self.navigationItem
+//        self.navigationItem
     }
     
     override func didReceiveMemoryWarning() {

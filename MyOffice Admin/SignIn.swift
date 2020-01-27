@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import FirebaseAuth
 
 class SignIn: UIViewController {
     
@@ -18,7 +17,8 @@ class SignIn: UIViewController {
     private var loginButton: UIButton!
     private var backgroundView: UIView!
     private var enteryLabel: UILabel!
-    private var check: Bool = true
+    var data = [Company]()
+    
     private let logoImage = UIImage(imageLiteralResourceName: "sebbia-logo.jpg").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     private let checkBoxImage = UIImage(imageLiteralResourceName: "checkBox.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     
@@ -27,22 +27,25 @@ class SignIn: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupView()
+        //Тап по экрану, чтобы спрятать клаву
         let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(gesture)
-        
+        //Реализация автовхода
         if (UserDefaults.standard.bool(forKey: "dataAvailability")) {
-            loginTextField.text = UserDefaults.standard.string(forKey: "login")
-            passwordTextField.text = UserDefaults.standard.string(forKey: "password")
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "MainScreenTabBar")
             self.navigationController?.pushViewController(vc, animated: false)
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.loginTextField.text = ""
+        self.passwordTextField.text = ""
     }
     
     deinit {
@@ -80,7 +83,6 @@ class SignIn: UIViewController {
         let bottomLine = CALayer()
         bottomLine.frame = CGRect(x:0.0, y:100.0, width: passwordTextField.frame.width, height: passwordTextField.frame.height - 1)
         bottomLine.backgroundColor = UIColor.black.cgColor
-        //        passwordTextField.borderStyle = UITextField.BorderStyle.none
         passwordTextField.layer.addSublayer(bottomLine)
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.placeholder = "Пароль"
@@ -105,8 +107,9 @@ class SignIn: UIViewController {
         enteryLabel = UILabel()
         enteryLabel.translatesAutoresizingMaskIntoConstraints = false
         enteryLabel.layer.borderColor = UIColor.black.cgColor
-        enteryLabel.text = "Добро пожаловать в SEBBIA"
+        enteryLabel.text = "Добро пожаловать"
         enteryLabel.numberOfLines = 3
+        enteryLabel.textAlignment = .center
         enteryLabel.font = UIFont.italicSystemFont(ofSize: 32)
         enteryLabel.clipsToBounds = true
         view.addSubview(enteryLabel)
@@ -128,9 +131,7 @@ class SignIn: UIViewController {
         
         NSLayoutConstraint.activate([
             mainLogo.topAnchor.constraint(equalTo: self.view.topAnchor,constant: space / 1.8 ),
-            //            mainLogo.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             mainLogo.leadingAnchor.constraint(equalTo: self.view.safeArea.leadingAnchor,constant: space / 4 ),
-            //            mainLogo.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             mainLogo.widthAnchor.constraint(equalToConstant: space / 4),
             mainLogo.heightAnchor.constraint(equalTo: mainLogo.widthAnchor),
             
@@ -154,11 +155,9 @@ class SignIn: UIViewController {
         
         NSLayoutConstraint.activate([
             loginButton.bottomAnchor.constraint(equalTo: self.view.safeArea.bottomAnchor, constant: -44),
-            //            loginButton.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
             loginButton.centerXAnchor.constraint(equalTo: self.view.safeArea.centerXAnchor),
             loginButton.widthAnchor.constraint(equalTo: enteryLabel.widthAnchor),
             loginButton.heightAnchor.constraint(equalTo: passwordTextField.heightAnchor),
-            //            loginButton.bottomAnchor.constraint(equalTo: rememberMe.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -182,37 +181,33 @@ class SignIn: UIViewController {
                 if ((user) != nil) {
                     
                     let hams = Auth.auth().currentUser?.uid
-                    let base = Database.database().reference().child("users")
-                    
-                    let t = Thread {
-                        base.observe(.value, with:  { (snapshot) in
-                            guard let value = snapshot.value, snapshot.exists() else { return }
-                            let dict: NSDictionary = value as! NSDictionary
-                            for (uid, uidEmployeerInfo) in dict {
+                    let base = Database.database().reference()
+                    self.data.removeAll()
+                    base.observe(.value, with:  { (snapshot) in
+                        guard let value = snapshot.value, snapshot.exists() else { return }
+                        let dict: NSDictionary = value as! NSDictionary
+                        for (company, uids) in dict {
+                            for (uid, categories) in uids as! NSDictionary {
+//                                self.data.append(Company())
                                 if ((uid as! String) == hams) {
-                                    for (_, categ) in uidEmployeerInfo as! NSDictionary {
-                                        for (fieldName, valueOfField) in categ as! NSDictionary {
-                                            if fieldName as? String == "admin" {
+                                    for (category, fields) in categories as! NSDictionary {
+                                        for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                            if nameOfField as? String == "admin" {
                                                 UserDefaults.standard.set(valueOfField as! Bool, forKey: "admin")
                                             }
                                         }
                                     }
                                 }
                             }
-                        })
-                    }
-
-                    t.stackSize = 1024 * 16
-                    t.start()
-        
+                        }
+                    })
+                    
                     UserDefaults.standard.set(true, forKey: "dataAvailability")
                     UserDefaults.standard.set(self.loginTextField.text, forKey: "login")
                     UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
                     self.loginButton.isUserInteractionEnabled = true
                     self.loginTextField.isUserInteractionEnabled = true
                     self.passwordTextField.isUserInteractionEnabled = true
-                    self.loginTextField.text = ""
-                    self.passwordTextField.text = ""
                     
                     DispatchQueue.main.async {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -221,7 +216,7 @@ class SignIn: UIViewController {
                     }
                 }
                 else {
-                    // Очистка всего UserDefaults
+                    // Очистка всего UserDefaults, если вход не был выполнен
                     if let appDomain = Bundle.main.bundleIdentifier {
                         UserDefaults.standard.removePersistentDomain(forName: appDomain)
                         self.loginButton.isUserInteractionEnabled = true
@@ -234,10 +229,10 @@ class SignIn: UIViewController {
         }
         else {
             if (loginTextField.text == "") {
-                loginTextField.layer.backgroundColor = .init(srgbRed: 0, green: 255, blue: 0, alpha: 1)
+                loginTextField.layer.backgroundColor = .init(srgbRed: 0, green: 255, blue: 0, alpha: 0.6)
             }
             if (passwordTextField.text == "") {
-                passwordTextField.layer.backgroundColor = .init(srgbRed: 0, green: 255, blue: 0, alpha: 1)
+                passwordTextField.layer.backgroundColor = .init(srgbRed: 0, green: 255, blue: 0, alpha: 0.6)
             }
             self.loginButton.isUserInteractionEnabled = true
             self.loginTextField.isUserInteractionEnabled = true
