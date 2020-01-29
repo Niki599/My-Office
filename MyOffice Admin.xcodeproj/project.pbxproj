@@ -680,7 +680,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F3603210D2630BA0624F380D /* Pods-MyOffice Admin.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M4W3BABN5H;
@@ -702,7 +701,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 35A38B5DE0AEE19151B5A8A7 /* Pods-MyOffice Admin.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M4W3BABN5H;
