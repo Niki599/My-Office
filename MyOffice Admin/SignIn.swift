@@ -18,8 +18,6 @@ class SignIn: UIViewController {
     private var loginButton: UIButton!
     private var backgroundView: UIView!
     private var enteryLabel: UILabel!
-    private var firstDivisionStrip: UILabel!
-    private var secondDivisionStrip: UILabel!
     private var check: Bool = true
     private let logoImage = UIImage(imageLiteralResourceName: "sebbia-logo.jpg").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     private let checkBoxImage = UIImage(imageLiteralResourceName: "checkBox.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
@@ -72,7 +70,7 @@ class SignIn: UIViewController {
         loginTextField = UITextField()
         loginTextField.draw(CGRect.init())
         loginTextField.translatesAutoresizingMaskIntoConstraints = false
-        loginTextField.placeholder = "E-mail"
+        loginTextField.placeholder = "Логин"
         loginTextField.autocapitalizationType = .none
         loginTextField.textAlignment = .left
         view.addSubview(loginTextField)
@@ -85,7 +83,7 @@ class SignIn: UIViewController {
         //        passwordTextField.borderStyle = UITextField.BorderStyle.none
         passwordTextField.layer.addSublayer(bottomLine)
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        passwordTextField.placeholder = "Password"
+        passwordTextField.placeholder = "Пароль"
         passwordTextField.isSecureTextEntry = true
         passwordTextField.textAlignment = .left
         passwordTextField.clipsToBounds = true
@@ -113,20 +111,6 @@ class SignIn: UIViewController {
         enteryLabel.clipsToBounds = true
         view.addSubview(enteryLabel)
         
-        firstDivisionStrip = UILabel()
-        firstDivisionStrip.translatesAutoresizingMaskIntoConstraints = false
-        firstDivisionStrip.layer.borderWidth = 2
-        firstDivisionStrip.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
-        firstDivisionStrip.clipsToBounds = true
-        view.addSubview(firstDivisionStrip)
-        
-        secondDivisionStrip = UILabel()
-        secondDivisionStrip.translatesAutoresizingMaskIntoConstraints = false
-        secondDivisionStrip.layer.borderWidth = 2
-        secondDivisionStrip.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
-        secondDivisionStrip.clipsToBounds = true
-        view.addSubview(secondDivisionStrip)
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -153,32 +137,20 @@ class SignIn: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            loginTextField.topAnchor.constraint(equalTo: enteryLabel.bottomAnchor, constant: space / 3 - 10),
+            loginTextField.topAnchor.constraint(equalTo: enteryLabel.bottomAnchor, constant: space / 3),
             loginTextField.leadingAnchor.constraint(equalTo: enteryLabel.leadingAnchor, constant: 20),
             loginTextField.trailingAnchor.constraint(equalTo: enteryLabel.trailingAnchor, constant: -20),
             loginTextField.heightAnchor.constraint(equalToConstant: 44)
         ])
         
         NSLayoutConstraint.activate([
-            firstDivisionStrip.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 4),
-            firstDivisionStrip.leadingAnchor.constraint(equalTo: loginTextField.leadingAnchor, constant: -5),
-            firstDivisionStrip.trailingAnchor.constraint(equalTo: loginTextField.trailingAnchor, constant: 5),
-            firstDivisionStrip.heightAnchor.constraint(equalToConstant: 1)
-        ])
-        
-        NSLayoutConstraint.activate([
-            passwordTextField.topAnchor.constraint(equalTo: firstDivisionStrip.bottomAnchor, constant: 14),
+            passwordTextField.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 14),
             passwordTextField.leadingAnchor.constraint(equalTo: loginTextField.leadingAnchor),
             passwordTextField.trailingAnchor.constraint(equalTo: loginTextField.trailingAnchor),
             passwordTextField.heightAnchor.constraint(equalTo: loginTextField.heightAnchor)
+            
         ])
         
-        NSLayoutConstraint.activate([
-            secondDivisionStrip.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 4),
-            secondDivisionStrip.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor,constant: -5),
-            secondDivisionStrip.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: 5),
-            secondDivisionStrip.heightAnchor.constraint(equalToConstant: 1)
-        ])
         
         NSLayoutConstraint.activate([
             loginButton.bottomAnchor.constraint(equalTo: self.view.safeArea.bottomAnchor, constant: -44),
