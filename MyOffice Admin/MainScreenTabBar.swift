@@ -13,7 +13,9 @@ class MainScreenTabBar: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.selectedIndex = 1
+        selectedIndex = 1
+        tabBar.clipsToBounds = true
+        tabBar.backgroundImage = UIImage()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc2 = storyboard.instantiateViewController(withIdentifier: "MainScreen")
         let vc1 = storyboard.instantiateViewController(withIdentifier: "ProfileEmployeer")

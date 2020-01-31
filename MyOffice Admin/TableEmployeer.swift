@@ -35,6 +35,7 @@ class TableEmployeer: UIViewController {
         label.font = UIFont(name: "Roboto-Medium", size: 12)
         label.textAlignment = .center
         label.text = "Дата"
+        label.backgroundColor = .white
         return label
     }()
 
@@ -44,6 +45,7 @@ class TableEmployeer: UIViewController {
         label.font = UIFont(name: "Roboto-Medium", size: 12)
         label.textAlignment = .center
         label.text = "Приход"
+        label.backgroundColor = .white
         return label
     }()
     
@@ -53,6 +55,7 @@ class TableEmployeer: UIViewController {
         label.font = UIFont(name: "Roboto-Medium", size: 12)
         label.textAlignment = .center
         label.text = "Уход"
+        label.backgroundColor = .white
         return label
     }()
     
@@ -62,8 +65,11 @@ class TableEmployeer: UIViewController {
         label.font = UIFont(name: "Roboto-Medium", size: 12)
         label.textAlignment = .center
         label.text = "Всего"
+        label.backgroundColor = .white
         return label
     }()
+    
+    var stackViewHeader: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,6 +110,84 @@ class TableEmployeer: UIViewController {
         updateButton.setImage(UIImage(imageLiteralResourceName: "update.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
         view.addSubview(updateButton)
         
+        let profileButton = UIButton()
+//        profileButton.addTarget(self, action: #selector(requestData), for: .touchUpInside)
+        profileButton.backgroundColor = .red
+        profileButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(profileButton)
+        
+        let labelHoursWeek = UILabel()
+        labelHoursWeek.text = "за неделю"
+        labelHoursWeek.font.withSize(14)
+        labelHoursWeek.textAlignment = .center
+        labelHoursWeek.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
+        labelHoursWeek.translatesAutoresizingMaskIntoConstraints = false
+        
+        let labelQuantityHoursWeek = UILabel()
+        labelQuantityHoursWeek.font = UIFont.boldSystemFont(ofSize: 18.0)
+        labelQuantityHoursWeek.textAlignment = .center
+        labelQuantityHoursWeek.text = "30 ч"//Берем с базы
+        labelQuantityHoursWeek.translatesAutoresizingMaskIntoConstraints = false
+        
+        let labelHoursMonth = UILabel()
+        labelHoursMonth.text = "за месяц"
+        labelHoursMonth.font.withSize(14)
+        labelHoursMonth.textAlignment = .center
+        labelHoursMonth.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
+        labelHoursMonth.translatesAutoresizingMaskIntoConstraints = false
+        
+        let labelQuantityHoursMonth = UILabel()
+        labelQuantityHoursMonth.font = UIFont.boldSystemFont(ofSize: 18.0)
+        labelQuantityHoursMonth.textAlignment = .center
+        labelQuantityHoursMonth.text = "160 ч"//Берем с базы
+        labelQuantityHoursMonth.translatesAutoresizingMaskIntoConstraints = false
+        
+        let labelAllOfHours = UILabel()
+        labelAllOfHours.text = "за все время"
+        labelAllOfHours.font.withSize(14)
+        labelAllOfHours.textAlignment = .center
+        labelAllOfHours.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
+        labelAllOfHours.translatesAutoresizingMaskIntoConstraints = false
+        
+        let labelQuantityAllOfHours = UILabel()
+        labelQuantityAllOfHours.font = UIFont.boldSystemFont(ofSize: 18.0)
+        labelQuantityAllOfHours.textAlignment = .center
+        labelQuantityAllOfHours.text = "10000 ч"//Берем с базы
+        labelQuantityAllOfHours.translatesAutoresizingMaskIntoConstraints = false
+        
+        let stackViewWeekLabel = UIStackView(arrangedSubviews: [labelQuantityHoursWeek, labelHoursWeek])
+        stackViewWeekLabel.axis = .vertical
+        stackViewWeekLabel.distribution = .fillEqually
+        stackViewWeekLabel.alignment = .center
+        stackViewWeekLabel.backgroundColor = .black
+        stackViewWeekLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackViewWeekLabel)
+        
+        let stackViewMonthLabel = UIStackView(arrangedSubviews: [labelQuantityHoursMonth, labelHoursMonth])
+        stackViewMonthLabel.axis = .vertical
+        stackViewMonthLabel.distribution = .fillEqually
+        stackViewMonthLabel.alignment = .center
+        stackViewMonthLabel.backgroundColor = .black
+        stackViewMonthLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackViewMonthLabel)
+        
+        let stackViewAllOfTimeLabel = UIStackView(arrangedSubviews: [labelQuantityAllOfHours, labelAllOfHours])
+        stackViewAllOfTimeLabel.axis = .vertical
+        stackViewAllOfTimeLabel.distribution = .fillEqually
+        stackViewAllOfTimeLabel.alignment = .center
+        stackViewAllOfTimeLabel.backgroundColor = .black
+        stackViewAllOfTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackViewAllOfTimeLabel)
+        
+        let groupStackViewStatistic = UIStackView(arrangedSubviews: [stackViewWeekLabel, stackViewMonthLabel, stackViewAllOfTimeLabel])
+        groupStackViewStatistic.axis = .horizontal
+        groupStackViewStatistic.distribution = .fillEqually
+        groupStackViewStatistic.alignment = .center
+        groupStackViewStatistic.spacing = 10
+        groupStackViewStatistic.backgroundColor = .black
+        groupStackViewStatistic.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(groupStackViewStatistic)
+        
         constraints = [
             backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -114,15 +198,26 @@ class TableEmployeer: UIViewController {
             titleTable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleTable.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
             
-            tableEmployeer.topAnchor.constraint(equalTo: titleTable.bottomAnchor, constant: 25),
-            tableEmployeer.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
-            tableEmployeer.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -10),
-            tableEmployeer.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor),
-            
             updateButton.centerYAnchor.constraint(equalTo: titleTable.centerYAnchor),
             updateButton.heightAnchor.constraint(equalToConstant: 40),
             updateButton.widthAnchor.constraint(equalToConstant: 40),
-            updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -5)
+            updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -5),
+            
+            profileButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
+            profileButton.topAnchor.constraint(equalTo: titleTable.bottomAnchor, constant: 30),
+            profileButton.leftAnchor.constraint(equalTo: view.safeArea.leftAnchor, constant: 25),
+            profileButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -25),
+            profileButton.heightAnchor.constraint(equalToConstant: 62),
+
+            groupStackViewStatistic.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
+            groupStackViewStatistic.topAnchor.constraint(equalTo: profileButton.bottomAnchor, constant: 44),
+            groupStackViewStatistic.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
+            groupStackViewStatistic.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -10),
+            
+            tableEmployeer.topAnchor.constraint(equalTo: groupStackViewStatistic.bottomAnchor, constant: 25),
+            tableEmployeer.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
+            tableEmployeer.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -10),
+            tableEmployeer.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor),
         ]
         
         var date1 = Date()
@@ -205,16 +300,21 @@ extension TableEmployeer : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
-        let stackViewHeader = UIStackView(arrangedSubviews: [labelHeaderDate, labelHeaderComming, labelHeaderLeaving, labelHeaderTimeOfWorking])
         
+        stackViewHeader = UIStackView(arrangedSubviews: [labelHeaderDate, labelHeaderComming, labelHeaderLeaving, labelHeaderTimeOfWorking])
         stackViewHeader.axis = .horizontal
-        stackViewHeader.distribution = .fillEqually
         stackViewHeader.alignment = .center
+        stackViewHeader.distribution = .fillEqually
         stackViewHeader.backgroundColor = .black
-//        let headerView = UIView()
-//        headerView.addSubview(stackViewHeader)
-//        headerView.backgroundColor = .green
+        
+        let constraintsOfLabel: [NSLayoutConstraint] = [
+            labelHeaderDate.topAnchor.constraint(equalTo: stackViewHeader.topAnchor),
+            labelHeaderComming.topAnchor.constraint(equalTo: stackViewHeader.topAnchor),
+            labelHeaderLeaving.topAnchor.constraint(equalTo: stackViewHeader.topAnchor),
+            labelHeaderTimeOfWorking.topAnchor.constraint(equalTo: stackViewHeader.topAnchor)
+        ]
+        NSLayoutConstraint.deactivate(constraintsOfLabel)
+        NSLayoutConstraint.activate(constraintsOfLabel)
         
         return stackViewHeader
     }
@@ -252,16 +352,6 @@ extension TableEmployeer : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         print("hui")
-    }
-    
-}
-    
-extension String {
-    
-    func toDate(with format: String = "HH:MM") -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.date(from: self)
     }
     
 }

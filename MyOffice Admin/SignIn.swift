@@ -17,7 +17,7 @@ class SignIn: UIViewController {
     private var loginButton: UIButton!
     private var backgroundView: UIView!
     private var enteryLabel: UILabel!
-    var data = [Company]()
+//    var data = [Company]()
     
     private let logoImage = UIImage(imageLiteralResourceName: "sebbia-logo.jpg").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     private let checkBoxImage = UIImage(imageLiteralResourceName: "checkBox.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
@@ -182,7 +182,7 @@ class SignIn: UIViewController {
                     
                     let hams = Auth.auth().currentUser?.uid
                     let base = Database.database().reference()
-                    self.data.removeAll()
+//                    self.data.removeAll()
                     base.observe(.value, with:  { (snapshot) in
                         guard let value = snapshot.value, snapshot.exists() else { return }
                         let dict: NSDictionary = value as! NSDictionary
@@ -234,9 +234,13 @@ class SignIn: UIViewController {
             if (passwordTextField.text == "") {
                 passwordTextField.layer.backgroundColor = .init(srgbRed: 0, green: 255, blue: 0, alpha: 0.6)
             }
-            self.loginButton.isUserInteractionEnabled = true
-            self.loginTextField.isUserInteractionEnabled = true
-            self.passwordTextField.isUserInteractionEnabled = true
+            // Очистка всего UserDefaults, если вход не был выполнен
+            if let appDomain = Bundle.main.bundleIdentifier {
+                UserDefaults.standard.removePersistentDomain(forName: appDomain)
+                self.loginButton.isUserInteractionEnabled = true
+                self.loginTextField.isUserInteractionEnabled = true
+                self.passwordTextField.isUserInteractionEnabled = true
+            }
         }
     }
 }

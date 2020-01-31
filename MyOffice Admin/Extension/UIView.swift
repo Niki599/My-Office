@@ -9,13 +9,23 @@
 import UIKit
 
 extension UIView {
-
-var safeArea: UILayoutGuide {
-    get {
-        if #available(iOS 11.0, *) {
-            return self.safeAreaLayoutGuide
+    
+    var safeArea: UILayoutGuide {
+        get {
+            if #available(iOS 11.0, *) {
+                return self.safeAreaLayoutGuide
+            }
+            return self.layoutMarginsGuide
         }
-        return self.layoutMarginsGuide
     }
 }
+    
+extension String {
+    
+    func toDate(with format: String = "HH:MM") -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.date(from: self)
+    }
+    
 }

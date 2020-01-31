@@ -12,7 +12,7 @@ import Firebase
 class MainScreen: UIViewController {
     
     var connectionButton: UIButton!
-    var disconnectButton: UIButton!
+//    var disconnectButton: UIButton!
     var infoConnection: UILabel!
     
     override func viewDidLoad() {
@@ -40,42 +40,31 @@ class MainScreen: UIViewController {
         avatarUser.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(avatarUser)
         
-        connectionButton = UIButton()
+        connectionButton = UIButton(type: .custom)
         connectionButton.layer.borderWidth = 1
         connectionButton.layer.cornerRadius = 5
         connectionButton.setTitle("Подключиться", for: .normal)
         connectionButton.setTitleColor(.white, for: .normal)
+        connectionButton.setTitle("Отключиться", for: .selected)
+        connectionButton.setTitleColor(.white, for: .selected)
         connectionButton.backgroundColor = .black
         connectionButton.translatesAutoresizingMaskIntoConstraints = false
         connectionButton.clipsToBounds = true
-        connectionButton.addTarget(nil, action: #selector(joinToWork), for: .touchUpInside)
+        connectionButton.addTarget(nil, action: #selector(joinToWork(_:)), for: .touchUpInside)
         connectionButton.isHidden = false
         connectionButton.isUserInteractionEnabled = true
         view.addSubview(connectionButton)
         
-        disconnectButton = UIButton()
-        disconnectButton.layer.borderWidth = 1
-        disconnectButton.layer.cornerRadius = 5
-        disconnectButton.setTitle("Отключиться", for: .normal)
-        disconnectButton.setTitleColor(.white, for: .normal)
-        disconnectButton.backgroundColor = .black
-        disconnectButton.translatesAutoresizingMaskIntoConstraints = false
-        disconnectButton.clipsToBounds = true
-        disconnectButton.addTarget(nil, action: #selector(exitOfWork), for: .touchUpInside)
-        disconnectButton.isHidden = true
-        disconnectButton.isUserInteractionEnabled = false
-        view.addSubview(disconnectButton)
-        
-        let navLabel = UILabel()
-        navLabel.translatesAutoresizingMaskIntoConstraints = false
-        navLabel.text = "Главная"
-        navLabel.textAlignment = .center
-        navLabel.textColor = .black
-        view.addSubview(navLabel)
+        let title = UILabel()
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.text = "Главная"
+        title.textAlignment = .center
+        title.textColor = .black
+        view.addSubview(title)
         
         infoConnection = UILabel()
         infoConnection.translatesAutoresizingMaskIntoConstraints = false
-//        infoConnection.text = "Отсутствует"
+        infoConnection.text = "Отсутствует"
         infoConnection.textAlignment = .center
         infoConnection.textColor = .red
         view.addSubview(infoConnection)
@@ -86,14 +75,12 @@ class MainScreen: UIViewController {
         labelHoursWeek.textAlignment = .center
         labelHoursWeek.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
         labelHoursWeek.translatesAutoresizingMaskIntoConstraints = false
-        //        view.addSubview(labelHoursWeek)
         
         let labelQuantityHoursWeek = UILabel()
         labelQuantityHoursWeek.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursWeek.textAlignment = .center
         labelQuantityHoursWeek.text = "30 ч"
         labelQuantityHoursWeek.translatesAutoresizingMaskIntoConstraints = false
-        //        view.addSubview(labelQuantityHoursWeek)
         
         let labelHoursMonth = UILabel()
         labelHoursMonth.text = "за месяц"
@@ -101,14 +88,12 @@ class MainScreen: UIViewController {
         labelHoursMonth.textAlignment = .center
         labelHoursMonth.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
         labelHoursMonth.translatesAutoresizingMaskIntoConstraints = false
-        //        view.addSubview(labelHoursMonth)
         
         let labelQuantityHoursMonth = UILabel()
         labelQuantityHoursMonth.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursMonth.textAlignment = .center
         labelQuantityHoursMonth.text = "160 ч"
         labelQuantityHoursMonth.translatesAutoresizingMaskIntoConstraints = false
-        //        view.addSubview(labelQuantityHoursMonth)
         
         let labelAllOfHours = UILabel()
         labelAllOfHours.text = "за все время"
@@ -116,14 +101,12 @@ class MainScreen: UIViewController {
         labelAllOfHours.textAlignment = .center
         labelAllOfHours.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
         labelAllOfHours.translatesAutoresizingMaskIntoConstraints = false
-        //        view.addSubview(labelAllOfHours)
         
         let labelQuantityAllOfHours = UILabel()
         labelQuantityAllOfHours.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityAllOfHours.textAlignment = .center
         labelQuantityAllOfHours.text = "10000 ч"
         labelQuantityAllOfHours.translatesAutoresizingMaskIntoConstraints = false
-        //        view.addSubview(labelQuantityAllOfHours)
         
         let stackViewWeekLabel = UIStackView(arrangedSubviews: [labelQuantityHoursWeek, labelHoursWeek])
         stackViewWeekLabel.axis = .vertical
@@ -131,7 +114,6 @@ class MainScreen: UIViewController {
         stackViewWeekLabel.alignment = .center
         stackViewWeekLabel.backgroundColor = .black
         stackViewWeekLabel.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(stackViewWeekLabel)
         
         let stackViewMonthLabel = UIStackView(arrangedSubviews: [labelQuantityHoursMonth, labelHoursMonth])
         stackViewMonthLabel.axis = .vertical
@@ -139,7 +121,6 @@ class MainScreen: UIViewController {
         stackViewMonthLabel.alignment = .center
         stackViewMonthLabel.backgroundColor = .black
         stackViewMonthLabel.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(stackViewMonthLabel)
         
         let stackViewAllOfTimeLabel = UIStackView(arrangedSubviews: [labelQuantityAllOfHours, labelAllOfHours])
         stackViewAllOfTimeLabel.axis = .vertical
@@ -147,7 +128,6 @@ class MainScreen: UIViewController {
         stackViewAllOfTimeLabel.alignment = .center
         stackViewAllOfTimeLabel.backgroundColor = .black
         stackViewAllOfTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(stackViewAllOfTimeLabel)
         
         let groupStackViewStatistic = UIStackView(arrangedSubviews: [stackViewWeekLabel, stackViewMonthLabel, stackViewAllOfTimeLabel])
         groupStackViewStatistic.axis = .horizontal
@@ -164,10 +144,10 @@ class MainScreen: UIViewController {
             backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
-            navLabel.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
-            navLabel.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 5),
+            title.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
+            title.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 5),
             
-            avatarUser.topAnchor.constraint(equalTo: navLabel.bottomAnchor,constant: 80),
+            avatarUser.topAnchor.constraint(equalTo: title.bottomAnchor,constant: 80),
             avatarUser.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             avatarUser.heightAnchor.constraint(equalToConstant: 120),
             avatarUser.widthAnchor.constraint(equalTo: avatarUser.heightAnchor),
@@ -187,11 +167,6 @@ class MainScreen: UIViewController {
             connectionButton.trailingAnchor.constraint(equalTo: groupStackViewStatistic.trailingAnchor,constant: -10),
             connectionButton.heightAnchor.constraint(equalToConstant: 40),
             
-            disconnectButton.topAnchor.constraint(equalTo: groupStackViewStatistic.bottomAnchor, constant: 60),
-            disconnectButton.leadingAnchor.constraint(equalTo: groupStackViewStatistic.leadingAnchor,constant: 10),
-            disconnectButton.trailingAnchor.constraint(equalTo: groupStackViewStatistic.trailingAnchor,constant: -10),
-            disconnectButton.heightAnchor.constraint(equalToConstant: 40),
-            
         ])
     }
     
@@ -200,34 +175,35 @@ class MainScreen: UIViewController {
         self.viewDidLayoutSubviews()
     }
     
-    @objc func joinToWork() {
-//        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
-//            if ((user) != nil) {
-//                let hams = Auth.auth().currentUser?.uid
-//                let base = Database.database().reference().child("users2").child(hams!)
-//                base.updateChildValues(["check":true])
-//            }})
-        infoConnection.text = "На работе"
-        infoConnection.textColor = .green
-        connectionButton.isHidden = true
-        connectionButton.isUserInteractionEnabled = false
-        disconnectButton.isHidden = false
-        disconnectButton.isUserInteractionEnabled = true
-    }
-    
-    @objc func exitOfWork() {
-//        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
-//            if ((user) != nil) {
-//                let hams = Auth.auth().currentUser?.uid
-//                let base = Database.database().reference().child("users").child(hams!)
-//                base.updateChildValues(["check":false])
-//            }})
-        infoConnection.text = "Отсутствует"
-        infoConnection.textColor = .red
-        connectionButton.isHidden = false
-        connectionButton.isUserInteractionEnabled = true
-        disconnectButton.isHidden = true
-        disconnectButton.isUserInteractionEnabled = false
+    @objc func joinToWork(_ sender: UIButton) {
+        if (sender.isSelected){
+            infoConnection.text = "Отсутствует"
+            infoConnection.textColor = .red
+            sender.isSelected = false
+            sender.setTitle("Подключиться", for: .focused)
+            //        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
+            //            if ((user) != nil) {
+            //                let hams = Auth.auth().currentUser?.uid
+            //                let base = Database.database().reference().child("users2").child(hams!)
+            //                base.updateChildValues(["check":false])
+            //            }})
+
+            return
+        }
+        if !(sender.isSelected) {
+            infoConnection.text = "На работе"
+            infoConnection.textColor = .green
+            sender.isSelected = true
+            sender.setTitle("Отключиться", for: .focused)
+
+            //        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
+            //            if ((user) != nil) {
+            //                let hams = Auth.auth().currentUser?.uid
+            //                let base = Database.database().reference().child("users2").child(hams!)
+            //                base.updateChildValues(["check":true])
+            //            }})
+
+        }
     }
     
 }
