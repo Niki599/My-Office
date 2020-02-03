@@ -12,8 +12,9 @@ import Firebase
 class MainScreen: UIViewController {
     
     var connectionButton: UIButton!
-//    var disconnectButton: UIButton!
     var infoConnection: UILabel!
+    
+    var data: Company!
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -17,7 +17,13 @@ class SignIn: UIViewController {
     private var loginButton: UIButton!
     private var backgroundView: UIView!
     private var enteryLabel: UILabel!
-//    var data = [Company]()
+    /**
+     Модель всех сотрудников
+     */
+    var data = Company.shared
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
+    
+    var quantityEmployeers: Int!
     
     private let logoImage = UIImage(imageLiteralResourceName: "sebbia-logo.jpg").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     private let checkBoxImage = UIImage(imageLiteralResourceName: "checkBox.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
@@ -32,6 +38,7 @@ class SignIn: UIViewController {
         view.addGestureRecognizer(gesture)
         //Реализация автовхода
         if (UserDefaults.standard.bool(forKey: "dataAvailability")) {
+            // TODO: Добавить передачу данных
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "MainScreenTabBar")
             self.navigationController?.pushViewController(vc, animated: false)
@@ -181,39 +188,98 @@ class SignIn: UIViewController {
                 if ((user) != nil) {
                     
                     let hams = Auth.auth().currentUser?.uid
+                    // TODO: Добавить автоопределение компании
                     let base = Database.database().reference()
-//                    self.data.removeAll()
+                    self.data.users.removeAll()
+                    self.quantityEmployeers = 0
+                    // TODO: Вынести в отдельную функцию
                     base.observe(.value, with:  { (snapshot) in
                         guard let value = snapshot.value, snapshot.exists() else { return }
                         let dict: NSDictionary = value as! NSDictionary
                         for (company, uids) in dict {
                             for (uid, categories) in uids as! NSDictionary {
-//                                self.data.append(Company())
-                                if ((uid as! String) == hams) {
-                                    for (category, fields) in categories as! NSDictionary {
-                                        for (nameOfField, valueOfField) in fields as! NSDictionary {
-                                            if nameOfField as? String == "admin" {
-                                                UserDefaults.standard.set(valueOfField as! Bool, forKey: "admin")
-                                            }
+                                for (_, _) in uids as! NSDictionary {
+                                    self.quantityEmployeers += 1
+                                }
+                                if hams == uid as! String {
+//                                    UserDefaults.standard.set(<#T##value: Bool##Bool#>, forKey: "admin")
+                                }
+                                for (category, fields) in categories as! NSDictionary {
+                                    for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                        if nameOfField as? String == "admin" {
+                                            self.oneOfUsers.work.admin = valueOfField as? Bool
+                                            continue
+                                        }
+                                        if nameOfField as? String == "check" {
+                                            self.oneOfUsers.work.check = valueOfField as? Bool
+                                            continue
+                                        }
+                                        if nameOfField as? String == "coming" {
+                                            self.oneOfUsers.work.coming = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "leaving" {
+                                            self.oneOfUsers.work.leaving = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "monthHours" {
+                                            self.oneOfUsers.work.monthHours = valueOfField as? Int
+                                            continue
+                                        }
+                                        if nameOfField as? String == "totalHours" {
+                                            self.oneOfUsers.work.totalHours = valueOfField as? Int
+                                            continue
+                                        }
+                                        if nameOfField as? String == "weekHours" {
+                                            self.oneOfUsers.work.weekHours = valueOfField as? Int
+                                            continue
+                                        }
+                                        if nameOfField as? String == "date" {
+                                            self.oneOfUsers.info.date = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "email" {
+                                            self.oneOfUsers.info.email = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "name" {
+                                            self.oneOfUsers.info.name = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "pass" {
+                                            self.oneOfUsers.info.pass = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "phone" {
+                                            self.oneOfUsers.info.phone = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "surname" {
+                                            self.oneOfUsers.info.surname = valueOfField as? String
+                                            continue
                                         }
                                     }
                                 }
+                                self.data.users.append(self.oneOfUsers)
                             }
+                        }
+                        
+                        UserDefaults.standard.set(true, forKey: "dataAvailability")
+                        UserDefaults.standard.set(self.loginTextField.text, forKey: "login")
+                        UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
+                        self.loginButton.isUserInteractionEnabled = true
+                        self.loginTextField.isUserInteractionEnabled = true
+                        self.passwordTextField.isUserInteractionEnabled = true
+                        // TODO: Разобраться с потоками
+                        DispatchQueue.main.async {
+                            //                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            //                        let vc = storyboard.instantiateViewController(withIdentifier: "MainScreenTabBar")
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
+                            vc.data = self.data
+                            self.navigationController?.pushViewController(vc, animated: true)
                         }
                     })
                     
-                    UserDefaults.standard.set(true, forKey: "dataAvailability")
-                    UserDefaults.standard.set(self.loginTextField.text, forKey: "login")
-                    UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
-                    self.loginButton.isUserInteractionEnabled = true
-                    self.loginTextField.isUserInteractionEnabled = true
-                    self.passwordTextField.isUserInteractionEnabled = true
-                    
-                    DispatchQueue.main.async {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let vc = storyboard.instantiateViewController(withIdentifier: "MainScreenTabBar")
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }
                 }
                 else {
                     // Очистка всего UserDefaults, если вход не был выполнен

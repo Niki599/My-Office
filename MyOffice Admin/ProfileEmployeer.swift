@@ -23,6 +23,8 @@ class ProfileEmployeer: UIViewController {
     
     var constraints: [NSLayoutConstraint]!
     
+    var data: Company!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
