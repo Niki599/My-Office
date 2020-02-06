@@ -127,7 +127,7 @@ class TableEmployeer: UIViewController {
         let labelQuantityHoursWeek = UILabel()
         labelQuantityHoursWeek.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursWeek.textAlignment = .center
-        labelQuantityHoursWeek.text = String(data1.users[0].work.weekHours!)
+//        labelQuantityHoursWeek.text = String(data1.users[0].work.weekHours!)
         labelQuantityHoursWeek.translatesAutoresizingMaskIntoConstraints = false
         
         let labelHoursMonth = UILabel()

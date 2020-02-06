@@ -14,9 +14,10 @@ class SignIn: UIViewController {
     private var loginTextField: UITextField!
     private var passwordTextField: UITextField!
     private var mainLogo: UIImageView!
-    private var loginButton: UIButton!
+    private var authorizationButton: UIButton!
     private var backgroundView: UIView!
     private var enteryLabel: UILabel!
+    private var createCompanyButton: UIButton!
     /**
      Модель всех сотрудников
      */
@@ -59,7 +60,7 @@ class SignIn: UIViewController {
         loginTextField = nil
         passwordTextField = nil
         mainLogo = nil
-        loginButton = nil
+        authorizationButton = nil
         backgroundView = nil
         enteryLabel = nil
     }
@@ -77,6 +78,16 @@ class SignIn: UIViewController {
         mainLogo.clipsToBounds = true
         view.addSubview(mainLogo)
         
+        enteryLabel = UILabel()
+        enteryLabel.translatesAutoresizingMaskIntoConstraints = false
+        enteryLabel.layer.borderColor = UIColor.black.cgColor
+        enteryLabel.text = "Добро пожаловать"
+        enteryLabel.numberOfLines = 3
+        enteryLabel.textAlignment = .center
+        enteryLabel.font = UIFont.italicSystemFont(ofSize: 32)
+        enteryLabel.clipsToBounds = true
+        view.addSubview(enteryLabel)
+        
         loginTextField = UITextField()
         loginTextField.draw(CGRect.init())
         loginTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +95,6 @@ class SignIn: UIViewController {
         loginTextField.autocapitalizationType = .none
         loginTextField.textAlignment = .left
         view.addSubview(loginTextField)
-        
         
         passwordTextField = UITextField()
         let bottomLine = CALayer()
@@ -98,28 +108,28 @@ class SignIn: UIViewController {
         passwordTextField.clipsToBounds = true
         view.addSubview(passwordTextField)
         
-        loginButton = UIButton()
-        loginButton.layer.borderWidth = 1
-        loginButton.layer.cornerRadius = 5
-        loginButton.setTitle("Присоединиться", for: .normal)
-        loginButton.setTitleColor(.black, for: .normal)
-        loginButton.setTitleColor(.white, for: .normal)
-        loginButton.backgroundColor = UIColor.init(red: 0.0/255.0, green: 50.0/255.0, blue: 233.0/255.0, alpha: 1)
-        loginButton.layer.borderColor = UIColor.init(red: 6.0/255.0, green: 150.0/255.0, blue: 254.0/255.0, alpha: 1).cgColor
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.addTarget(self, action:#selector(loginAction), for: .touchUpInside)
-        loginButton.clipsToBounds = true
-        view.addSubview(loginButton)
+        authorizationButton = UIButton()
+        authorizationButton.layer.borderWidth = 1
+        authorizationButton.layer.cornerRadius = 5
+        authorizationButton.setTitle("Присоединиться", for: .normal)
+        authorizationButton.setTitleColor(.white, for: .normal)
+        authorizationButton.setTitleColor(.lightGray, for: .highlighted)
+        authorizationButton.backgroundColor = .black
+        authorizationButton.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+        authorizationButton.translatesAutoresizingMaskIntoConstraints = false
+        authorizationButton.addTarget(self, action:#selector(loginAction), for: .touchUpInside)
+        authorizationButton.clipsToBounds = true
+        view.addSubview(authorizationButton)
         
-        enteryLabel = UILabel()
-        enteryLabel.translatesAutoresizingMaskIntoConstraints = false
-        enteryLabel.layer.borderColor = UIColor.black.cgColor
-        enteryLabel.text = "Добро пожаловать"
-        enteryLabel.numberOfLines = 3
-        enteryLabel.textAlignment = .center
-        enteryLabel.font = UIFont.italicSystemFont(ofSize: 32)
-        enteryLabel.clipsToBounds = true
-        view.addSubview(enteryLabel)
+        createCompanyButton = UIButton()
+        createCompanyButton.setTitle("Регистрация компании", for: .normal)
+        createCompanyButton.setTitleColor(.black, for: .normal)
+        createCompanyButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.4) , for: .highlighted)
+        createCompanyButton.backgroundColor = .none
+        createCompanyButton.translatesAutoresizingMaskIntoConstraints = false
+        createCompanyButton.clipsToBounds = true
+//        createCompanyButton.addTarget(self, action:#selector(loginAction), for: .touchUpInside)
+        view.addSubview(createCompanyButton)
         
     }
     
@@ -132,13 +142,13 @@ class SignIn: UIViewController {
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            mainLogo.topAnchor.constraint(equalTo: self.view.topAnchor,constant: space / 1.8 ),
-            mainLogo.leadingAnchor.constraint(equalTo: self.view.safeArea.leadingAnchor,constant: space / 4 ),
+            mainLogo.topAnchor.constraint(equalTo: view.topAnchor,constant: space / 1.8 ),
+            mainLogo.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor,constant: space / 4 ),
             mainLogo.widthAnchor.constraint(equalToConstant: space / 4),
             mainLogo.heightAnchor.constraint(equalTo: mainLogo.widthAnchor),
             
@@ -161,16 +171,20 @@ class SignIn: UIViewController {
         
         
         NSLayoutConstraint.activate([
-            loginButton.bottomAnchor.constraint(equalTo: self.view.safeArea.bottomAnchor, constant: -44),
-            loginButton.centerXAnchor.constraint(equalTo: self.view.safeArea.centerXAnchor),
-            loginButton.widthAnchor.constraint(equalTo: enteryLabel.widthAnchor),
-            loginButton.heightAnchor.constraint(equalTo: passwordTextField.heightAnchor),
+            createCompanyButton.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor, constant: -50),
+            createCompanyButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
+            createCompanyButton.widthAnchor.constraint(equalTo: enteryLabel.widthAnchor),
+            createCompanyButton.heightAnchor.constraint(equalTo: passwordTextField.heightAnchor, constant: -20),
+            authorizationButton.bottomAnchor.constraint(equalTo: createCompanyButton.topAnchor, constant: -10),
+            authorizationButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
+            authorizationButton.widthAnchor.constraint(equalTo: enteryLabel.widthAnchor),
+            authorizationButton.heightAnchor.constraint(equalTo: passwordTextField.heightAnchor),
         ])
         
         NSLayoutConstraint.activate([
             enteryLabel.leadingAnchor.constraint(equalTo: mainLogo.leadingAnchor),
             enteryLabel.topAnchor.constraint(equalTo: mainLogo.bottomAnchor, constant: 44),
-            enteryLabel.trailingAnchor.constraint(equalTo: self.view.safeArea.trailingAnchor, constant: -space/4)
+            enteryLabel.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -space/4)
         ])
     }
     
@@ -180,7 +194,7 @@ class SignIn: UIViewController {
     }
     
     @objc func loginAction() {
-        self.loginButton.isUserInteractionEnabled = false
+        self.authorizationButton.isUserInteractionEnabled = false
         self.loginTextField.isUserInteractionEnabled = false
         self.passwordTextField.isUserInteractionEnabled = false
         if !(loginTextField.text! == "" || passwordTextField.text! == "") {
@@ -267,7 +281,7 @@ class SignIn: UIViewController {
                         UserDefaults.standard.set(true, forKey: "dataAvailability")
                         UserDefaults.standard.set(self.loginTextField.text, forKey: "login")
                         UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
-                        self.loginButton.isUserInteractionEnabled = true
+                        self.authorizationButton.isUserInteractionEnabled = true
                         self.loginTextField.isUserInteractionEnabled = true
                         self.passwordTextField.isUserInteractionEnabled = true
                         // TODO: Разобраться с потоками
@@ -285,7 +299,7 @@ class SignIn: UIViewController {
                     // Очистка всего UserDefaults, если вход не был выполнен
                     if let appDomain = Bundle.main.bundleIdentifier {
                         UserDefaults.standard.removePersistentDomain(forName: appDomain)
-                        self.loginButton.isUserInteractionEnabled = true
+                        self.authorizationButton.isUserInteractionEnabled = true
                         self.loginTextField.isUserInteractionEnabled = true
                         self.passwordTextField.isUserInteractionEnabled = true
                     }
@@ -303,7 +317,7 @@ class SignIn: UIViewController {
             // Очистка всего UserDefaults, если вход не был выполнен
             if let appDomain = Bundle.main.bundleIdentifier {
                 UserDefaults.standard.removePersistentDomain(forName: appDomain)
-                self.loginButton.isUserInteractionEnabled = true
+                self.authorizationButton.isUserInteractionEnabled = true
                 self.loginTextField.isUserInteractionEnabled = true
                 self.passwordTextField.isUserInteractionEnabled = true
             }
