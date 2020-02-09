@@ -10,17 +10,27 @@ import Foundation
 
 
 
-class Company: NSObject{
+final class Company: NSObject{
+    
+    // MARK: - Public Properties
+    
     var users: [User] = []
+    
+    // MARK: - Initializers
+    
     /// Инициализатор Одиночки всегда должен быть скрытым, чтобы предотвратить
     /// прямое создание объекта через инициализатор.
     private override init() {}
+    
+    // MARK: - Public Methods
+    
     static var shared: Company = {
         let instance = Company()
         /// ... настройка объекта
         /// ...
         return instance
     }()
+    
 }
 
 extension Company: NSCopying {

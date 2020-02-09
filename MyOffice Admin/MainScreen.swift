@@ -9,12 +9,18 @@
 import UIKit
 import Firebase
 
-class MainScreen: UIViewController {
+final class MainScreen: UIViewController {
     
-    var connectionButton: UIButton!
-    var infoConnection: UILabel!
+    // MARK: - Public Properties
     
     var data: Company!
+    
+    // MARK: - Private Properties
+    
+    private var connectionButton: UIButton!
+    private var infoConnection: UILabel!
+        
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +33,9 @@ class MainScreen: UIViewController {
         super.viewWillAppear(animated)
     }
     
-    func setupViews() {
+    // MARK: - Private Methods
+    
+    private func setupViews() {
         
         let logoImage = UIImage(imageLiteralResourceName: "employee.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
         
@@ -45,13 +53,13 @@ class MainScreen: UIViewController {
         connectionButton.layer.borderWidth = 1
         connectionButton.layer.cornerRadius = 5
         connectionButton.setTitle("Подключиться", for: .normal)
-        connectionButton.setTitleColor(.white, for: .normal)
         connectionButton.setTitle("Отключиться", for: .selected)
-        connectionButton.setTitleColor(.white, for: .selected)
+        connectionButton.setTitleColor(.white, for: .normal)
+        connectionButton.setTitleColor(.lightGray, for: .highlighted)
         connectionButton.backgroundColor = .black
         connectionButton.translatesAutoresizingMaskIntoConstraints = false
         connectionButton.clipsToBounds = true
-        connectionButton.addTarget(nil, action: #selector(joinToWork(_:)), for: .touchUpInside)
+        connectionButton.addTarget(nil, action: #selector(didTapJoinButton(_:)), for: .touchUpInside)
         connectionButton.isHidden = false
         connectionButton.isUserInteractionEnabled = true
         view.addSubview(connectionButton)
@@ -171,12 +179,12 @@ class MainScreen: UIViewController {
         ])
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        self.viewDidLayoutSubviews()
-    }
+//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+//        self.viewDidLayoutSubviews()
+//    }
     
-    @objc func joinToWork(_ sender: UIButton) {
+    @objc private func didTapJoinButton(_ sender: UIButton) {
         if (sender.isSelected){
             infoConnection.text = "Отсутствует"
             infoConnection.textColor = .red
