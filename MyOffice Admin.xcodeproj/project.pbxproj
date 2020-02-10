@@ -160,6 +160,7 @@
 				3A3637AA2396604C00C7E7E4 /* sigma.png */,
 				3A3637A82396604C00C7E7E4 /* table.png */,
 				3A3637AB2396604C00C7E7E4 /* update.png */,
+				47D830A42392AF2A00DB9168 /* Assets.xcassets */,
 			);
 			path = Resourses;
 			sourceTree = "<group>";
@@ -210,7 +211,6 @@
 				47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */,
 				47D830A12392AF2900DB9168 /* Main.storyboard */,
 				3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */,
-				47D830A42392AF2A00DB9168 /* Assets.xcassets */,
 				47C2731223CDEAFE005361B7 /* GoogleService-Info.plist */,
 			);
 			path = "MyOffice Admin";

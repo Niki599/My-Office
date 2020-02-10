@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 final class Company: NSObject{
     
     // MARK: - Public Properties

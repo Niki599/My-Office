@@ -18,13 +18,6 @@ class MainScreenTabBar: UITabBarController {
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        selectedIndex = 1
-        
-        tabBar.clipsToBounds = true
-        tabBar.backgroundImage = UIImage()
-        
         let VCTableEmployeer = self.storyboard?.instantiateViewController(withIdentifier: "TableEmployeer") as! TableEmployeer
         let VCProfileEmployeer = self.storyboard?.instantiateViewController(withIdentifier: "ProfileEmployeer") as! ProfileEmployeer
         let VCMainScreen = self.storyboard?.instantiateViewController(withIdentifier: "MainScreen") as! MainScreen
@@ -32,16 +25,23 @@ class MainScreenTabBar: UITabBarController {
         /**
             Передача по viewControllers модели копании
          */
-        VCTableEmployeer.data1 = data
+        VCTableEmployeer.data = data
         VCMainScreen.data = data
         VCProfileEmployeer.data = data
         
-        // TODO: Добавить зависимость от переменной "Админ"
+        tabBar.clipsToBounds = true
+        tabBar.backgroundImage = UIImage()
+        
+        // TODO: Добавить зависимость от переменной "Админ" на окно таблицы
         if (UserDefaults.standard.bool(forKey: "admin")) {
             self.viewControllers = [VCTableEmployeer, VCMainScreen, VCProfileEmployeer]
         } else {
             self.viewControllers = [VCTableEmployeer, VCMainScreen, VCProfileEmployeer]
         }
+
+        super.viewDidLoad()
+        
+        selectedIndex = 1
     }
     
     override func didReceiveMemoryWarning() {

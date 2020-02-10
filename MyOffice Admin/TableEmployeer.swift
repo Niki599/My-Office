@@ -12,23 +12,27 @@ import UIKit
 
 class TableEmployeer: UIViewController {
     
-    var check = [Int]()
-    var email = [String]()
-    var name = [String]()
-    var phone = [String]()
-    var surname = [String]()
-    var data = ["", "", "", "", ""]
-    let identifire = "MyCell"
-    var data1 = Company.shared
+    // MARK: - Public Properties
     
-    var titleTable: UILabel!
-    var tableEmployeer: UITableView!
-    var backgroundView: UIView!
-    var updateButton: UIButton!
+    /**
+     Модель всех сотрудников
+     */
+    var data: Company!
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
     
-    var quantityEmployeers: Int!
+    // MARK: - Private Properties
     
-    var constraints: [NSLayoutConstraint]!
+    private let identifire = "MyCell"
+
+    private var titleTable: UILabel!
+    private var tableEmployeer: UITableView!
+    private var backgroundView: UIView!
+    private var updateButton: UIButton!
+    private var labelQuantityHoursWeek: UILabel!
+    private var labelQuantityHoursMonth: UILabel!
+    private var labelQuantityAllOfHours: UILabel!
+
+    private var constraints: [NSLayoutConstraint]!
     
     private lazy var labelHeaderDate: UILabel = {
         var label = UILabel()
@@ -70,12 +74,13 @@ class TableEmployeer: UIViewController {
         return label
     }()
     
-    var stackViewHeader: UIStackView!
+    private var stackViewHeader: UIStackView!
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        requestData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,7 +88,14 @@ class TableEmployeer: UIViewController {
         super.viewWillAppear(animated)
     }
     
-    func setupView() {
+    override func viewWillLayoutSubviews() {
+        NSLayoutConstraint.deactivate(constraints)
+        NSLayoutConstraint.activate(constraints)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func setupView() {
         
         backgroundView = UIView()
         backgroundView.backgroundColor = .white
@@ -124,10 +136,14 @@ class TableEmployeer: UIViewController {
         labelHoursWeek.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
         labelHoursWeek.translatesAutoresizingMaskIntoConstraints = false
         
-        let labelQuantityHoursWeek = UILabel()
+        labelQuantityHoursWeek = UILabel()
         labelQuantityHoursWeek.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursWeek.textAlignment = .center
-        labelQuantityHoursWeek.text = String(data1.users[0].work.weekHours!)
+        for user in data.users {
+            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+                labelQuantityHoursWeek.text = String(user.work.weekHours!)
+            }
+        }
         labelQuantityHoursWeek.translatesAutoresizingMaskIntoConstraints = false
         
         let labelHoursMonth = UILabel()
@@ -137,10 +153,14 @@ class TableEmployeer: UIViewController {
         labelHoursMonth.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
         labelHoursMonth.translatesAutoresizingMaskIntoConstraints = false
         
-        let labelQuantityHoursMonth = UILabel()
+        labelQuantityHoursMonth = UILabel()
         labelQuantityHoursMonth.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursMonth.textAlignment = .center
-        labelQuantityHoursMonth.text = "160 ч"//Берем с базы
+        for user in data.users {
+            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+                labelQuantityHoursMonth.text = String(user.work.monthHours!)
+            }
+        }
         labelQuantityHoursMonth.translatesAutoresizingMaskIntoConstraints = false
         
         let labelAllOfHours = UILabel()
@@ -150,10 +170,14 @@ class TableEmployeer: UIViewController {
         labelAllOfHours.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
         labelAllOfHours.translatesAutoresizingMaskIntoConstraints = false
         
-        let labelQuantityAllOfHours = UILabel()
+        labelQuantityAllOfHours = UILabel()
         labelQuantityAllOfHours.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityAllOfHours.textAlignment = .center
-        labelQuantityAllOfHours.text = "10000 ч"//Берем с базы
+        for user in data.users {
+            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+                labelQuantityAllOfHours.text = String(user.work.totalHours!)
+            }
+        }
         labelQuantityAllOfHours.translatesAutoresizingMaskIntoConstraints = false
         
         let stackViewWeekLabel = UIStackView(arrangedSubviews: [labelQuantityHoursWeek, labelHoursWeek])
@@ -232,61 +256,105 @@ class TableEmployeer: UIViewController {
         
     }
     
-    @objc func requestData() {
+    @objc private func requestData() {
         Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
-            for i in 0...self.data.count-1 {
-                self.data[i] = ""
-            }
-            self.name.removeAll()
-            self.surname.removeAll()
-            self.check.removeAll()
-            self.quantityEmployeers = 0
-            let base = Database.database().reference().child("users")
-            print(base)
-            base.observe(.value, with:  { (snapshot) in
-                guard let value = snapshot.value, snapshot.exists() else { return }
-                let dict: NSDictionary = value as! NSDictionary
-                for (_, _) in dict {
-                    self.quantityEmployeers += 1
-                }
-                for (_, uidEmployeerInfo) in dict {
-                    for (_, categ) in uidEmployeerInfo as! NSDictionary {
-                        for (fieldName, valueOfField) in categ as! NSDictionary {
-                            if (fieldName as? String == "name") {
-                                self.name.append(valueOfField as! String)
-                                //                                            print(valueOfField)
+            print(UserDefaults.standard.string(forKey: "login")!)
+            if user != nil {
+                let hams = Auth.auth().currentUser?.uid
+                // TODO: Добавить автоопределение компании
+                let base = Database.database().reference()
+                self.data.users.removeAll()
+                // TODO: Вынести в отдельную функцию
+                base.observe(.value, with:  { (snapshot) in
+                    guard let value = snapshot.value, snapshot.exists() else { return }
+                    let dict: NSDictionary = value as! NSDictionary
+                    for (company, uids) in dict {
+                        for (uid, categories) in uids as! NSDictionary {
+                            for (category, fields) in categories as! NSDictionary {
+                                for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                    if nameOfField as? String == "admin" {
+                                        if hams == uid as? String {
+                                            UserDefaults.standard.set(valueOfField, forKey: "admin")
+                                        }
+                                        self.oneOfUsers.work.admin = valueOfField as? Bool
+                                        continue
+                                    }
+                                    if nameOfField as? String == "check" {
+                                        self.oneOfUsers.work.check = valueOfField as? Bool
+                                        continue
+                                    }
+                                    if nameOfField as? String == "coming" {
+                                        self.oneOfUsers.work.coming = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "leaving" {
+                                        self.oneOfUsers.work.leaving = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "monthHours" {
+                                        self.oneOfUsers.work.monthHours = valueOfField as? Int
+                                        // TODO: - Самостоятельно обновляется при переходе на главный экран и обратно. Разобраться почему
+                                        if hams == uid as? String {
+                                            self.labelQuantityHoursMonth.text = String(valueOfField as! Int)
+                                        }
+                                        continue
+                                    }
+                                    if nameOfField as? String == "totalHours" {
+                                        self.oneOfUsers.work.totalHours = valueOfField as? Int
+                                        //
+                                        if hams == uid as? String {
+                                            self.labelQuantityAllOfHours.text = String(valueOfField as! Int)
+                                        }
+                                        continue
+                                    }
+                                    if nameOfField as? String == "weekHours" {
+                                        self.oneOfUsers.work.weekHours = valueOfField as? Int
+                                        //
+                                        if hams == uid as? String {
+                                            self.labelQuantityHoursWeek.text = String(valueOfField as! Int)
+                                        }
+                                        continue
+                                    }
+                                    if nameOfField as? String == "date" {
+                                        self.oneOfUsers.info.date = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "email" {
+                                        self.oneOfUsers.info.email = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "name" {
+                                        self.oneOfUsers.info.name = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "pass" {
+                                        self.oneOfUsers.info.pass = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "phone" {
+                                        self.oneOfUsers.info.phone = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "surname" {
+                                        self.oneOfUsers.info.surname = valueOfField as? String
+                                        continue
+                                    }
+                                }
                             }
-                            if (fieldName as? String == "surname") {
-                                self.surname.append(valueOfField as! String)
-                                //                                            print(valueOfField)
-                            }
-                            if (fieldName as? String == "check") {
-                                self.check.append(valueOfField as! Int)
-                                //                                            print(valueOfField)
-                            }
+                            self.data.users.append(self.oneOfUsers)
                         }
                     }
-                }
-                for i in 0...self.quantityEmployeers-1 {
-                    self.data[i] = self.name[i] + " " + self.surname[i] + " "
-                    if  self.check[i] == 0 {
-                        self.data[i] += "Нет на месте"
-                    }
-                    else {
-                        self.data[i] += "На рабочем месте"
-                    }
-                    self.tableEmployeer.reloadData()
-                }
-            })
+                })
+            }
+            else {
+                print("Error")
+            }
         }
+        self.tableEmployeer.reloadData()
+        
     }
-    
-    override func viewWillLayoutSubviews() {
-        NSLayoutConstraint.deactivate(constraints)
-        NSLayoutConstraint.activate(constraints)
-    }
-    
-    func info() {
+        
+    private func info() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "Info")
         self.navigationController?.pushViewController(vc, animated: true)
@@ -336,7 +404,7 @@ extension TableEmployeer : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = TableViewCell(style: .default, reuseIdentifier: "MyCell")
+        let cell = TableViewCell(style: .default, reuseIdentifier: "MyCell", data: data)
         return cell
     }
     

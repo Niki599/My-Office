@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-final class MainScreen: UIViewController {
+class MainScreen: UIViewController {
     
     // MARK: - Public Properties
     
@@ -88,7 +88,11 @@ final class MainScreen: UIViewController {
         let labelQuantityHoursWeek = UILabel()
         labelQuantityHoursWeek.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursWeek.textAlignment = .center
-        labelQuantityHoursWeek.text = "30 ч"
+        for user in data.users {
+            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+                labelQuantityHoursWeek.text = String(user.work.weekHours!)
+            }
+        }
         labelQuantityHoursWeek.translatesAutoresizingMaskIntoConstraints = false
         
         let labelHoursMonth = UILabel()
@@ -101,7 +105,11 @@ final class MainScreen: UIViewController {
         let labelQuantityHoursMonth = UILabel()
         labelQuantityHoursMonth.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursMonth.textAlignment = .center
-        labelQuantityHoursMonth.text = "160 ч"
+        for user in data.users {
+            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+                labelQuantityHoursMonth.text = String(user.work.monthHours!)
+            }
+        }
         labelQuantityHoursMonth.translatesAutoresizingMaskIntoConstraints = false
         
         let labelAllOfHours = UILabel()
@@ -114,7 +122,11 @@ final class MainScreen: UIViewController {
         let labelQuantityAllOfHours = UILabel()
         labelQuantityAllOfHours.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityAllOfHours.textAlignment = .center
-        labelQuantityAllOfHours.text = "10000 ч"
+        for user in data.users {
+            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+                labelQuantityAllOfHours.text = String(user.work.totalHours!)
+            }
+        }
         labelQuantityAllOfHours.translatesAutoresizingMaskIntoConstraints = false
         
         let stackViewWeekLabel = UIStackView(arrangedSubviews: [labelQuantityHoursWeek, labelHoursWeek])

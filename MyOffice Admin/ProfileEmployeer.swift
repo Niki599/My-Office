@@ -20,10 +20,16 @@ class ProfileEmployeer: UIViewController {
 //        self.navigationController?.setNavigationBarHidden(false, animated: animated)
 //        super.viewWillDisappear(animated)
 //    }
-    
-    var constraints: [NSLayoutConstraint]!
+       
+    // MARK: - Public Properties
     
     var data: Company!
+    
+    // MARK: - Private Properties
+    
+    private var constraints: [NSLayoutConstraint]!
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +41,9 @@ class ProfileEmployeer: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
     
-    func setupView() {
+    // MARK: - Private Methods
+    
+    private func setupView() {
         view.backgroundColor = .white
         let title = UILabel()
         title.text = "Информация о сотруднике"
@@ -58,7 +66,11 @@ class ProfileEmployeer: UIViewController {
         labelName.translatesAutoresizingMaskIntoConstraints = false
         
         let labelFullName = UILabel()
-        labelFullName.text = "Когут Никита Алексеевич"//Берем с базы
+        for user in data.users {
+            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+                labelFullName.text = String(user.info.name!) + " " + String(user.info.surname!)
+            }
+        }
         labelFullName.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         labelFullName.numberOfLines = 0
         labelFullName.font.withSize(8)
@@ -75,7 +87,11 @@ class ProfileEmployeer: UIViewController {
         labelBirthday.translatesAutoresizingMaskIntoConstraints = false
         
         let labelBirthdayDate = UILabel()
-        labelBirthdayDate.text = "00.00.0000"//Берем с базы
+        for user in data.users {
+            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+                labelBirthdayDate.text = String(user.info.date!)
+            }
+        }
         labelBirthdayDate.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         labelBirthdayDate.font = UIFont(name: "Roboto-Regular", size: 8)
         labelBirthdayDate.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +106,11 @@ class ProfileEmployeer: UIViewController {
         labelPhone.translatesAutoresizingMaskIntoConstraints = false
         
         let labelPhoneNumber = UILabel()
-        labelPhoneNumber.text = "+7(123)456-78-90"//Берем с базы
+        for user in data.users {
+            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+                labelPhoneNumber.text = String(user.info.phone!)
+            }
+        }
         labelPhoneNumber.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         labelPhoneNumber.font = UIFont(name: "Roboto-Regular", size: 8)
         labelPhoneNumber.translatesAutoresizingMaskIntoConstraints = false
@@ -105,7 +125,11 @@ class ProfileEmployeer: UIViewController {
         labelPass.translatesAutoresizingMaskIntoConstraints = false
         
         let labelNumberOfPass = UILabel()
-        labelNumberOfPass.text = "60 14 123456"//Берем с базы
+        for user in data.users {
+            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+                labelNumberOfPass.text = String(user.info.pass!)
+            }
+        }
         labelNumberOfPass.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         labelNumberOfPass.font.withSize(8)
         labelNumberOfPass.translatesAutoresizingMaskIntoConstraints = false
@@ -192,9 +216,12 @@ class ProfileEmployeer: UIViewController {
         ]
     }
     
-    @objc func exitAction() {
-        self.navigationController?.popViewController(animated: true)
+    @objc private func exitAction() {
         UserDefaults.standard.set(false, forKey: "dataAvailability")
+        if let appDomain = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: appDomain)
+        }
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
