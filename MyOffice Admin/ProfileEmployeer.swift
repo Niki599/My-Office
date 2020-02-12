@@ -10,17 +10,7 @@ import Foundation
 import UIKit
 
 class ProfileEmployeer: UIViewController {
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-//        super.viewWillAppear(animated)
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-//        super.viewWillDisappear(animated)
-//    }
-       
+           
     // MARK: - Public Properties
     
     var data: Company!
@@ -44,6 +34,7 @@ class ProfileEmployeer: UIViewController {
     // MARK: - Private Methods
     
     private func setupView() {
+        
         view.backgroundColor = .white
         let title = UILabel()
         title.text = "Информация о сотруднике"
@@ -191,7 +182,7 @@ class ProfileEmployeer: UIViewController {
         
         constraints = [
             title.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
-            title.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 5),
+            title.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             image.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             image.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 60),
                         

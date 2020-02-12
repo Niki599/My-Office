@@ -33,7 +33,7 @@ class SignIn: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         setupView()
         //Тап по экрану, чтобы спрятать клаву
         let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
@@ -120,9 +120,9 @@ class SignIn: UIViewController {
                         self.authorizationButton.isUserInteractionEnabled = true
                         self.loginTextField.isUserInteractionEnabled = true
                         self.passwordTextField.isUserInteractionEnabled = true
-                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
-                        vc.data = self.data
-                        self.navigationController?.pushViewController(vc, animated: true)
+                        let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
+                        MainScreenTabBarVC.data = self.data
+                        self.navigationController?.pushViewController(MainScreenTabBarVC, animated: true)
                     })
                 }
                 else {
@@ -266,7 +266,7 @@ class SignIn: UIViewController {
         authorizationButton.backgroundColor = .black
         authorizationButton.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
         authorizationButton.translatesAutoresizingMaskIntoConstraints = false
-        authorizationButton.addTarget(self, action:#selector(loginAction), for: .touchUpInside)
+        authorizationButton.addTarget(self, action:#selector(didAuthButtonTap), for: .touchUpInside)
         authorizationButton.clipsToBounds = true
         view.addSubview(authorizationButton)
         
@@ -277,17 +277,12 @@ class SignIn: UIViewController {
         createCompanyButton.backgroundColor = .none
         createCompanyButton.translatesAutoresizingMaskIntoConstraints = false
         createCompanyButton.clipsToBounds = true
-//        createCompanyButton.addTarget(self, action:#selector(loginAction), for: .touchUpInside)
+        createCompanyButton.addTarget(self, action:#selector(didCreateCompanyButtonTap), for: .touchUpInside)
         view.addSubview(createCompanyButton)
         
     }
-        
-//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-//        super.traitCollectionDidChange(previousTraitCollection)
-//        self.viewDidLayoutSubviews()
-//    }
-    
-    @objc private func loginAction() {
+            
+    @objc private func didAuthButtonTap() {
         self.authorizationButton.isUserInteractionEnabled = false
         self.loginTextField.isUserInteractionEnabled = false
         self.passwordTextField.isUserInteractionEnabled = false
@@ -373,9 +368,9 @@ class SignIn: UIViewController {
                         self.authorizationButton.isUserInteractionEnabled = true
                         self.loginTextField.isUserInteractionEnabled = true
                         self.passwordTextField.isUserInteractionEnabled = true
-                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
-                        vc.data = self.data
-                        self.navigationController?.pushViewController(vc, animated: true)
+                        let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
+                        MainScreenTabBarVC.data = self.data
+                        self.navigationController?.pushViewController(MainScreenTabBarVC, animated: true)
                     })
                 }
                 else {
@@ -405,8 +400,14 @@ class SignIn: UIViewController {
                 self.passwordTextField.isUserInteractionEnabled = true
             }
         }
-        
     }
+    
+    @objc func didCreateCompanyButtonTap() {
+        let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "SignUp") as! SignUp
+        self.navigationController?.pushViewController(signUpVC, animated: true)
+    }
+    
+    
 }
 
 extension SignIn : UITextFieldDelegate {

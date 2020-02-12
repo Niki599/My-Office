@@ -166,7 +166,7 @@ class MainScreen: UIViewController {
             backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
             title.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
-            title.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 5),
+            title.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             
             avatarUser.topAnchor.constraint(equalTo: title.bottomAnchor,constant: 80),
             avatarUser.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
@@ -187,15 +187,9 @@ class MainScreen: UIViewController {
             connectionButton.leadingAnchor.constraint(equalTo: groupStackViewStatistic.leadingAnchor,constant: 10),
             connectionButton.trailingAnchor.constraint(equalTo: groupStackViewStatistic.trailingAnchor,constant: -10),
             connectionButton.heightAnchor.constraint(equalToConstant: 40),
-            
         ])
     }
-    
-//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-//        super.traitCollectionDidChange(previousTraitCollection)
-//        self.viewDidLayoutSubviews()
-//    }
-    
+        
     @objc private func didTapJoinButton(_ sender: UIButton) {
         if (sender.isSelected){
             infoConnection.text = "Отсутствует"
