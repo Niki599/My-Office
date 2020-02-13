@@ -191,33 +191,33 @@ class MainScreen: UIViewController {
     }
         
     @objc private func didTapJoinButton(_ sender: UIButton) {
+        // TODO: - Разобраться почему происходит автообновление
         if (sender.isSelected){
             infoConnection.text = "Отсутствует"
             infoConnection.textColor = .red
             sender.isSelected = false
             sender.setTitle("Подключиться", for: .focused)
-            //        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
-            //            if ((user) != nil) {
-            //                let hams = Auth.auth().currentUser?.uid
-            //                let base = Database.database().reference().child("users2").child(hams!)
-            //                base.updateChildValues(["check":false])
-            //            }})
-
+            
+            Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
+                if user != nil {
+                    let hams = Auth.auth().currentUser?.uid
+                    let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work")
+                    base.updateChildValues(["check":false])
+                }
+            })
             return
-        }
-        if !(sender.isSelected) {
+        } else {
             infoConnection.text = "На работе"
             infoConnection.textColor = .green
             sender.isSelected = true
             sender.setTitle("Отключиться", for: .focused)
-
-            //        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
-            //            if ((user) != nil) {
-            //                let hams = Auth.auth().currentUser?.uid
-            //                let base = Database.database().reference().child("users2").child(hams!)
-            //                base.updateChildValues(["check":true])
-            //            }})
-
+            Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
+                if user != nil {
+                    let hams = Auth.auth().currentUser?.uid
+                    let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work")
+                    base.updateChildValues(["check":true])
+                }
+            })
         }
     }
     

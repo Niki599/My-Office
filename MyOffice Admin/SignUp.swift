@@ -8,16 +8,35 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class SignUp: UIViewController {
     
     // MARK: - Public Properties
     
+    /**
+     Если true, то регистрируют компанию, false -- человека
+     Если регистрируют человека, то добавим radioButton, иначе -- нет
+    */
+    var typeOfSignUp: Bool!
     
+    /**
+     Модель всех сотрудников
+     */
+    var data = Company.shared
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
+
     
     // MARK: - Private Properties
     private var  companyView: UIView!
     private var constraints: [NSLayoutConstraint]!
+    private var companyTextField: UITextField!
+    private var nameTextField: UITextField!
+    private var surnameTextField: UITextField!
+    private var dateTextField: UITextField!
+    private var emailTextField: UITextField!
+    private var phoneTextField: UITextField!
+    private var passTextField: UITextField!
     
     // MARK: - Lifecycle
     
@@ -55,6 +74,9 @@ class SignUp: UIViewController {
     
     private func setupView() {
                 
+        navigationController?.navigationBar.backgroundColor = .black
+        navigationItem.title = "Создание компании"
+        
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         let space = screenWidth/2
@@ -75,14 +97,19 @@ class SignUp: UIViewController {
         companyLabel.translatesAutoresizingMaskIntoConstraints = false
         companyView.addSubview(companyLabel)
         
-        let companyTextField = UITextField()
-        companyTextField.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-        companyTextField.textAlignment = .center
-        companyTextField.layer.borderWidth = 2
-        companyTextField.layer.cornerRadius = 3
-        companyTextField.delegate = self
-        companyTextField.translatesAutoresizingMaskIntoConstraints = false
+        companyTextField = standartTextField("Имя компании")
         companyView.addSubview(companyTextField)
+        
+//        let buttonAdmin = UIButton(type: .custom)
+//        buttonAdmin.layer.borderWidth = 1
+//        buttonAdmin.layer.cornerRadius = 5
+//        buttonAdmin.backgroundColor = .black
+//        buttonAdmin.setImage(UIImage(named: "checkBox.png"), for: .normal)
+//        buttonAdmin.setImage(UIImage(named: "icons8-Ð¾ÑÐ¼ÐµÑÐµÐ½Ð½ÑÐ¹-ÑÐµÐºÐ±Ð¾ÐºÑ-100.png"), for: .selected)
+//        buttonAdmin.translatesAutoresizingMaskIntoConstraints = false
+//        buttonAdmin.clipsToBounds = true
+//        buttonAdmin.addTarget(nil, action: #selector(didTapRadioButton(_:)), for: .touchUpInside)
+//        companyView.addSubview(buttonAdmin)
         
         let infoView = UIView()
         infoView.layer.cornerRadius = 20
@@ -99,67 +126,50 @@ class SignUp: UIViewController {
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         infoView.addSubview(infoLabel)
         
-        let nameTextField = UITextField()
-        nameTextField.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-        nameTextField.textAlignment = .center
-        nameTextField.layer.borderWidth = 2
-        nameTextField.layer.cornerRadius = 3
-        nameTextField.delegate = self
-        nameTextField.translatesAutoresizingMaskIntoConstraints = false
+        nameTextField = standartTextField("Имя")
         
-        let surnameTextField = UITextField()
-        surnameTextField.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-        surnameTextField.textAlignment = .center
-        surnameTextField.layer.borderWidth = 2
-        surnameTextField.layer.cornerRadius = 3
-        surnameTextField.delegate = self
-        surnameTextField.translatesAutoresizingMaskIntoConstraints = false
+        surnameTextField = standartTextField("Фамилия")
         
-        let dateTextField = UITextField()
-        dateTextField.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-        dateTextField.textAlignment = .center
-        dateTextField.layer.borderWidth = 2
-        dateTextField.layer.cornerRadius = 3
-        dateTextField.delegate = self
-        dateTextField.translatesAutoresizingMaskIntoConstraints = false
+        dateTextField = standartTextField("Дата")
         
-        let emailTextField = UITextField()
-        emailTextField.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-        emailTextField.textAlignment = .center
-        emailTextField.layer.borderWidth = 2
-        emailTextField.layer.cornerRadius = 3
-        emailTextField.delegate = self
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
+        emailTextField = standartTextField("Почта")
         
-        let phoneTextField = UITextField()
-        phoneTextField.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-        phoneTextField.textAlignment = .center
-        phoneTextField.layer.borderWidth = 2
-        phoneTextField.layer.cornerRadius = 3
-        phoneTextField.delegate = self
-        phoneTextField.translatesAutoresizingMaskIntoConstraints = false
+        phoneTextField = standartTextField("Телефон")
         
-        let passTextField = UITextField()
-        passTextField.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-        passTextField.textAlignment = .center
-        passTextField.layer.borderWidth = 2
-        passTextField.layer.cornerRadius = 3
-        passTextField.delegate = self
-        passTextField.translatesAutoresizingMaskIntoConstraints = false
+        passTextField = standartTextField("Паспорт")
         
-        let stackViewInfo = UIStackView(arrangedSubviews: [nameTextField, surnameTextField, dateTextField, emailTextField, phoneTextField, passTextField])
+        let stackViewInfo = UIStackView(arrangedSubviews: [emailTextField, nameTextField, surnameTextField, dateTextField, phoneTextField, passTextField])
         stackViewInfo.axis = .vertical
         stackViewInfo.distribution = .fillEqually
-        stackViewInfo.spacing = 35
+        stackViewInfo.spacing = 15
         stackViewInfo.alignment = .center
         stackViewInfo.backgroundColor = .black
         stackViewInfo.translatesAutoresizingMaskIntoConstraints = false
         infoView.addSubview(stackViewInfo)
         
+        let nextButton = UIButton()
+        nextButton.setTitle("Продолжить", for: .normal)
+        nextButton.setTitleColor(.white, for: .normal)
+        nextButton.setTitleColor(.lightGray, for: .highlighted)
+        nextButton.backgroundColor = .black
+        nextButton.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.addTarget(self, action:#selector(didNextButtonTap), for: .touchUpInside)
+        infoView.addSubview(nextButton)
+        
+//        if typeOfSignUp {
+//            companyLabel.isHidden = false
+//            companyTextField.isHidden = false
+//            buttonAdmin.isHidden = true
+//        } else {
+//            companyLabel.isHidden = true
+//            companyTextField.isHidden = true
+//            buttonAdmin.isHidden = false
+//        }
+        
         constraints = [
             companyView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             companyView.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 20),
-            //            viewCompany.centerYAnchor.constraint(equalTo: view.safeArea.centerYAnchor),
             companyView.widthAnchor.constraint(equalToConstant: screenWidth / 1.3),
             companyView.heightAnchor.constraint(equalToConstant: screenHeight / 6.5),
             
@@ -171,6 +181,9 @@ class SignUp: UIViewController {
             companyLabel.bottomAnchor.constraint(equalTo: companyTextField.topAnchor, constant: -10),
             companyLabel.leadingAnchor.constraint(equalTo: companyTextField.leadingAnchor),
             companyLabel.trailingAnchor.constraint(equalTo: companyTextField.trailingAnchor),
+            
+//            buttonAdmin.centerXAnchor.constraint(equalTo: companyView.safeArea.centerXAnchor),
+//            buttonAdmin.centerYAnchor.constraint(equalTo: companyView.safeArea.centerYAnchor),
             
             infoView.topAnchor.constraint(equalTo: companyView.bottomAnchor, constant: 10),
             infoView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
@@ -184,7 +197,7 @@ class SignUp: UIViewController {
             stackViewInfo.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 15),
             stackViewInfo.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 10),
             stackViewInfo.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -10),
-            stackViewInfo.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -10),
+            stackViewInfo.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -60),
             
             nameTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
             nameTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
@@ -204,15 +217,161 @@ class SignUp: UIViewController {
             passTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
             passTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
 
-            
+            nextButton.topAnchor.constraint(equalTo: stackViewInfo.bottomAnchor, constant: 10),
+            nextButton.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 10),
+            nextButton.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -10),
+            nextButton.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -10),
+
         ]
     }
-//
-//    func standartTextField() -> UITextField {
-//        let textField = UITextField()
-//        return textField
+        
+    func standartTextField(_ placeholder: String) -> UITextField {
+        let textField = UITextField()
+        textField.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+        textField.textAlignment = .center
+        textField.layer.borderWidth = 2
+        textField.layer.cornerRadius = 3
+        textField.delegate = self
+        textField.placeholder = placeholder
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }
+    
+//    @objc private func didTapRadioButton(_ sender: UIButton) {
+//        if (sender.isSelected) {
+//            sender.isSelected = false
+//            return
+//        } else {
+//            sender.isSelected = true
+//        }
 //    }
     
+    @objc private func didNextButtonTap() {
+        //            let email = emailField.text
+        //            let password = passwordField.text
+        Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (result, error) in
+            let hams = Auth.auth().currentUser?.uid
+            let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
+            let info = base.child("info")
+            let work = base.child("work")
+            info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!, "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
+            work.updateChildValues(["admin": true, "check":true, "monthHours": 0, "weekHours": 0, "totalHours": 0])
+            self.companyTextField.isUserInteractionEnabled = false
+            self.nameTextField.isUserInteractionEnabled = false
+            self.dateTextField.isUserInteractionEnabled = false
+            self.emailTextField.isUserInteractionEnabled = false
+            self.phoneTextField.isUserInteractionEnabled = false
+            self.passTextField.isUserInteractionEnabled = false
+            self.surnameTextField.isUserInteractionEnabled = false
+
+            Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (user, error) in
+                if user != nil {
+                    let hams = Auth.auth().currentUser?.uid
+                    // TODO: Добавить автоопределение компании
+                    let base = Database.database().reference()
+                    self.data.users.removeAll()
+                    // TODO: Вынести в отдельную функцию
+                    base.observe(.value, with:  { (snapshot) in
+                        guard let value = snapshot.value, snapshot.exists() else { return }
+                        let dict: NSDictionary = value as! NSDictionary
+                        for (company, uids) in dict {
+                            for (uid, categories) in uids as! NSDictionary {
+                                for (category, fields) in categories as! NSDictionary {
+                                    for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                        if nameOfField as? String == "admin" {
+                                            if hams == uid as? String {
+                                                UserDefaults.standard.set(valueOfField, forKey: "admin")
+                                                UserDefaults.standard.set(company, forKey: "company")
+                                            }
+                                            self.oneOfUsers.work.admin = valueOfField as? Bool
+                                            continue
+                                        }
+                                        if nameOfField as? String == "check" {
+                                            self.oneOfUsers.work.check = valueOfField as? Bool
+                                            continue
+                                        }
+                                        if nameOfField as? String == "coming" {
+                                            self.oneOfUsers.work.coming = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "leaving" {
+                                            self.oneOfUsers.work.leaving = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "monthHours" {
+                                            self.oneOfUsers.work.monthHours = valueOfField as? Int
+                                            continue
+                                        }
+                                        if nameOfField as? String == "totalHours" {
+                                            self.oneOfUsers.work.totalHours = valueOfField as? Int
+                                            continue
+                                        }
+                                        if nameOfField as? String == "weekHours" {
+                                            self.oneOfUsers.work.weekHours = valueOfField as? Int
+                                            continue
+                                        }
+                                        if nameOfField as? String == "date" {
+                                            self.oneOfUsers.info.date = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "email" {
+                                            self.oneOfUsers.info.email = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "name" {
+                                            self.oneOfUsers.info.name = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "pass" {
+                                            self.oneOfUsers.info.pass = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "phone" {
+                                            self.oneOfUsers.info.phone = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "surname" {
+                                            self.oneOfUsers.info.surname = valueOfField as? String
+                                            continue
+                                        }
+                                    }
+                                }
+                                self.data.users.append(self.oneOfUsers)
+                            }
+                        }
+                        UserDefaults.standard.set(true, forKey: "autoSignIn")
+                        UserDefaults.standard.set(self.emailTextField.text, forKey: "login")
+                        UserDefaults.standard.set(self.phoneTextField.text, forKey: "password")
+                        self.companyTextField.isUserInteractionEnabled = true
+                        self.nameTextField.isUserInteractionEnabled = true
+                        self.dateTextField.isUserInteractionEnabled = true
+                        self.emailTextField.isUserInteractionEnabled = true
+                        self.phoneTextField.isUserInteractionEnabled = true
+                        self.passTextField.isUserInteractionEnabled = true
+                        self.surnameTextField.isUserInteractionEnabled = true
+                        UIView.transition(with: self.view, duration: 1.5, options: .transitionFlipFromBottom, animations: {
+                            let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
+                            MainScreenTabBarVC.data = self.data
+                            self.navigationController?.pushViewController(MainScreenTabBarVC, animated: false)
+                        }, completion: nil)
+                    })
+                }
+                else {
+                    // Очистка всего UserDefaults, если вход не был выполнен
+                    if let appDomain = Bundle.main.bundleIdentifier {
+                        UserDefaults.standard.removePersistentDomain(forName: appDomain)
+                        self.companyTextField.isUserInteractionEnabled = true
+                        self.nameTextField.isUserInteractionEnabled = true
+                        self.dateTextField.isUserInteractionEnabled = true
+                        self.emailTextField.isUserInteractionEnabled = true
+                        self.phoneTextField.isUserInteractionEnabled = true
+                        self.passTextField.isUserInteractionEnabled = true
+                        self.surnameTextField.isUserInteractionEnabled = true                    }
+                }
+            }
+        }
+    }
+
 }
 
 extension SignUp: UITextFieldDelegate {

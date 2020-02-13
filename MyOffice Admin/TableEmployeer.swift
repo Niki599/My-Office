@@ -258,7 +258,6 @@ class TableEmployeer: UIViewController {
     
     @objc private func requestData() {
         Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
-            print(UserDefaults.standard.string(forKey: "login")!)
             if user != nil {
                 let hams = Auth.auth().currentUser?.uid
                 // TODO: Добавить автоопределение компании
@@ -275,6 +274,7 @@ class TableEmployeer: UIViewController {
                                     if nameOfField as? String == "admin" {
                                         if hams == uid as? String {
                                             UserDefaults.standard.set(valueOfField, forKey: "admin")
+                                            UserDefaults.standard.set(company, forKey: "company")
                                         }
                                         self.oneOfUsers.work.admin = valueOfField as? Bool
                                         continue

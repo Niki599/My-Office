@@ -43,6 +43,7 @@ class SignIn: UIViewController {
             self.authorizationButton.isUserInteractionEnabled = false
             self.loginTextField.isUserInteractionEnabled = false
             self.passwordTextField.isUserInteractionEnabled = false
+            self.authorizationButton.isUserInteractionEnabled = false
             Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
@@ -60,6 +61,7 @@ class SignIn: UIViewController {
                                         if nameOfField as? String == "admin" {
                                             if hams == uid as? String {
                                                 UserDefaults.standard.set(valueOfField, forKey: "admin")
+                                                UserDefaults.standard.set(company, forKey: "company")
                                             }
                                             self.oneOfUsers.work.admin = valueOfField as? Bool
                                             continue
@@ -120,6 +122,7 @@ class SignIn: UIViewController {
                         self.authorizationButton.isUserInteractionEnabled = true
                         self.loginTextField.isUserInteractionEnabled = true
                         self.passwordTextField.isUserInteractionEnabled = true
+                        self.authorizationButton.isUserInteractionEnabled = true
                         let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                         MainScreenTabBarVC.data = self.data
                         self.navigationController?.pushViewController(MainScreenTabBarVC, animated: true)
@@ -132,6 +135,7 @@ class SignIn: UIViewController {
                         self.authorizationButton.isUserInteractionEnabled = true
                         self.loginTextField.isUserInteractionEnabled = true
                         self.passwordTextField.isUserInteractionEnabled = true
+                        self.authorizationButton.isUserInteractionEnabled = true
                     }
                 }
             }
@@ -286,6 +290,7 @@ class SignIn: UIViewController {
         self.authorizationButton.isUserInteractionEnabled = false
         self.loginTextField.isUserInteractionEnabled = false
         self.passwordTextField.isUserInteractionEnabled = false
+        self.authorizationButton.isUserInteractionEnabled = false
         if !(loginTextField.text! == "" || passwordTextField.text! == "") {
             Auth.auth().signIn(withEmail: loginTextField.text!, password: passwordTextField.text!, completion: { (user, error) in
                 if user != nil {
@@ -304,6 +309,7 @@ class SignIn: UIViewController {
                                         if nameOfField as? String == "admin" {
                                             if hams == uid as? String {
                                                 UserDefaults.standard.set(valueOfField, forKey: "admin")
+                                                UserDefaults.standard.set(company, forKey: "company")
                                             }
                                             self.oneOfUsers.work.admin = valueOfField as? Bool
                                             continue
@@ -368,6 +374,7 @@ class SignIn: UIViewController {
                         self.authorizationButton.isUserInteractionEnabled = true
                         self.loginTextField.isUserInteractionEnabled = true
                         self.passwordTextField.isUserInteractionEnabled = true
+                        self.authorizationButton.isUserInteractionEnabled = true
                         let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                         MainScreenTabBarVC.data = self.data
                         self.navigationController?.pushViewController(MainScreenTabBarVC, animated: true)
@@ -380,6 +387,7 @@ class SignIn: UIViewController {
                         self.authorizationButton.isUserInteractionEnabled = true
                         self.loginTextField.isUserInteractionEnabled = true
                         self.passwordTextField.isUserInteractionEnabled = true
+                        self.authorizationButton.isUserInteractionEnabled = true
                     }
                 }
             })
@@ -398,12 +406,14 @@ class SignIn: UIViewController {
                 self.authorizationButton.isUserInteractionEnabled = true
                 self.loginTextField.isUserInteractionEnabled = true
                 self.passwordTextField.isUserInteractionEnabled = true
+                self.authorizationButton.isUserInteractionEnabled = true
             }
         }
     }
     
     @objc func didCreateCompanyButtonTap() {
         let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "SignUp") as! SignUp
+//        signUpVC.typeOfSignUp = false
         self.navigationController?.pushViewController(signUpVC, animated: true)
     }
     
