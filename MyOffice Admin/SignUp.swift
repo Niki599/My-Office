@@ -247,6 +247,12 @@ class SignUp: UIViewController {
 //    }
     
     @objc private func didNextButtonTap() {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        activityIndicator.frame = view.bounds
+        activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
+
         Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (result, error) in
             let hams = Auth.auth().currentUser?.uid
             let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
@@ -364,10 +370,13 @@ class SignUp: UIViewController {
                         self.emailTextField.isUserInteractionEnabled = true
                         self.phoneTextField.isUserInteractionEnabled = true
                         self.passTextField.isUserInteractionEnabled = true
-                        self.surnameTextField.isUserInteractionEnabled = true                    }
+                        self.surnameTextField.isUserInteractionEnabled = true
+                        
+                    }
                 }
             }
         }
+    activityIndicator.stopAnimating() // TODO: - Вовремя
     }
 
 }

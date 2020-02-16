@@ -43,6 +43,12 @@ class SignIn: UIViewController {
         view.addGestureRecognizer(gesture)
         //Реализация автовхода
         if (UserDefaults.standard.bool(forKey: "autoSignIn")) {
+            let activityIndicator = UIActivityIndicatorView(style: .large)
+            view.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+            activityIndicator.frame = view.bounds
+            activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
+
             self.authorizationButton.isUserInteractionEnabled = false
             self.loginTextField.isUserInteractionEnabled = false
             self.passwordTextField.isUserInteractionEnabled = false
@@ -126,6 +132,7 @@ class SignIn: UIViewController {
                         self.loginTextField.isUserInteractionEnabled = true
                         self.passwordTextField.isUserInteractionEnabled = true
                         self.authorizationButton.isUserInteractionEnabled = true
+                        activityIndicator.stopAnimating() // TODO: - Вовремя
                         let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                         MainScreenTabBarVC.data = self.data
                         self.navigationController?.pushViewController(MainScreenTabBarVC, animated: true)
@@ -290,6 +297,12 @@ class SignIn: UIViewController {
     }
             
     @objc private func didAuthButtonTap() {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        activityIndicator.frame = view.bounds
+        activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
+        
         self.authorizationButton.isUserInteractionEnabled = false
         self.loginTextField.isUserInteractionEnabled = false
         self.passwordTextField.isUserInteractionEnabled = false
@@ -378,6 +391,7 @@ class SignIn: UIViewController {
                         self.loginTextField.isUserInteractionEnabled = true
                         self.passwordTextField.isUserInteractionEnabled = true
                         self.authorizationButton.isUserInteractionEnabled = true
+                        activityIndicator.stopAnimating() // TODO: - Вовремя
                         let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                         MainScreenTabBarVC.data = self.data
                         self.navigationController?.pushViewController(MainScreenTabBarVC, animated: true)

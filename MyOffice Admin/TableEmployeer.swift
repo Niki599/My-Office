@@ -256,6 +256,12 @@ class TableEmployeer: UIViewController {
     }
     
     @objc private func requestData() {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        activityIndicator.frame = view.bounds
+        activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
+
         Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
             if user != nil {
                 let hams = Auth.auth().currentUser?.uid
@@ -292,7 +298,6 @@ class TableEmployeer: UIViewController {
                                     }
                                     if nameOfField as? String == "monthHours" {
                                         self.oneOfUsers.work.monthHours = valueOfField as? Int
-                                        // TODO: - Самостоятельно обновляется при переходе на главный экран и обратно. Разобраться почему
                                         if hams == uid as? String {
                                             self.labelQuantityHoursMonth.text = String(valueOfField as! Int)
                                         }
@@ -300,7 +305,6 @@ class TableEmployeer: UIViewController {
                                     }
                                     if nameOfField as? String == "totalHours" {
                                         self.oneOfUsers.work.totalHours = valueOfField as? Int
-                                        //
                                         if hams == uid as? String {
                                             self.labelQuantityAllOfHours.text = String(valueOfField as! Int)
                                         }
@@ -308,7 +312,6 @@ class TableEmployeer: UIViewController {
                                     }
                                     if nameOfField as? String == "weekHours" {
                                         self.oneOfUsers.work.weekHours = valueOfField as? Int
-                                        //
                                         if hams == uid as? String {
                                             self.labelQuantityHoursWeek.text = String(valueOfField as! Int)
                                         }
@@ -344,6 +347,7 @@ class TableEmployeer: UIViewController {
                         }
                     }
                 })
+                activityIndicator.stopAnimating() // TODO: - Вовремя
             }
             else {
                 print("Error")
@@ -373,7 +377,6 @@ extension TableEmployeer : UITableViewDelegate {
         stackViewHeader.axis = .horizontal
         stackViewHeader.alignment = .center
         stackViewHeader.distribution = .fillEqually
-        stackViewHeader.backgroundColor = .black
         
         let constraintsOfLabel: [NSLayoutConstraint] = [
             labelHeaderDate.topAnchor.constraint(equalTo: stackViewHeader.topAnchor),

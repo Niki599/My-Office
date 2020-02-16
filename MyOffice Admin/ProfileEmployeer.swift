@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class ProfileEmployeer: UIViewController {
            
@@ -208,11 +209,17 @@ class ProfileEmployeer: UIViewController {
     }
     
     @objc private func exitAction() {
-        UserDefaults.standard.set(false, forKey: "dataAvailability")
-        if let appDomain = Bundle.main.bundleIdentifier {
-            UserDefaults.standard.removePersistentDomain(forName: appDomain)
+        do {
+            try Auth.auth().signOut()
+            UserDefaults.standard.set(false, forKey: "dataAvailability")
+            if let appDomain = Bundle.main.bundleIdentifier {
+                UserDefaults.standard.removePersistentDomain(forName: appDomain)
+            }
+            self.navigationController?.popViewController(animated: true)
+//          dismissViewControllerAnimated(true, completion: nil)
+        } catch let signOutError as NSError {
+          print ("Error signing out: \(signOutError)")
         }
-        self.navigationController?.popViewController(animated: true)
     }
     
 }
