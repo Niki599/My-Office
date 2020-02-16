@@ -11,6 +11,14 @@ import Firebase
 
 class SignIn: UIViewController {
     
+    // MARK: - Public Methods
+    
+    /**
+     Модель всех сотрудников
+     */
+    var data = Company.shared
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
+    
     // MARK: - Private Properties
     
     private var loginTextField: UITextField!
@@ -20,11 +28,6 @@ class SignIn: UIViewController {
     private var backgroundView: UIView!
     private var enteryLabel: UILabel!
     private var createCompanyButton: UIButton!
-    /**
-     Модель всех сотрудников
-     */
-    var data = Company.shared
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
     
     private let logoImage = UIImage(imageLiteralResourceName: "sebbia-logo.jpg").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     private let checkBoxImage = UIImage(imageLiteralResourceName: "checkBox.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)

@@ -40,7 +40,7 @@
         <scene sceneID="8A3-Hu-RCH">
             <objects>
                 <viewController storyboardIdentifier="MainScreen" id="M7T-Q9-2QV" customClass="MainScreen" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" image="house" catalog="system" id="HYw-in-ouU"/>
+                    <tabBarItem key="tabBarItem" image="home" id="HYw-in-ouU"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6eF-nX-FdS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -65,6 +65,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rGk-Tf-Ldw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1716" y="814"/>
+        </scene>
+        <!--Table Employeers-->
+        <scene sceneID="wQZ-XN-FR1">
+            <objects>
+                <viewController storyboardIdentifier="TableEmployeers" id="Oq8-aa-Il4" customClass="TableEmployeers" customModule="MyOffice_Admin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3QB-38-bPq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Xwi-zD-XWe"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="table" catalog="system" id="sch-ZN-mFV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L7w-sG-D1h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2475" y="813"/>
         </scene>
         <!--Sign Up-->
         <scene sceneID="duF-Wn-8Pc">
@@ -94,6 +110,7 @@
                         <segue destination="ki6-v5-a3P" kind="relationship" relationship="viewControllers" id="Jv6-US-rh5"/>
                         <segue destination="M7T-Q9-2QV" kind="relationship" relationship="viewControllers" id="eNq-pS-OUO"/>
                         <segue destination="SFv-Pa-6d1" kind="relationship" relationship="viewControllers" id="zQU-6h-rWk"/>
+                        <segue destination="Oq8-aa-Il4" kind="relationship" relationship="viewControllers" id="1PV-ZH-Ihy"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ITx-bD-L51" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -128,7 +145,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="house" catalog="system" width="64" height="54"/>
+        <image name="home" width="24" height="24"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="table" catalog="system" width="64" height="46"/>
     </resources>

@@ -247,8 +247,6 @@ class SignUp: UIViewController {
 //    }
     
     @objc private func didNextButtonTap() {
-        //            let email = emailField.text
-        //            let password = passwordField.text
         Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (result, error) in
             let hams = Auth.auth().currentUser?.uid
             let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)

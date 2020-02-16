@@ -24,7 +24,7 @@ class TableEmployeer: UIViewController {
     
     private let identifire = "MyCell"
 
-    private var titleTable: UILabel!
+    private var titleLabel: UILabel!
     private var tableEmployeer: UITableView!
     private var backgroundView: UIView!
     private var updateButton: UIButton!
@@ -33,7 +33,8 @@ class TableEmployeer: UIViewController {
     private var labelQuantityAllOfHours: UILabel!
 
     private var constraints: [NSLayoutConstraint]!
-    
+    private var stackViewHeader: UIStackView!
+
     private lazy var labelHeaderDate: UILabel = {
         var label = UILabel()
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
@@ -73,9 +74,7 @@ class TableEmployeer: UIViewController {
         label.backgroundColor = .white
         return label
     }()
-    
-    private var stackViewHeader: UIStackView!
-    
+        
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -102,11 +101,11 @@ class TableEmployeer: UIViewController {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundView)
         
-        titleTable = UILabel()
-        titleTable.text = "Мои данные"
-        titleTable.translatesAutoresizingMaskIntoConstraints = false
-        titleTable.textAlignment = .center
-        view.addSubview(titleTable)
+        titleLabel = UILabel()
+        titleLabel.text = "Мои данные"
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textAlignment = .center
+        view.addSubview(titleLabel)
         
         tableEmployeer = UITableView()
         tableEmployeer.translatesAutoresizingMaskIntoConstraints = false
@@ -114,7 +113,6 @@ class TableEmployeer: UIViewController {
         tableEmployeer.delegate = self
         tableEmployeer.dataSource = self
         tableEmployeer.separatorStyle = .none
-//        tableEmployeer.layer.borderWidth = 1.0
         view.addSubview(tableEmployeer)
         
         updateButton = UIButton()
@@ -219,17 +217,17 @@ class TableEmployeer: UIViewController {
             backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
-            titleTable.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
-            titleTable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleTable.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
+            titleLabel.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
             
-            updateButton.centerYAnchor.constraint(equalTo: titleTable.centerYAnchor),
+            updateButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             updateButton.heightAnchor.constraint(equalToConstant: 40),
             updateButton.widthAnchor.constraint(equalToConstant: 40),
             updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -5),
             
             profileButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
-            profileButton.topAnchor.constraint(equalTo: titleTable.bottomAnchor, constant: 30),
+            profileButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
             profileButton.leftAnchor.constraint(equalTo: view.safeArea.leftAnchor, constant: 25),
             profileButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -25),
             profileButton.heightAnchor.constraint(equalToConstant: 62),
@@ -251,7 +249,8 @@ class TableEmployeer: UIViewController {
         let st = "\(dateDiff! / 60)" + ".\(dateDiff! % 60)"
         
         let hour = Calendar.current.component(.hour, from: Date())
-        let minute = Calendar.current.component(.minute, from: Date())
+        let minute = Calendar.current.component(.month, from: Date())
+        print(minute)
         var timeIsNow = "\(hour) + \(minute)"
         
     }
@@ -400,7 +399,7 @@ extension TableEmployeer : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return data.users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -419,6 +418,9 @@ extension TableEmployeer : UITableViewDataSource {
         }
     }
     
+    /**
+     Нажатие на (i)
+     */
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         print("hui")
     }

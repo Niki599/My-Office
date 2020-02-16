@@ -22,6 +22,7 @@
 		3A3637B62396604C00C7E7E4 /* update.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637AB2396604C00C7E7E4 /* update.png */; };
 		3A9E503A23B25FDF00B41754 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E503923B25FDF00B41754 /* MainScreen.swift */; };
 		3AC495F023BA412700A5974F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */; };
+		4728B04423F86C1E002E7D76 /* TableEmployeers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728B04323F86C1E002E7D76 /* TableEmployeers.swift */; };
 		47414E9723D70DBD00C1EE7D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47414E9623D70DBD00C1EE7D /* TableViewCell.swift */; };
 		47414E9923D7155D00C1EE7D /* ProfileEmployeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */; };
 		47459ADD23F2CBB800164823 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47459ADC23F2CBB800164823 /* SignUp.swift */; };
@@ -75,6 +76,7 @@
 		3A3637AB2396604C00C7E7E4 /* update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = update.png; sourceTree = "<group>"; };
 		3A9E503923B25FDF00B41754 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		3AC495EF23BA412700A5974F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4728B04323F86C1E002E7D76 /* TableEmployeers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableEmployeers.swift; sourceTree = "<group>"; };
 		47414E9623D70DBD00C1EE7D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEmployeer.swift; sourceTree = "<group>"; };
 		47459ADC23F2CBB800164823 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				3A9E503923B25FDF00B41754 /* MainScreen.swift */,
 				476ADA4D23959D7E0030C0A5 /* TableEmployeer.swift */,
 				47414E9623D70DBD00C1EE7D /* TableViewCell.swift */,
+				4728B04323F86C1E002E7D76 /* TableEmployeers.swift */,
 				47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */,
 				47D830A12392AF2900DB9168 /* Main.storyboard */,
 				3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */,
@@ -510,6 +513,7 @@
 				3A9E503A23B25FDF00B41754 /* MainScreen.swift in Sources */,
 				47D8309E2392AF2900DB9168 /* SceneDelegate.swift in Sources */,
 				47414E9923D7155D00C1EE7D /* ProfileEmployeer.swift in Sources */,
+				4728B04423F86C1E002E7D76 /* TableEmployeers.swift in Sources */,
 				47ACC81123E42C5500BB05F0 /* UserModel.swift in Sources */,
 				47D830CC2392B31000DB9168 /* MainScreenTabBar.swift in Sources */,
 			);
