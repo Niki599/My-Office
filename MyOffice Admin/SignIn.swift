@@ -49,10 +49,6 @@ class SignIn: UIViewController {
             activityIndicator.frame = view.bounds
             activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
 
-            self.authorizationButton.isUserInteractionEnabled = false
-            self.loginTextField.isUserInteractionEnabled = false
-            self.passwordTextField.isUserInteractionEnabled = false
-            self.authorizationButton.isUserInteractionEnabled = false
             Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
@@ -128,10 +124,6 @@ class SignIn: UIViewController {
                                 self.data.users.append(self.oneOfUsers)
                             }
                         }
-                        self.authorizationButton.isUserInteractionEnabled = true
-                        self.loginTextField.isUserInteractionEnabled = true
-                        self.passwordTextField.isUserInteractionEnabled = true
-                        self.authorizationButton.isUserInteractionEnabled = true
                         activityIndicator.stopAnimating() // TODO: - Вовремя
                         let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                         MainScreenTabBarVC.data = self.data
@@ -142,10 +134,6 @@ class SignIn: UIViewController {
                     // Очистка всего UserDefaults, если вход не был выполнен
                     if let appDomain = Bundle.main.bundleIdentifier {
                         UserDefaults.standard.removePersistentDomain(forName: appDomain)
-                        self.authorizationButton.isUserInteractionEnabled = true
-                        self.loginTextField.isUserInteractionEnabled = true
-                        self.passwordTextField.isUserInteractionEnabled = true
-                        self.authorizationButton.isUserInteractionEnabled = true
                     }
                 }
             }
@@ -303,10 +291,6 @@ class SignIn: UIViewController {
         activityIndicator.frame = view.bounds
         activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
         
-        self.authorizationButton.isUserInteractionEnabled = false
-        self.loginTextField.isUserInteractionEnabled = false
-        self.passwordTextField.isUserInteractionEnabled = false
-        self.authorizationButton.isUserInteractionEnabled = false
         if !(loginTextField.text! == "" || passwordTextField.text! == "") {
             Auth.auth().signIn(withEmail: loginTextField.text!, password: passwordTextField.text!, completion: { (user, error) in
                 if user != nil {
@@ -387,10 +371,6 @@ class SignIn: UIViewController {
                         UserDefaults.standard.set(true, forKey: "autoSignIn")
                         UserDefaults.standard.set(self.loginTextField.text, forKey: "login")
                         UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
-                        self.authorizationButton.isUserInteractionEnabled = true
-                        self.loginTextField.isUserInteractionEnabled = true
-                        self.passwordTextField.isUserInteractionEnabled = true
-                        self.authorizationButton.isUserInteractionEnabled = true
                         activityIndicator.stopAnimating() // TODO: - Вовремя
                         let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                         MainScreenTabBarVC.data = self.data
@@ -401,10 +381,6 @@ class SignIn: UIViewController {
                     // Очистка всего UserDefaults, если вход не был выполнен
                     if let appDomain = Bundle.main.bundleIdentifier {
                         UserDefaults.standard.removePersistentDomain(forName: appDomain)
-                        self.authorizationButton.isUserInteractionEnabled = true
-                        self.loginTextField.isUserInteractionEnabled = true
-                        self.passwordTextField.isUserInteractionEnabled = true
-                        self.authorizationButton.isUserInteractionEnabled = true
                     }
                 }
             })
@@ -420,10 +396,6 @@ class SignIn: UIViewController {
             // Очистка всего UserDefaults, если вход не был выполнен
             if let appDomain = Bundle.main.bundleIdentifier {
                 UserDefaults.standard.removePersistentDomain(forName: appDomain)
-                self.authorizationButton.isUserInteractionEnabled = true
-                self.loginTextField.isUserInteractionEnabled = true
-                self.passwordTextField.isUserInteractionEnabled = true
-                self.authorizationButton.isUserInteractionEnabled = true
             }
         }
     }

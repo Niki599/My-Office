@@ -260,13 +260,6 @@ class SignUp: UIViewController {
             let work = base.child("work")
             info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!, "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
             work.updateChildValues(["admin": true, "check":true, "monthHours": 0, "weekHours": 0, "totalHours": 0])
-            self.companyTextField.isUserInteractionEnabled = false
-            self.nameTextField.isUserInteractionEnabled = false
-            self.dateTextField.isUserInteractionEnabled = false
-            self.emailTextField.isUserInteractionEnabled = false
-            self.phoneTextField.isUserInteractionEnabled = false
-            self.passTextField.isUserInteractionEnabled = false
-            self.surnameTextField.isUserInteractionEnabled = false
 
             Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (user, error) in
                 if user != nil {
@@ -346,13 +339,6 @@ class SignUp: UIViewController {
                         UserDefaults.standard.set(true, forKey: "autoSignIn")
                         UserDefaults.standard.set(self.emailTextField.text, forKey: "login")
                         UserDefaults.standard.set(self.phoneTextField.text, forKey: "password")
-                        self.companyTextField.isUserInteractionEnabled = true
-                        self.nameTextField.isUserInteractionEnabled = true
-                        self.dateTextField.isUserInteractionEnabled = true
-                        self.emailTextField.isUserInteractionEnabled = true
-                        self.phoneTextField.isUserInteractionEnabled = true
-                        self.passTextField.isUserInteractionEnabled = true
-                        self.surnameTextField.isUserInteractionEnabled = true
                         UIView.transition(with: self.view, duration: 1.5, options: .transitionFlipFromBottom, animations: {
                             let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                             MainScreenTabBarVC.data = self.data
@@ -363,15 +349,7 @@ class SignUp: UIViewController {
                 else {
                     // Очистка всего UserDefaults, если вход не был выполнен
                     if let appDomain = Bundle.main.bundleIdentifier {
-                        UserDefaults.standard.removePersistentDomain(forName: appDomain)
-                        self.companyTextField.isUserInteractionEnabled = true
-                        self.nameTextField.isUserInteractionEnabled = true
-                        self.dateTextField.isUserInteractionEnabled = true
-                        self.emailTextField.isUserInteractionEnabled = true
-                        self.phoneTextField.isUserInteractionEnabled = true
-                        self.passTextField.isUserInteractionEnabled = true
-                        self.surnameTextField.isUserInteractionEnabled = true
-                        
+                        UserDefaults.standard.removePersistentDomain(forName: appDomain)                        
                     }
                 }
             }

@@ -61,7 +61,6 @@ class MainScreen: UIViewController {
         connectionButton.clipsToBounds = true
         connectionButton.addTarget(nil, action: #selector(didTapJoinButton(_:)), for: .touchUpInside)
         connectionButton.isHidden = false
-        connectionButton.isUserInteractionEnabled = true
         view.addSubview(connectionButton)
         
         let title = UILabel()
