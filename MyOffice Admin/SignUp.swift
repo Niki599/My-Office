@@ -252,7 +252,7 @@ class SignUp: UIViewController {
         activityIndicator.startAnimating()
         activityIndicator.frame = view.bounds
         activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
-
+        
         Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (result, error) in
             let hams = Auth.auth().currentUser?.uid
             let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
@@ -260,82 +260,80 @@ class SignUp: UIViewController {
             let work = base.child("work")
             info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!, "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
             work.updateChildValues(["admin": true, "check":true, "monthHours": 0, "weekHours": 0, "totalHours": 0])
-
+            
             Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (user, error) in
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
-                    // TODO: Добавить автоопределение компании
-                    let base = Database.database().reference()
+                    let base = Database.database().reference().child((self.companyTextField.text!))
                     self.data.users.removeAll()
                     // TODO: Вынести в отдельную функцию
                     base.observe(.value, with:  { (snapshot) in
                         guard let value = snapshot.value, snapshot.exists() else { return }
                         let dict: NSDictionary = value as! NSDictionary
-                        for (company, uids) in dict {
-                            for (uid, categories) in uids as! NSDictionary {
-                                for (category, fields) in categories as! NSDictionary {
-                                    for (nameOfField, valueOfField) in fields as! NSDictionary {
-                                        if nameOfField as? String == "admin" {
-                                            if hams == uid as? String {
-                                                UserDefaults.standard.set(valueOfField, forKey: "admin")
-                                                UserDefaults.standard.set(company, forKey: "company")
-                                            }
-                                            self.oneOfUsers.work.admin = valueOfField as? Bool
-                                            continue
+                        for (uid, categories) in dict as! NSDictionary {
+                            for (category, fields) in categories as! NSDictionary {
+                                for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                    if nameOfField as? String == "admin" {
+                                        if hams == uid as? String {
+                                            UserDefaults.standard.set(valueOfField, forKey: "admin")
+                                            UserDefaults.standard.set((self.companyTextField.text!), forKey: "company")
                                         }
-                                        if nameOfField as? String == "check" {
-                                            self.oneOfUsers.work.check = valueOfField as? Bool
-                                            continue
-                                        }
-                                        if nameOfField as? String == "coming" {
-                                            self.oneOfUsers.work.coming = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "leaving" {
-                                            self.oneOfUsers.work.leaving = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "monthHours" {
-                                            self.oneOfUsers.work.monthHours = valueOfField as? Int
-                                            continue
-                                        }
-                                        if nameOfField as? String == "totalHours" {
-                                            self.oneOfUsers.work.totalHours = valueOfField as? Int
-                                            continue
-                                        }
-                                        if nameOfField as? String == "weekHours" {
-                                            self.oneOfUsers.work.weekHours = valueOfField as? Int
-                                            continue
-                                        }
-                                        if nameOfField as? String == "date" {
-                                            self.oneOfUsers.info.date = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "email" {
-                                            self.oneOfUsers.info.email = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "name" {
-                                            self.oneOfUsers.info.name = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "pass" {
-                                            self.oneOfUsers.info.pass = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "phone" {
-                                            self.oneOfUsers.info.phone = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "surname" {
-                                            self.oneOfUsers.info.surname = valueOfField as? String
-                                            continue
-                                        }
+                                        self.oneOfUsers.work.admin = valueOfField as? Bool
+                                        continue
+                                    }
+                                    if nameOfField as? String == "check" {
+                                        self.oneOfUsers.work.check = valueOfField as? Bool
+                                        continue
+                                    }
+                                    if nameOfField as? String == "coming" {
+                                        self.oneOfUsers.work.coming = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "leaving" {
+                                        self.oneOfUsers.work.leaving = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "monthHours" {
+                                        self.oneOfUsers.work.monthHours = valueOfField as? Int
+                                        continue
+                                    }
+                                    if nameOfField as? String == "totalHours" {
+                                        self.oneOfUsers.work.totalHours = valueOfField as? Int
+                                        continue
+                                    }
+                                    if nameOfField as? String == "weekHours" {
+                                        self.oneOfUsers.work.weekHours = valueOfField as? Int
+                                        continue
+                                    }
+                                    if nameOfField as? String == "date" {
+                                        self.oneOfUsers.info.date = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "email" {
+                                        self.oneOfUsers.info.email = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "name" {
+                                        self.oneOfUsers.info.name = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "pass" {
+                                        self.oneOfUsers.info.pass = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "phone" {
+                                        self.oneOfUsers.info.phone = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "surname" {
+                                        self.oneOfUsers.info.surname = valueOfField as? String
+                                        continue
                                     }
                                 }
-                                self.data.users.append(self.oneOfUsers)
                             }
+                            self.data.users.append(self.oneOfUsers)
                         }
+                        
                         UserDefaults.standard.set(true, forKey: "autoSignIn")
                         UserDefaults.standard.set(self.emailTextField.text, forKey: "login")
                         UserDefaults.standard.set(self.phoneTextField.text, forKey: "password")
@@ -354,7 +352,7 @@ class SignUp: UIViewController {
                 }
             }
         }
-    activityIndicator.stopAnimating() // TODO: - Вовремя
+        activityIndicator.stopAnimating() // TODO: - Вовремя
     }
 
 }
