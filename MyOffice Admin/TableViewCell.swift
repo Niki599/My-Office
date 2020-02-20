@@ -11,6 +11,8 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
     
+    // MARK: - Lifecycle
+    
     init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, data: Company, indexPath: IndexPath, accessoryType: UITableViewCell.AccessoryType) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -19,17 +21,17 @@ class TableViewCell: UITableViewCell {
         labelFirst.font = UIFont.italicSystemFont(ofSize: 13)
         labelFirst.textAlignment = .center
         labelFirst.numberOfLines = 0
-
+        
         let labelSecond = UILabel()
         labelSecond.textColor = UIColor(red: 0, green: 0.721, blue: 0.029, alpha: 1)
         labelSecond.font = UIFont.italicSystemFont(ofSize: 13)
         labelSecond.textAlignment = .center
-
+        
         let labelThrid = UILabel()
         labelThrid.textColor = UIColor(red: 0.721, green: 0.029, blue: 0, alpha: 1)
         labelThrid.font = UIFont.italicSystemFont(ofSize: 13)
         labelThrid.textAlignment = .center
-
+        
         let labelFourth = UILabel()
         labelFourth.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         labelFourth.font = UIFont.italicSystemFont(ofSize: 13)
@@ -50,7 +52,7 @@ class TableViewCell: UITableViewCell {
             labelThrid.text = data.users[indexPath.row].work.leaving
             labelFourth.text = "\(data.users[indexPath.row].work.weekHours!) ч"
         }
-
+        
         // Зеленый фон нажатия на таблицу
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor(red: 0.954, green: 1, blue: 0.956, alpha: 1)
@@ -68,9 +70,10 @@ class TableViewCell: UITableViewCell {
         contentView.trailingAnchor.constraint(equalTo: stackViewCell.trailingAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: stackViewCell.bottomAnchor).isActive = true
         self.accessoryType = accessoryType
-}
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }

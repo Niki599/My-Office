@@ -307,4 +307,25 @@ extension TableEmployeers : UITableViewDataSource {
         print("hui")
     }
     
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+
+        if editingStyle == .delete {
+
+            // remove the item from the data model
+            data.users.remove(at: indexPath.row)
+
+            // delete the table view row
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            staffCount()
+
+        } else if editingStyle == .insert {
+            // Not used in our example, but if you were adding a new row, this is where you would do it.
+        }
+    }
+    
 }

@@ -60,7 +60,7 @@ class ProfileEmployeer: UIViewController {
         let labelFullName = UILabel()
         for user in data.users {
             if user.info.email == UserDefaults.standard.string(forKey: "login")! {
-                labelFullName.text = String(user.info.name!) + " " + String(user.info.surname!)
+                labelFullName.text = "\(user.info.name!) \(user.info.surname!)"
             }
         }
         labelFullName.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
