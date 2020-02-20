@@ -385,9 +385,9 @@ class SignIn: UIViewController {
                                 }
                             }
                         }
-                        
+
                         UserDefaults.standard.set(true, forKey: "autoSignIn")
-                        UserDefaults.standard.set(self.loginTextField.text, forKey: "login")
+                        UserDefaults.standard.set(self.loginTextField.text?.lowercased(), forKey: "login")
                         UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
                         activityIndicator.stopAnimating() // TODO: - Вовремя
                         let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar

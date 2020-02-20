@@ -11,41 +11,52 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
     
-    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, data: Company) {
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, data: Company, indexPath: IndexPath, accessoryType: UITableViewCell.AccessoryType) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        //        cell.textLabel?.text = data[indexPath.row]
         
-        let labelDate = UILabel()
-        labelDate.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        labelDate.font = UIFont.italicSystemFont(ofSize: 13)
-        labelDate.textAlignment = .center
-        labelDate.numberOfLines = 0
-        labelDate.text = "3 ноября"
+        let labelFirst = UILabel()
+        labelFirst.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        labelFirst.font = UIFont.italicSystemFont(ofSize: 13)
+        labelFirst.textAlignment = .center
+        labelFirst.numberOfLines = 0
+
+        let labelSecond = UILabel()
+        labelSecond.textColor = UIColor(red: 0, green: 0.721, blue: 0.029, alpha: 1)
+        labelSecond.font = UIFont.italicSystemFont(ofSize: 13)
+        labelSecond.textAlignment = .center
+
+        let labelThrid = UILabel()
+        labelThrid.textColor = UIColor(red: 0.721, green: 0.029, blue: 0, alpha: 1)
+        labelThrid.font = UIFont.italicSystemFont(ofSize: 13)
+        labelThrid.textAlignment = .center
+
+        let labelFourth = UILabel()
+        labelFourth.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        labelFourth.font = UIFont.italicSystemFont(ofSize: 13)
+        labelFourth.textAlignment = .center
         
-        let labelComming = UILabel()
-        labelComming.textColor = UIColor(red: 0, green: 0.721, blue: 0.029, alpha: 1)
-        labelComming.font = UIFont.italicSystemFont(ofSize: 13)
-        labelComming.textAlignment = .center
-        labelComming.text = "10:30"
+        /**
+         Заполнение таблицы данными в зависимости от типа таблицы, если на ячейку можно нажать, то таблица админа, иначе -- нет
+         */
         
-        let labelLeaving = UILabel()
-        labelLeaving.textColor = UIColor(red: 0.721, green: 0.029, blue: 0, alpha: 1)
-        labelLeaving.font = UIFont.italicSystemFont(ofSize: 13)
-        labelLeaving.textAlignment = .center
-        labelLeaving.text = "19:45"
-        
-        let labelTimeOfWorking = UILabel()
-        labelTimeOfWorking.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        labelTimeOfWorking.font = UIFont.italicSystemFont(ofSize: 13)
-        labelTimeOfWorking.textAlignment = .center
-        labelTimeOfWorking.text = "9.22 ч"
-        
+        if accessoryType == .none {
+            labelFirst.text = data.users[indexPath.row].info.name
+            labelSecond.text = data.users[indexPath.row].work.coming
+            labelThrid.text = data.users[indexPath.row].work.leaving
+            labelFourth.text = "\(data.users[indexPath.row].work.weekHours!) ч"
+        } else {
+            labelFirst.text = data.users[indexPath.row].info.name
+            labelSecond.text = data.users[indexPath.row].work.coming
+            labelThrid.text = data.users[indexPath.row].work.leaving
+            labelFourth.text = "\(data.users[indexPath.row].work.weekHours!) ч"
+        }
+
         // Зеленый фон нажатия на таблицу
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor(red: 0.954, green: 1, blue: 0.956, alpha: 1)
         selectedBackgroundView = backgroundView
         
-        let stackViewCell = UIStackView(arrangedSubviews: [labelDate, labelComming, labelLeaving, labelTimeOfWorking])
+        let stackViewCell = UIStackView(arrangedSubviews: [labelFirst, labelSecond, labelThrid, labelFourth])
         stackViewCell.axis = .horizontal
         stackViewCell.alignment = .center
         stackViewCell.distribution = .fillEqually
@@ -56,8 +67,7 @@ class TableViewCell: UITableViewCell {
         stackViewCell.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         contentView.trailingAnchor.constraint(equalTo: stackViewCell.trailingAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: stackViewCell.bottomAnchor).isActive = true
-        //        cell.accessoryType = .detailDisclosureButton
-        
+        self.accessoryType = accessoryType
 }
     
     required init?(coder: NSCoder) {

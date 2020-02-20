@@ -285,8 +285,7 @@ extension TableEmployeers : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = TableViewCell(style: .default, reuseIdentifier: "MyCell", data: data)
-        cell.accessoryType = .disclosureIndicator
+        let cell = TableViewCell(style: .default, reuseIdentifier: "MyCell", data: data, indexPath: indexPath, accessoryType: .disclosureIndicator)
         return cell
     }
     

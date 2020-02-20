@@ -258,7 +258,7 @@ class SignUp: UIViewController {
             let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
             let info = base.child("info")
             let work = base.child("work")
-            info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!, "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
+            info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
             work.updateChildValues(["admin": true, "check":true, "monthHours": 0, "weekHours": 0, "totalHours": 0])
             
             Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (user, error) in
@@ -335,7 +335,7 @@ class SignUp: UIViewController {
                         }
                         
                         UserDefaults.standard.set(true, forKey: "autoSignIn")
-                        UserDefaults.standard.set(self.emailTextField.text, forKey: "login")
+                        UserDefaults.standard.set(self.emailTextField.text?.lowercased(), forKey: "login")
                         UserDefaults.standard.set(self.phoneTextField.text, forKey: "password")
                         UIView.transition(with: self.view, duration: 1.5, options: .transitionFlipFromBottom, animations: {
                             let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
