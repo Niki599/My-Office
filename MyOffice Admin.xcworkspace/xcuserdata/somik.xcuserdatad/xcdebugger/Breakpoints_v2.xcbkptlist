@@ -15,5 +15,53 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B8B3B2C6-4C82-4587-871A-974005D41578"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyOffice Admin/ProfileEmployeer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
+            landmarkName = "didDeleteAccButtonTap()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B8B3B2C6-4C82-4587-871A-974005D41578 - 2d7b4ea470b0aa2"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyOffice_Admin.ProfileEmployeer.(didDeleteAccButtonTap in _A6A902E15BC49FB53BB3D2E6ED476AA5)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/ProfileEmployeer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "241"
+                  endingLineNumber = "241"
+                  offsetFromSymbolStart = "42">
+               </Location>
+               <Location
+                  uuid = "B8B3B2C6-4C82-4587-871A-974005D41578 - 7d6815546ab1048f"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.ProfileEmployeer.(didDeleteAccButtonTap in _A6A902E15BC49FB53BB3D2E6ED476AA5)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/ProfileEmployeer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "242"
+                  endingLineNumber = "242"
+                  offsetFromSymbolStart = "116">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
