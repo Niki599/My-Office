@@ -154,10 +154,20 @@ class SignIn: UIViewController {
         super.viewWillAppear(animated)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        self.loginTextField.text = ""
-        self.passwordTextField.text = ""
-    }
+    // TODO: - Если человек находится в приложении, и я меняю значения в Firebase, то как нам известно из другой задачи
+    // приложение начнет обновляться (разобраться почему). Обновится весь NavigationStack и вызовет эти две строчки
+    // на когда будет проходить через этот VC
+    //    UserDefaults.standard.set(self.loginTextField.text?.lowercased(), forKey: "login")
+    //    UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
+    // После этого он запомнит пустые строчки, так как мы их делаем пустыми после ухода, для того чтобы, когда мы
+    // нажимали "Выход" строчки были пустыми, и впредь, когда мы будем пробовать получать доступ к Firebase, он будет
+    // вставлять пустые строчки, из-за чего приложение крашится.
+    // Вариант решения сделать Alert с TextView, чтобы всегда входить заново при обновлении модели
+
+//    override func viewDidDisappear(_ animated: Bool) {
+//        self.loginTextField.text = ""
+//        self.passwordTextField.text = ""
+//    }
     
     override func viewDidLayoutSubviews() {
         
@@ -419,7 +429,7 @@ class SignIn: UIViewController {
     
     @objc func didCreateCompanyButtonTap() {
         let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "SignUp") as! SignUp
-//        signUpVC.typeOfSignUp = false
+        signUpVC.typeOfSignUp = true
         self.navigationController?.pushViewController(signUpVC, animated: true)
     }
     

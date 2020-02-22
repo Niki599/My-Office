@@ -24,6 +24,7 @@ class TableEmployeers: UIViewController {
     
     private var titleLabel: UILabel!
     private var updateButton: UIButton!
+    private var addEmployee: UIButton!
     private var dateLabel: UILabel!
     private var tableEmployeers: UITableView!
     private var constraints: [NSLayoutConstraint]!
@@ -59,10 +60,16 @@ class TableEmployeers: UIViewController {
         view.addSubview(titleLabel)
         
         updateButton = UIButton()
-        updateButton.addTarget(self, action: #selector(requestData), for: .touchUpInside)
+        updateButton.addTarget(self, action: #selector(didUpdateButtonTap), for: .touchUpInside)
         updateButton.translatesAutoresizingMaskIntoConstraints = false
         updateButton.setImage(UIImage(imageLiteralResourceName: "update.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
         view.addSubview(updateButton)
+        
+        addEmployee = UIButton()
+        addEmployee.addTarget(self, action: #selector(didCreateEmployyButtonTap), for: .touchUpInside)
+        addEmployee.translatesAutoresizingMaskIntoConstraints = false
+        addEmployee.setImage(UIImage(imageLiteralResourceName: "addRound.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
+        view.addSubview(addEmployee)
         
         tableEmployeers = UITableView()
         tableEmployeers.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +98,7 @@ class TableEmployeers: UIViewController {
         
     }
     
-    @objc private func requestData() {
+    @objc private func didUpdateButtonTap() {
         let activityIndicator = UIActivityIndicatorView(style: .large)
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
@@ -173,11 +180,20 @@ class TableEmployeers: UIViewController {
                 activityIndicator.stopAnimating() // TODO: - Вовремя
             }
             else {
-                print("Error")
+                print(error)
             }
         }
+        // TODO: - Только при двойном нажатии он обновит таблицу
         staffCount()
         tableEmployeers.reloadData()
+        
+    }
+    
+    @objc private func didCreateEmployyButtonTap() {
+        
+        let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "SignUp") as! SignUp
+        signUpVC.typeOfSignUp = false
+        self.navigationController?.pushViewController(signUpVC, animated: true)
         
     }
     
@@ -307,10 +323,6 @@ extension TableEmployeers : UITableViewDataSource {
         print("hui")
     }
     
-//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 
         if editingStyle == .delete {
@@ -323,6 +335,33 @@ extension TableEmployeers : UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .automatic)
             staffCount()
 
+//            Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
+//                let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!)
+//                var uidDeleted: String?
+//                base.observe(.value, with:  { (snapshot) in
+//                    guard let value = snapshot.value, snapshot.exists() else { return }
+//                    let dict: NSDictionary = value as! NSDictionary
+//                    for (uid, categories) in dict as! NSDictionary {
+//                        for (category, fields) in categories as! NSDictionary {
+//                            for (nameOfField, valueOfField) in fields as! NSDictionary {
+//                                if nameOfField as? String == "email" {
+//                                    if self.data.users[indexPath.row].info.email == valueOfField as? String {
+//                                        uidDeleted = uid as? String
+//                                        break
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                    base.child(uidDeleted!).removeValue()
+//                    self.data.users.remove(at: indexPath.row)
+//                    // delete the table view row
+//
+//                    tableView.deleteRows(at: [indexPath], with: .automatic)
+//                    self.staffCount()
+//                })
+//            }
+//            print(Auth.auth().currentUser?.email)
         } else if editingStyle == .insert {
             // Not used in our example, but if you were adding a new row, this is where you would do it.
         }

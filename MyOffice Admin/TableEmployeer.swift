@@ -116,7 +116,7 @@ class TableEmployeer: UIViewController {
         view.addSubview(tableEmployeer)
         
         updateButton = UIButton()
-        updateButton.addTarget(self, action: #selector(requestData), for: .touchUpInside)
+        updateButton.addTarget(self, action: #selector(didUpdateButtonTap), for: .touchUpInside)
         updateButton.translatesAutoresizingMaskIntoConstraints = false
         updateButton.setImage(UIImage(imageLiteralResourceName: "update.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
         view.addSubview(updateButton)
@@ -255,7 +255,7 @@ class TableEmployeer: UIViewController {
         
     }
     
-    @objc private func requestData() {
+    @objc private func didUpdateButtonTap() {
         let activityIndicator = UIActivityIndicatorView(style: .large)
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
@@ -349,6 +349,7 @@ class TableEmployeer: UIViewController {
                 print("Error")
             }
         }
+        // TODO: - Только при двойном нажатии он обновит таблицу
         self.tableEmployeer.reloadData()
         
     }

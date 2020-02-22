@@ -29,15 +29,16 @@ class SignUp: UIViewController {
     
     // MARK: - Private Properties
     private var  companyView: UIView!
-    private var constraints: [NSLayoutConstraint]!
     private var companyTextField: UITextField!
+    private var buttonAdmin: UIButton!
     private var nameTextField: UITextField!
     private var surnameTextField: UITextField!
     private var dateTextField: UITextField!
     private var emailTextField: UITextField!
     private var phoneTextField: UITextField!
     private var passTextField: UITextField!
-    
+    private var constraints: [NSLayoutConstraint]!
+
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -100,16 +101,13 @@ class SignUp: UIViewController {
         companyTextField = standartTextField("Имя компании")
         companyView.addSubview(companyTextField)
         
-//        let buttonAdmin = UIButton(type: .custom)
-//        buttonAdmin.layer.borderWidth = 1
-//        buttonAdmin.layer.cornerRadius = 5
-//        buttonAdmin.backgroundColor = .black
-//        buttonAdmin.setImage(UIImage(named: "checkBox.png"), for: .normal)
-//        buttonAdmin.setImage(UIImage(named: "icons8-Ð¾ÑÐ¼ÐµÑÐµÐ½Ð½ÑÐ¹-ÑÐµÐºÐ±Ð¾ÐºÑ-100.png"), for: .selected)
-//        buttonAdmin.translatesAutoresizingMaskIntoConstraints = false
-//        buttonAdmin.clipsToBounds = true
-//        buttonAdmin.addTarget(nil, action: #selector(didTapRadioButton(_:)), for: .touchUpInside)
-//        companyView.addSubview(buttonAdmin)
+        buttonAdmin = UIButton(type: .custom)
+        buttonAdmin.layer.borderWidth = 1
+        buttonAdmin.layer.cornerRadius = 5
+        buttonAdmin.backgroundColor = .red
+        buttonAdmin.translatesAutoresizingMaskIntoConstraints = false
+        buttonAdmin.addTarget(nil, action: #selector(didTapRadioButton(_:)), for: .touchUpInside)
+        companyView.addSubview(buttonAdmin)
         
         let infoView = UIView()
         infoView.layer.cornerRadius = 20
@@ -157,15 +155,15 @@ class SignUp: UIViewController {
         nextButton.addTarget(self, action:#selector(didNextButtonTap), for: .touchUpInside)
         infoView.addSubview(nextButton)
         
-//        if typeOfSignUp {
-//            companyLabel.isHidden = false
-//            companyTextField.isHidden = false
-//            buttonAdmin.isHidden = true
-//        } else {
-//            companyLabel.isHidden = true
-//            companyTextField.isHidden = true
-//            buttonAdmin.isHidden = false
-//        }
+        if typeOfSignUp {
+            companyLabel.isHidden = false
+            companyTextField.isHidden = false
+            buttonAdmin.isHidden = true
+        } else {
+            companyLabel.isHidden = true
+            companyTextField.isHidden = true
+            buttonAdmin.isHidden = false
+        }
         
         constraints = [
             companyView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
@@ -182,8 +180,10 @@ class SignUp: UIViewController {
             companyLabel.leadingAnchor.constraint(equalTo: companyTextField.leadingAnchor),
             companyLabel.trailingAnchor.constraint(equalTo: companyTextField.trailingAnchor),
             
-//            buttonAdmin.centerXAnchor.constraint(equalTo: companyView.safeArea.centerXAnchor),
-//            buttonAdmin.centerYAnchor.constraint(equalTo: companyView.safeArea.centerYAnchor),
+            buttonAdmin.centerXAnchor.constraint(equalTo: companyView.safeArea.centerXAnchor),
+            buttonAdmin.centerYAnchor.constraint(equalTo: companyView.safeArea.centerYAnchor),
+            buttonAdmin.widthAnchor.constraint(equalToConstant: 45),
+            buttonAdmin.heightAnchor.constraint(equalToConstant: 45),
             
             infoView.topAnchor.constraint(equalTo: companyView.bottomAnchor, constant: 10),
             infoView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
@@ -237,14 +237,16 @@ class SignUp: UIViewController {
         return textField
     }
     
-//    @objc private func didTapRadioButton(_ sender: UIButton) {
-//        if (sender.isSelected) {
-//            sender.isSelected = false
-//            return
-//        } else {
-//            sender.isSelected = true
-//        }
-//    }
+    @objc private func didTapRadioButton(_ sender: UIButton) {
+        if (sender.isSelected) {
+            sender.backgroundColor = .red
+            sender.isSelected = false
+            return
+        } else {
+            sender.isSelected = true
+            sender.backgroundColor = .green
+        }
+    }
     
     @objc private func didNextButtonTap() {
         let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -252,15 +254,14 @@ class SignUp: UIViewController {
         activityIndicator.startAnimating()
         activityIndicator.frame = view.bounds
         activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
-        
+        if typeOfSignUp {
         Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (result, error) in
             let hams = Auth.auth().currentUser?.uid
             let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
             let info = base.child("info")
             let work = base.child("work")
             info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
-            work.updateChildValues(["admin": true, "check":true, "monthHours": 0, "weekHours": 0, "totalHours": 0])
-            
+            work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0])
             Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (user, error) in
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
@@ -274,6 +275,7 @@ class SignUp: UIViewController {
                             for (category, fields) in categories as! NSDictionary {
                                 for (nameOfField, valueOfField) in fields as! NSDictionary {
                                     if nameOfField as? String == "admin" {
+                                        // Всегда true
                                         if hams == uid as? String {
                                             UserDefaults.standard.set(valueOfField, forKey: "admin")
                                             UserDefaults.standard.set((self.companyTextField.text!), forKey: "company")
@@ -350,6 +352,21 @@ class SignUp: UIViewController {
                         UserDefaults.standard.removePersistentDomain(forName: appDomain)                        
                     }
                 }
+            }
+        }
+        } else {
+            Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (result, error) in
+                let hams = Auth.auth().currentUser?.uid
+                let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!)
+                let info = base.child("info")
+                let work = base.child("work")
+                info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
+                work.updateChildValues(["admin": self.buttonAdmin.isSelected, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0])
+                UIView.transition(with: self.view, duration: 1.5, options: .transitionFlipFromBottom, animations: {
+                    let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
+                    MainScreenTabBarVC.data = self.data
+                    self.navigationController?.pushViewController(MainScreenTabBarVC, animated: false)
+                }, completion: nil)
             }
         }
         activityIndicator.stopAnimating() // TODO: - Вовремя
