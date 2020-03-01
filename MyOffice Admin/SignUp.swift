@@ -24,7 +24,7 @@ class SignUp: UIViewController {
      Модель всех сотрудников
      */
     var data = Company.shared
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek())
 
     
     // MARK: - Private Properties
@@ -224,7 +224,7 @@ class SignUp: UIViewController {
 
         ]
     }
-        
+    
     func standartTextField(_ placeholder: String) -> UITextField {
         let textField = UITextField()
         textField.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
@@ -261,6 +261,8 @@ class SignUp: UIViewController {
             let info = base.child("info")
             let work = base.child("work")
             info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
+            // TODO: - Добавить patronymic
+            // TODO: - Добавить Wi-Fi и считывать его
             work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0])
             Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (user, error) in
                 if user != nil {
@@ -289,6 +291,10 @@ class SignUp: UIViewController {
                                     }
                                     if nameOfField as? String == "coming" {
                                         self.oneOfUsers.work.coming = valueOfField as? String
+                                        continue
+                                    }
+                                    if nameOfField as? String == "patronymic" {
+                                        self.oneOfUsers.info.patronymic = valueOfField as? String
                                         continue
                                     }
                                     if nameOfField as? String == "leaving" {
@@ -361,6 +367,7 @@ class SignUp: UIViewController {
                 let info = base.child("info")
                 let work = base.child("work")
                 info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
+                // TODO: - Добавить patronymic
                 work.updateChildValues(["admin": self.buttonAdmin.isSelected, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0])
                 UIView.transition(with: self.view, duration: 1.5, options: .transitionFlipFromBottom, animations: {
                     let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar

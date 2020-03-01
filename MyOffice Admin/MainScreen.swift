@@ -19,7 +19,9 @@ class MainScreen: UIViewController {
     
     private var connectionButton: UIButton!
     private var infoConnection: UILabel!
-        
+    private var timerLabel: UILabel!
+    private var timer: Timer! = nil
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -158,6 +160,14 @@ class MainScreen: UIViewController {
         groupStackViewStatistic.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(groupStackViewStatistic)
         
+        timerLabel = UILabel()
+        timerLabel.text = "00:00:00"
+        timerLabel.font.withSize(18)
+        timerLabel.textAlignment = .center
+        timerLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(timerLabel)
+        
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -186,12 +196,82 @@ class MainScreen: UIViewController {
             connectionButton.leadingAnchor.constraint(equalTo: groupStackViewStatistic.leadingAnchor,constant: 10),
             connectionButton.trailingAnchor.constraint(equalTo: groupStackViewStatistic.trailingAnchor,constant: -10),
             connectionButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            timerLabel.topAnchor.constraint(equalTo: connectionButton.bottomAnchor, constant: 20),
+            timerLabel.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor)
         ])
+    }
+    
+    @objc private func timerUpdate() {
+        
+        /**
+         Уверен, что этот код можно сократить, я писал в лоб, чтобы просто добиться формата "00:00:00"
+         */
+        var elapsed = -(self.timer.userInfo as! NSDate).timeIntervalSinceNow
+
+        if elapsed < 10 {
+            timerLabel.text = String(format: "00:00:0%.0f", elapsed)
+            return
+        }
+        if elapsed >= 10 && elapsed < 60 {
+            timerLabel.text = String(format: "00:00:%.0f", elapsed)
+            return
+        }
+        if elapsed >= 60 && elapsed < 600 {
+            if elapsed.truncatingRemainder(dividingBy: 60) < 10 {
+                timerLabel.text = String(format: "00:0%.0f:0%.0f", floor(elapsed / 60), elapsed.truncatingRemainder(dividingBy: 60))
+            } else {
+                timerLabel.text = String(format: "00:0%.0f:%.0f", floor(elapsed / 60), elapsed.truncatingRemainder(dividingBy: 60))
+            }
+            return
+        }
+        if elapsed >= 600 && elapsed < 3600 {
+            if elapsed.truncatingRemainder(dividingBy: 60) < 10 {
+                timerLabel.text = String(format: "00:%.0f:0%.0f", floor(elapsed / 60), elapsed.truncatingRemainder(dividingBy: 60))
+            } else {
+                timerLabel.text = String(format: "00:%.0f:%.0f", floor(elapsed / 60), elapsed.truncatingRemainder(dividingBy: 60))
+            }
+            return
+        }
+        if elapsed >= 3600 && elapsed < 36000 {
+            //проверить отсюда
+            if elapsed.truncatingRemainder(dividingBy: 60) < 10 {
+                if floor(elapsed.truncatingRemainder(dividingBy: 3600) / 60) < 10 {
+                    timerLabel.text = String(format: "0%.0f:0%.0f:0%.0f", floor(elapsed / 3600), floor(elapsed.truncatingRemainder(dividingBy: 3600) / 60), floor(elapsed.truncatingRemainder(dividingBy: 60)))
+                } else {
+                timerLabel.text = String(format: "0%.0f:%.0f:0%.0f", floor(elapsed / 3600), floor(elapsed.truncatingRemainder(dividingBy: 3600) / 60), floor(elapsed.truncatingRemainder(dividingBy: 60)))
+                }
+            } else {
+                if floor(elapsed.truncatingRemainder(dividingBy: 3600) / 60) < 10 {
+                    timerLabel.text = String(format: "0%.0f:0%.0f:%.0f", floor(elapsed / 3600), floor(elapsed.truncatingRemainder(dividingBy: 3600) / 60), floor(elapsed.truncatingRemainder(dividingBy: 60)))
+                } else {
+                    timerLabel.text = String(format: "0%.0f:0%.0f:%.0f", floor(elapsed / 3600), floor(elapsed.truncatingRemainder(dividingBy: 3600) / 60), floor(elapsed.truncatingRemainder(dividingBy: 60)))
+                }
+            }
+            return
+        }
+        if elapsed >= 36000 {
+            if elapsed.truncatingRemainder(dividingBy: 60) < 10 {
+                if floor(elapsed.truncatingRemainder(dividingBy: 3600) / 60) < 10 {
+                    if floor(elapsed / 3600) < 10 {
+                        timerLabel.text = String(format: "0%.0f:0%.0f:0%.0f", floor(elapsed / 3600), floor(elapsed.truncatingRemainder(dividingBy: 3600) / 60), floor(elapsed.truncatingRemainder(dividingBy: 60)))
+                    } else {
+                        timerLabel.text = String(format: "%.0f:0%.0f:0%.0f", floor(elapsed / 3600), floor(elapsed.truncatingRemainder(dividingBy: 3600) / 60), floor(elapsed.truncatingRemainder(dividingBy: 60)))
+                    }
+                } else {
+                    timerLabel.text = String(format: "%.0f:%.0f:0%.0f", floor(elapsed / 3600), floor(elapsed.truncatingRemainder(dividingBy: 3600) / 60), floor(elapsed.truncatingRemainder(dividingBy: 60)))
+                }
+            } else {
+                timerLabel.text = String(format: "%.0f:%.0f:%.0f", floor(elapsed / 3600), floor(elapsed.truncatingRemainder(dividingBy: 3600) / 60), floor(elapsed.truncatingRemainder(dividingBy: 60)))
+            }
+            return
+        }
     }
         
     @objc private func didTapJoinButton(_ sender: UIButton) {
         // TODO: - Разобраться почему происходит автообновление
         if (sender.isSelected){
+            timer.invalidate()
             infoConnection.text = "Отсутствует"
             infoConnection.textColor = .red
             sender.isSelected = false
@@ -200,12 +280,13 @@ class MainScreen: UIViewController {
             Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
-                    let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work")
-                    base.updateChildValues(["check":false])
+                    let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work").child("check")
+//                    base.updateChildValues(["check":false])
                 }
             })
             return
         } else {
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerUpdate), userInfo: NSDate(), repeats: true)
             infoConnection.text = "На работе"
             infoConnection.textColor = .green
             sender.isSelected = true
@@ -214,7 +295,77 @@ class MainScreen: UIViewController {
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
                     let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work")
-                    base.updateChildValues(["check":true])
+                    base.observe(.value, with:  { (snapshot) in
+                        guard let value = snapshot.value, snapshot.exists() else { return }
+                        let dict: NSDictionary = value as! NSDictionary
+                        print(dict)
+                        for i in dict.allKeys {
+                            switch Calendar.current.component(.month, from: Date()) {
+                            case 1:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) января" {
+                                    print(i)
+                                    return
+                                }
+                            case 2:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) февраля" {
+                                    print(i)
+                                    return;
+                                }
+                            case 3:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) марта" {
+                                    print(i)
+                                    return
+                                }
+                            case 4:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) апреля" {
+                                    print(i)
+                                    return
+                                }
+                            case 5:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) мая" {
+                                    print(i)
+                                    return
+                                }
+                            case 6:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) июня" {
+                                    print(i)
+                                    return
+                                }
+                            case 7:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) июля" {
+                                    print(i)
+                                    return
+                                }
+                            case 8:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) августа" {
+                                    print(i)
+                                    return
+                                }
+                            case 9:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) сентября" {
+                                    print(i)
+                                    return
+                                }
+                            case 10:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) октября" {
+                                    print(i)
+                                    return
+                                }
+                            case 11:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) ноября" {
+                                    print(i)
+                                    return
+                                }
+                            case 12:
+                                if i as? String == "\((Calendar.current.component(.day, from: Date()))) декабря" {
+                                    print(i)
+                                    return
+                                }
+                            default:
+                                base.updateChildValues(["check":false])
+                            }
+                        }
+                    })
                 }
             })
         }

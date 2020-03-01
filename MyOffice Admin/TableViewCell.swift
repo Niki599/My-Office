@@ -16,41 +16,51 @@ class TableViewCell: UITableViewCell {
     init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, data: Company, indexPath: IndexPath, accessoryType: UITableViewCell.AccessoryType) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        var stackViewCell: UIStackView!
+        
         let labelFirst = UILabel()
-        labelFirst.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         labelFirst.font = UIFont.italicSystemFont(ofSize: 13)
-        labelFirst.textAlignment = .center
         labelFirst.numberOfLines = 0
-        
-        let labelSecond = UILabel()
-        labelSecond.textColor = UIColor(red: 0, green: 0.721, blue: 0.029, alpha: 1)
-        labelSecond.font = UIFont.italicSystemFont(ofSize: 13)
-        labelSecond.textAlignment = .center
-        
-        let labelThrid = UILabel()
-        labelThrid.textColor = UIColor(red: 0.721, green: 0.029, blue: 0, alpha: 1)
-        labelThrid.font = UIFont.italicSystemFont(ofSize: 13)
-        labelThrid.textAlignment = .center
-        
-        let labelFourth = UILabel()
-        labelFourth.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        labelFourth.font = UIFont.italicSystemFont(ofSize: 13)
-        labelFourth.textAlignment = .center
         
         /**
          Заполнение таблицы данными в зависимости от типа таблицы, если на ячейку можно нажать, то таблица админа, иначе -- нет
          */
         
         if accessoryType == .none {
+            labelFirst.textAlignment = .center
+
+            let labelSecond = UILabel()
+            labelSecond.font = UIFont.italicSystemFont(ofSize: 13)
+            labelSecond.textAlignment = .center
+            labelSecond.numberOfLines = 0
+            
+            let labelThrid = UILabel()
+            labelThrid.font = UIFont.italicSystemFont(ofSize: 13)
+            labelThrid.textAlignment = .center
+            labelThrid.numberOfLines = 0
+            
+            let labelFourth = UILabel()
+            labelFourth.font = UIFont.italicSystemFont(ofSize: 13)
+            labelFourth.textAlignment = .center
+            labelFourth.numberOfLines = 0
+
+            labelFirst.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            labelSecond.textColor = UIColor(red: 0, green: 0.721, blue: 0.029, alpha: 1)
+            labelThrid.textColor = UIColor(red: 0.721, green: 0.029, blue: 0, alpha: 1)
+            labelFourth.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+
             labelFirst.text = data.users[indexPath.row].info.name
             labelSecond.text = data.users[indexPath.row].work.coming
             labelThrid.text = data.users[indexPath.row].work.leaving
-            labelFourth.text = "\(data.users[indexPath.row].work.weekHours!) ч"
+            labelFourth.text = "\(data.users[indexPath.row].work.weekHours ?? 0) ч"
+            
+            stackViewCell = UIStackView(arrangedSubviews: [labelFirst, labelSecond, labelThrid, labelFourth])
         } else {
-            labelFirst.text = data.users[indexPath.row].info.name
-            labelSecond.text = data.users[indexPath.row].work.coming
-            labelThrid.text = data.users[indexPath.row].work.leaving
-            labelFourth.text = "\(data.users[indexPath.row].work.weekHours!) ч"
+            labelFirst.textAlignment = .left
+
+            labelFirst.text = "\(data.users[indexPath.row].info.surname ?? "null") \(data.users[indexPath.row].info.name ?? "null") \(data.users[indexPath.row].info.patronymic ?? "null")"
+            
+            stackViewCell = UIStackView(arrangedSubviews: [labelFirst])
         }
         
         // Зеленый фон нажатия на таблицу
@@ -58,7 +68,6 @@ class TableViewCell: UITableViewCell {
         backgroundView.backgroundColor = UIColor(red: 0.954, green: 1, blue: 0.956, alpha: 1)
         selectedBackgroundView = backgroundView
         
-        let stackViewCell = UIStackView(arrangedSubviews: [labelFirst, labelSecond, labelThrid, labelFourth])
         stackViewCell.axis = .horizontal
         stackViewCell.alignment = .center
         stackViewCell.distribution = .fillEqually

@@ -174,7 +174,8 @@
 			children = (
 				47ACC81023E42C5500BB05F0 /* UserModel.swift */,
 			);
-			path = Model;
+			name = Model;
+			path = "ё";
 			sourceTree = "<group>";
 		};
 		47D8308F2392AF2900DB9168 = {

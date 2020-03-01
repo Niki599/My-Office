@@ -18,7 +18,7 @@ class TableEmployeers: UIViewController {
      Модель всех сотрудников
      */
     var data: Company!
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek())
 
     // MARK: - Private Properties
     
@@ -89,6 +89,11 @@ class TableEmployeers: UIViewController {
             updateButton.widthAnchor.constraint(equalToConstant: 40),
             updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -5),
             
+            addEmployee.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            addEmployee.heightAnchor.constraint(equalToConstant: 40),
+            addEmployee.widthAnchor.constraint(equalToConstant: 40),
+            addEmployee.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 5),
+            
             tableEmployeers.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25),
             tableEmployeers.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
             tableEmployeers.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -10),
@@ -130,6 +135,10 @@ class TableEmployeers: UIViewController {
                                 }
                                 if nameOfField as? String == "coming" {
                                     self.oneOfUsers.work.coming = valueOfField as? String
+                                    continue
+                                }
+                                if nameOfField as? String == "patronymic" {
+                                    self.oneOfUsers.info.patronymic = valueOfField as? String
                                     continue
                                 }
                                 if nameOfField as? String == "leaving" {
@@ -306,14 +315,7 @@ extension TableEmployeers : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath {
-        case [0, 0]:
-            print(indexPath)
-        case [0, 1]:
-            print(indexPath)
-        default:
-            print("hui")
-        }
+        print(indexPath.row)
     }
     
     /**

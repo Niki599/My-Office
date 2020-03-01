@@ -66,7 +66,7 @@ class ProfileEmployeer: UIViewController {
         
         let labelFullName = UILabel()
         for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+            if user.info.email == UserDefaults.standard.string(forKey: "login") {
                 labelFullName.text = "\(user.info.name!) \(user.info.surname!)"
             }
         }
@@ -87,7 +87,7 @@ class ProfileEmployeer: UIViewController {
         
         let labelBirthdayDate = UILabel()
         for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+            if user.info.email == UserDefaults.standard.string(forKey: "login") {
                 labelBirthdayDate.text = String(user.info.date!)
             }
         }
@@ -106,7 +106,7 @@ class ProfileEmployeer: UIViewController {
         
         let labelPhoneNumber = UILabel()
         for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+            if user.info.email == UserDefaults.standard.string(forKey: "login") {
                 labelPhoneNumber.text = String(user.info.phone!)
             }
         }

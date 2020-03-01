@@ -17,7 +17,7 @@ class SignIn: UIViewController {
      Модель всех сотрудников
      */
     var data = Company.shared
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek())
     
     // MARK: - Private Properties
     
@@ -53,7 +53,7 @@ class SignIn: UIViewController {
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
                     let base = Database.database().reference()
-                    var currentCompany: String?
+                    var currentCompany: String? // TODO: - По моим предположениям, можно обойтись без нее, используя UserDefaults
                     self.data.users.removeAll()
                     // TODO: Вынести в отдельную функцию
                     base.observe(.value, with:  { (snapshot) in
@@ -67,6 +67,12 @@ class SignIn: UIViewController {
                                 }
                             }
                         }
+//                        if Calendar.current.component(.weekday, from: Date()) == 2 {
+//                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
+//                        }
+//                        if Calendar.current.component(.day, from: Date()) == 1 {
+//                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["monthHours": 0])
+//                        }
                         for (company, uids) in dict {
                             if company as? String == currentCompany {
                                 for (uid, categories) in uids as! NSDictionary {
@@ -85,6 +91,10 @@ class SignIn: UIViewController {
                                             }
                                             if nameOfField as? String == "coming" {
                                                 self.oneOfUsers.work.coming = valueOfField as? String
+                                                continue
+                                            }
+                                            if nameOfField as? String == "patronymic" {
+                                                self.oneOfUsers.info.patronymic = valueOfField as? String
                                                 continue
                                             }
                                             if nameOfField as? String == "leaving" {
@@ -329,6 +339,12 @@ class SignIn: UIViewController {
                                 }
                             }
                         }
+//                        if Calendar.current.component(.weekday, from: Date()) == 2 {
+//                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
+//                        }
+//                        if Calendar.current.component(.day, from: Date()) == 1 {
+//                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["monthHours": 0])
+//                        }
                         for (company, uids) in dict {
                             if company as? String == currentCompany {
                                 for (uid, categories) in uids as! NSDictionary {
@@ -347,6 +363,10 @@ class SignIn: UIViewController {
                                             }
                                             if nameOfField as? String == "coming" {
                                                 self.oneOfUsers.work.coming = valueOfField as? String
+                                                continue
+                                            }
+                                            if nameOfField as? String == "patronymic" {
+                                                self.oneOfUsers.info.patronymic = valueOfField as? String
                                                 continue
                                             }
                                             if nameOfField as? String == "leaving" {

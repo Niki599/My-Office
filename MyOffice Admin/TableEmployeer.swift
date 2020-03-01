@@ -18,7 +18,7 @@ class TableEmployeer: UIViewController {
      Модель всех сотрудников
      */
     var data: Company!
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek())
     
     // MARK: - Private Properties
     
@@ -289,6 +289,10 @@ class TableEmployeer: UIViewController {
                                     self.oneOfUsers.work.coming = valueOfField as? String
                                     continue
                                 }
+                                if nameOfField as? String == "patronymic" {
+                                    self.oneOfUsers.info.patronymic = valueOfField as? String
+                                    continue
+                                }
                                 if nameOfField as? String == "leaving" {
                                     self.oneOfUsers.work.leaving = valueOfField as? String
                                     continue
@@ -408,14 +412,7 @@ extension TableEmployeer : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath {
-        case [0, 0]:
-            print(indexPath)
-        case [0, 1]:
-            print(indexPath)
-        default:
-            print("hui")
-        }
+        print(indexPath.row)
     }
     
     /**
