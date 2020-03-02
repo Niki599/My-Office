@@ -35,13 +35,13 @@ class ProfileEmployeer: UIViewController {
         super.viewWillAppear(animated)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        guard UserDefaults.standard.string(forKey: "login") != nil else {
-            self.navigationController?.popViewController(animated: false)
-            return
-        }
-        super.viewWillAppear(animated)
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        guard UserDefaults.standard.string(forKey: "login") != nil else {
+//            self.navigationController?.popViewController(animated: false)
+//            return
+//        }
+//        super.viewWillAppear(animated)
+//    }
 
     override func viewWillLayoutSubviews() {
         NSLayoutConstraint.deactivate(constraints)
@@ -247,7 +247,7 @@ class ProfileEmployeer: UIViewController {
             if let appDomain = Bundle.main.bundleIdentifier {
                 UserDefaults.standard.removePersistentDomain(forName: appDomain)
             }
-            self.navigationController?.popViewController(animated: true)
+            self.navigationController?.popViewController(animated: false)
 //          dismissViewControllerAnimated(true, completion: nil)
         } catch let signOutError as NSError {
           print ("Error signing out: \(signOutError)")
@@ -260,7 +260,7 @@ class ProfileEmployeer: UIViewController {
         Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
             _ = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(String( Auth.auth().currentUser!.uid)).removeValue()
             Auth.auth().currentUser?.delete(completion: { (error) in
-                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: false)
             })
         }
         

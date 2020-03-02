@@ -80,7 +80,6 @@ class SignUp: UIViewController {
         
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
-        let space = screenWidth/2
         
         view.backgroundColor = .black
         

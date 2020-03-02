@@ -211,7 +211,7 @@ class MainScreen: UIViewController {
         /**
          Уверен, что этот код можно сократить, я писал в лоб, чтобы просто добиться формата "00:00:00"
          */
-        var elapsed = -(self.timer.userInfo as! NSDate).timeIntervalSinceNow
+        let elapsed = -(self.timer.userInfo as! NSDate).timeIntervalSinceNow
 
         if elapsed < 10 {
             timerLabel.text = String(format: "00:00:0%.0f", elapsed)
@@ -285,7 +285,7 @@ class MainScreen: UIViewController {
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
                     let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work").child("check")
-//                    base.updateChildValues(["check":false])
+                    base.updateChildValues(["check":false])
                 }
             })
             return
