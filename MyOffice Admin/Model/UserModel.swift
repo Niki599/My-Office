@@ -42,6 +42,7 @@ extension Company: NSCopying {
 struct User {
     var info: InfoUser
     var work: WorkUser
+    var days: DaysOfWeek
 }
 
 struct InfoUser {
@@ -51,6 +52,7 @@ struct InfoUser {
     var pass: String?
     var phone: String?
     var surname: String?
+    var patronymic: String?
 }
 
 struct WorkUser: Decodable {
@@ -61,4 +63,34 @@ struct WorkUser: Decodable {
     var monthHours: Int?
     var weekHours: Int?
     var totalHours: Int?
+}
+
+struct DaysOfWeek {
+    var monday: String?
+    var tuesday: String?
+    var wednesday: String?
+    var thursday: String?
+    var friday: String?
+    var saturday: String?
+    var sunday: String?
+}
+
+struct ComingTime {
+    var comingMonday: String?
+    var comingTuesday: String?
+    var comingWednsday: String?
+    var comingThursday: String?
+    var comingFriday: String?
+    var comingSaturday: String?
+    var comingSunday: String?
+}
+
+struct LeavingTime {
+    var leavingMonday: String?
+    var leavingTuesday: String?
+    var leavingWednsday: String?
+    var leavingThursday: String?
+    var leavingFriday: String?
+    var leavingSaturday: String?
+    var leavingSunday: String?
 }
