@@ -40,6 +40,14 @@ class TableEmployeers: UIViewController {
         staffCount()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        guard UserDefaults.standard.string(forKey: "login") != nil else {
+            self.navigationController?.popViewController(animated: false)
+            return
+        }
+        super.viewWillAppear(animated)
+    }
+    
     override func viewWillLayoutSubviews() {
         NSLayoutConstraint.deactivate(constraints)
         NSLayoutConstraint.activate(constraints)

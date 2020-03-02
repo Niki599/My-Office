@@ -173,11 +173,13 @@ class SignIn: UIViewController {
     // нажимали "Выход" строчки были пустыми, и впредь, когда мы будем пробовать получать доступ к Firebase, он будет
     // вставлять пустые строчки, из-за чего приложение крашится.
     // Вариант решения сделать Alert с TextView, чтобы всегда входить заново при обновлении модели
+    
+    // Решил это топорным методом постоянного выхода
 
-//    override func viewDidDisappear(_ animated: Bool) {
-//        self.loginTextField.text = ""
-//        self.passwordTextField.text = ""
-//    }
+    override func viewDidDisappear(_ animated: Bool) {
+        self.loginTextField.text = ""
+        self.passwordTextField.text = ""
+    }
     
     override func viewDidLayoutSubviews() {
         

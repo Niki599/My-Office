@@ -83,6 +83,10 @@ class TableEmployeer: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        guard UserDefaults.standard.string(forKey: "login") != nil else {
+            self.navigationController?.popViewController(animated: false)
+            return
+        }
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
     }

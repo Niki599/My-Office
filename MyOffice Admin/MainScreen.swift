@@ -31,6 +31,10 @@ class MainScreen: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        guard UserDefaults.standard.string(forKey: "login") != nil else {
+            self.navigationController?.popViewController(animated: false)
+            return
+        }
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
     }
@@ -177,7 +181,7 @@ class MainScreen: UIViewController {
             title.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             title.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             
-            avatarUser.topAnchor.constraint(equalTo: title.bottomAnchor,constant: 80),
+            avatarUser.topAnchor.constraint(equalTo: title.bottomAnchor,constant: 50),
             avatarUser.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             avatarUser.heightAnchor.constraint(equalToConstant: 120),
             avatarUser.widthAnchor.constraint(equalTo: avatarUser.heightAnchor),
