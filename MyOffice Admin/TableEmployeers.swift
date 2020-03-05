@@ -6,7 +6,6 @@
 //  Copyright © 2020 Андрей Гаврилов. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Firebase
 

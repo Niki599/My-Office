@@ -6,7 +6,6 @@
 //  Copyright © 2019 Андрей Гаврилов. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class MainScreenTabBar: UITabBarController {

@@ -67,6 +67,7 @@ class SignIn: UIViewController {
                                 }
                             }
                         }
+//                        print(dict.value(forKeyPath: "\(currentCompany).\(hams).work.check"))
 //                        if Calendar.current.component(.weekday, from: Date()) == 2 {
 //                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
 //                        }
@@ -174,12 +175,13 @@ class SignIn: UIViewController {
     // вставлять пустые строчки, из-за чего приложение крашится.
     // Вариант решения сделать Alert с TextView, чтобы всегда входить заново при обновлении модели
     
-    // Решил это топорным методом постоянного выхода
+    // Решил это топорным методом постоянного выхода (popVC)
+    // Можно почти полностью это решить сделав переход модальным окном без navigation crontroller
 
-    override func viewDidDisappear(_ animated: Bool) {
-        self.loginTextField.text = ""
-        self.passwordTextField.text = ""
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        self.loginTextField.text = ""
+//        self.passwordTextField.text = ""
+//    }
     
     override func viewDidLayoutSubviews() {
         

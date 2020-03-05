@@ -6,7 +6,6 @@
 //  Copyright © 2019 user. All rights reserved.
 //
 
-import Foundation
 import Firebase
 import UIKit
 
@@ -246,17 +245,7 @@ class TableEmployeer: UIViewController {
             tableEmployeer.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -10),
             tableEmployeer.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor),
         ]
-        
-        var date1 = Date()
-        var date2 = Date(timeIntervalSinceNow: 72000)
-        let dateDiff = Calendar.current.dateComponents([.minute], from: date2, to: date1).minute
-        let st = "\(dateDiff! / 60)" + ".\(dateDiff! % 60)"
-        
-        let hour = Calendar.current.component(.hour, from: Date())
-        let minute = Calendar.current.component(.month, from: Date())
-        print(minute)
-        var timeIsNow = "\(hour) + \(minute)"
-        
+                
     }
     
     @objc private func didUpdateButtonTap() {

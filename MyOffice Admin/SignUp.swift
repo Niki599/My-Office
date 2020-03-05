@@ -6,7 +6,6 @@
 //  Copyright © 2020 Андрей Гаврилов. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Firebase
 
@@ -17,7 +16,7 @@ class SignUp: UIViewController {
     /**
      Если true, то регистрируют компанию, false -- человека
      Если регистрируют человека, то добавим radioButton, иначе -- нет
-    */
+     */
     var typeOfSignUp: Bool!
     
     /**
@@ -25,7 +24,6 @@ class SignUp: UIViewController {
      */
     var data = Company.shared
     var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek())
-
     
     // MARK: - Private Properties
     private var  companyView: UIView!
@@ -38,7 +36,7 @@ class SignUp: UIViewController {
     private var phoneTextField: UITextField!
     private var passTextField: UITextField!
     private var constraints: [NSLayoutConstraint]!
-
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -48,7 +46,7 @@ class SignUp: UIViewController {
         //Тап по экрану, чтобы спрятать клаву
         let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(gesture)
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +63,7 @@ class SignUp: UIViewController {
         NSLayoutConstraint.deactivate(constraints)
         NSLayoutConstraint.activate(constraints)
     }
-
+    
     
     // MARK: - Public Methods
     
@@ -74,7 +72,7 @@ class SignUp: UIViewController {
     // MARK: - Private Methods
     
     private func setupView() {
-                
+        
         navigationController?.navigationBar.backgroundColor = .black
         navigationItem.title = "Создание компании"
         
@@ -114,7 +112,7 @@ class SignUp: UIViewController {
         infoView.translatesAutoresizingMaskIntoConstraints = false
         infoView.alpha = 0.8
         view.addSubview(infoView)
-
+        
         let infoLabel = UILabel()
         infoLabel.textColor = .black
         infoLabel.text = "Информация для отображения в таблице"
@@ -203,24 +201,24 @@ class SignUp: UIViewController {
             
             surnameTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
             surnameTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
-
+            
             dateTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
             dateTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
-
+            
             emailTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
             emailTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
-
+            
             phoneTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
             phoneTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
-
+            
             passTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
             passTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
-
+            
             nextButton.topAnchor.constraint(equalTo: stackViewInfo.bottomAnchor, constant: 10),
             nextButton.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 10),
             nextButton.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -10),
             nextButton.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -10),
-
+            
         ]
     }
     
@@ -254,111 +252,111 @@ class SignUp: UIViewController {
         activityIndicator.frame = view.bounds
         activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
         if typeOfSignUp {
-        Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (result, error) in
-            let hams = Auth.auth().currentUser?.uid
-            let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
-            let info = base.child("info")
-            let work = base.child("work")
-            info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
-            // TODO: - Добавить patronymic
-            // TODO: - Добавить Wi-Fi и считывать его
-            work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0])
-            Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (user, error) in
-                if user != nil {
-                    let hams = Auth.auth().currentUser?.uid
-                    let base = Database.database().reference().child((self.companyTextField.text!))
-                    self.data.users.removeAll()
-                    // TODO: Вынести в отдельную функцию
-                    base.observe(.value, with:  { (snapshot) in
-                        guard let value = snapshot.value, snapshot.exists() else { return }
-                        let dict: NSDictionary = value as! NSDictionary
-                        for (uid, categories) in dict as! NSDictionary {
-                            for (category, fields) in categories as! NSDictionary {
-                                for (nameOfField, valueOfField) in fields as! NSDictionary {
-                                    if nameOfField as? String == "admin" {
-                                        // Всегда true
-                                        if hams == uid as? String {
-                                            UserDefaults.standard.set(valueOfField, forKey: "admin")
-                                            UserDefaults.standard.set((self.companyTextField.text!), forKey: "company")
+            Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (result, error) in
+                let hams = Auth.auth().currentUser?.uid
+                let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
+                let info = base.child("info")
+                let work = base.child("work")
+                info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
+                // TODO: - Добавить patronymic
+                // TODO: - Добавить Wi-Fi и считывать его
+                work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0])
+                Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (user, error) in
+                    if user != nil {
+                        let hams = Auth.auth().currentUser?.uid
+                        let base = Database.database().reference().child((self.companyTextField.text!))
+                        self.data.users.removeAll()
+                        // TODO: Вынести в отдельную функцию
+                        base.observe(.value, with:  { (snapshot) in
+                            guard let value = snapshot.value, snapshot.exists() else { return }
+                            let dict: NSDictionary = value as! NSDictionary
+                            for (uid, categories) in dict as! NSDictionary {
+                                for (category, fields) in categories as! NSDictionary {
+                                    for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                        if nameOfField as? String == "admin" {
+                                            // Всегда true
+                                            if hams == uid as? String {
+                                                UserDefaults.standard.set(valueOfField, forKey: "admin")
+                                                UserDefaults.standard.set((self.companyTextField.text!), forKey: "company")
+                                            }
+                                            self.oneOfUsers.work.admin = valueOfField as? Bool
+                                            continue
                                         }
-                                        self.oneOfUsers.work.admin = valueOfField as? Bool
-                                        continue
-                                    }
-                                    if nameOfField as? String == "check" {
-                                        self.oneOfUsers.work.check = valueOfField as? Bool
-                                        continue
-                                    }
-                                    if nameOfField as? String == "coming" {
-                                        self.oneOfUsers.work.coming = valueOfField as? String
-                                        continue
-                                    }
-                                    if nameOfField as? String == "patronymic" {
-                                        self.oneOfUsers.info.patronymic = valueOfField as? String
-                                        continue
-                                    }
-                                    if nameOfField as? String == "leaving" {
-                                        self.oneOfUsers.work.leaving = valueOfField as? String
-                                        continue
-                                    }
-                                    if nameOfField as? String == "monthHours" {
-                                        self.oneOfUsers.work.monthHours = valueOfField as? Int
-                                        continue
-                                    }
-                                    if nameOfField as? String == "totalHours" {
-                                        self.oneOfUsers.work.totalHours = valueOfField as? Int
-                                        continue
-                                    }
-                                    if nameOfField as? String == "weekHours" {
-                                        self.oneOfUsers.work.weekHours = valueOfField as? Int
-                                        continue
-                                    }
-                                    if nameOfField as? String == "date" {
-                                        self.oneOfUsers.info.date = valueOfField as? String
-                                        continue
-                                    }
-                                    if nameOfField as? String == "email" {
-                                        self.oneOfUsers.info.email = valueOfField as? String
-                                        continue
-                                    }
-                                    if nameOfField as? String == "name" {
-                                        self.oneOfUsers.info.name = valueOfField as? String
-                                        continue
-                                    }
-                                    if nameOfField as? String == "pass" {
-                                        self.oneOfUsers.info.pass = valueOfField as? String
-                                        continue
-                                    }
-                                    if nameOfField as? String == "phone" {
-                                        self.oneOfUsers.info.phone = valueOfField as? String
-                                        continue
-                                    }
-                                    if nameOfField as? String == "surname" {
-                                        self.oneOfUsers.info.surname = valueOfField as? String
-                                        continue
+                                        if nameOfField as? String == "check" {
+                                            self.oneOfUsers.work.check = valueOfField as? Bool
+                                            continue
+                                        }
+                                        if nameOfField as? String == "coming" {
+                                            self.oneOfUsers.work.coming = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "patronymic" {
+                                            self.oneOfUsers.info.patronymic = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "leaving" {
+                                            self.oneOfUsers.work.leaving = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "monthHours" {
+                                            self.oneOfUsers.work.monthHours = valueOfField as? Int
+                                            continue
+                                        }
+                                        if nameOfField as? String == "totalHours" {
+                                            self.oneOfUsers.work.totalHours = valueOfField as? Int
+                                            continue
+                                        }
+                                        if nameOfField as? String == "weekHours" {
+                                            self.oneOfUsers.work.weekHours = valueOfField as? Int
+                                            continue
+                                        }
+                                        if nameOfField as? String == "date" {
+                                            self.oneOfUsers.info.date = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "email" {
+                                            self.oneOfUsers.info.email = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "name" {
+                                            self.oneOfUsers.info.name = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "pass" {
+                                            self.oneOfUsers.info.pass = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "phone" {
+                                            self.oneOfUsers.info.phone = valueOfField as? String
+                                            continue
+                                        }
+                                        if nameOfField as? String == "surname" {
+                                            self.oneOfUsers.info.surname = valueOfField as? String
+                                            continue
+                                        }
                                     }
                                 }
+                                self.data.users.append(self.oneOfUsers)
                             }
-                            self.data.users.append(self.oneOfUsers)
+                            
+                            UserDefaults.standard.set(true, forKey: "autoSignIn")
+                            UserDefaults.standard.set(self.emailTextField.text?.lowercased(), forKey: "login")
+                            UserDefaults.standard.set(self.phoneTextField.text, forKey: "password")
+                            UIView.transition(with: self.view, duration: 1.5, options: .transitionFlipFromBottom, animations: {
+                                let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
+                                MainScreenTabBarVC.data = self.data
+                                self.navigationController?.pushViewController(MainScreenTabBarVC, animated: false)
+                            }, completion: nil)
+                        })
+                    }
+                    else {
+                        // Очистка всего UserDefaults, если вход не был выполнен
+                        if let appDomain = Bundle.main.bundleIdentifier {
+                            UserDefaults.standard.removePersistentDomain(forName: appDomain)
                         }
-                        
-                        UserDefaults.standard.set(true, forKey: "autoSignIn")
-                        UserDefaults.standard.set(self.emailTextField.text?.lowercased(), forKey: "login")
-                        UserDefaults.standard.set(self.phoneTextField.text, forKey: "password")
-                        UIView.transition(with: self.view, duration: 1.5, options: .transitionFlipFromBottom, animations: {
-                            let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
-                            MainScreenTabBarVC.data = self.data
-                            self.navigationController?.pushViewController(MainScreenTabBarVC, animated: false)
-                        }, completion: nil)
-                    })
-                }
-                else {
-                    // Очистка всего UserDefaults, если вход не был выполнен
-                    if let appDomain = Bundle.main.bundleIdentifier {
-                        UserDefaults.standard.removePersistentDomain(forName: appDomain)                        
                     }
                 }
             }
-        }
         } else {
             Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (result, error) in
                 let hams = Auth.auth().currentUser?.uid
@@ -377,17 +375,17 @@ class SignUp: UIViewController {
         }
         activityIndicator.stopAnimating() // TODO: - Вовремя
     }
-
+    
 }
 
 extension SignUp: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        var frame = self.viewCompany.frame
-//        frame.origin.y = 800
-//        UIView.animate(withDuration: 1.3, delay: 0, options: .curveEaseOut, animations: {
-//            self.viewCompany.frame = frame
-//        }, completion: nil)
+        //        var frame = self.viewCompany.frame
+        //        frame.origin.y = 800
+        //        UIView.animate(withDuration: 1.3, delay: 0, options: .curveEaseOut, animations: {
+        //            self.viewCompany.frame = frame
+        //        }, completion: nil)
     }
     
 }

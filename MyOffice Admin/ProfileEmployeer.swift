@@ -6,7 +6,6 @@
 //  Copyright © 2020 Андрей Гаврилов. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Firebase
 
@@ -35,14 +34,6 @@ class ProfileEmployeer: UIViewController {
         super.viewWillAppear(animated)
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        guard UserDefaults.standard.string(forKey: "login") != nil else {
-//            self.navigationController?.popViewController(animated: false)
-//            return
-//        }
-//        super.viewWillAppear(animated)
-//    }
-
     override func viewWillLayoutSubviews() {
         NSLayoutConstraint.deactivate(constraints)
         NSLayoutConstraint.activate(constraints)
@@ -248,7 +239,6 @@ class ProfileEmployeer: UIViewController {
                 UserDefaults.standard.removePersistentDomain(forName: appDomain)
             }
             self.navigationController?.popViewController(animated: false)
-//          dismissViewControllerAnimated(true, completion: nil)
         } catch let signOutError as NSError {
           print ("Error signing out: \(signOutError)")
         }
