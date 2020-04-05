@@ -210,6 +210,7 @@ class TableEmployeers: UIViewController {
         let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "SignUp") as! SignUp
         signUpVC.typeOfSignUp = false
         signUpVC.modalPresentationStyle = .fullScreen
+        signUpVC.modalTransitionStyle = .flipHorizontal
         self.present(signUpVC, animated: true, completion: nil)
         
     }

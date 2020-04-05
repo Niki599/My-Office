@@ -289,7 +289,7 @@ class MainScreen: UIViewController {
         
     @objc private func didTapJoinButton(_ sender: UIButton) {
         // TODO: - Разобраться почему происходит автообновление
-        if (sender.isSelected){
+        if (sender.isSelected) {
             timer.invalidate()
             infoConnection.text = "Отсутствует"
             infoConnection.textColor = .red

@@ -146,6 +146,7 @@ class SignIn: UIViewController {
                         let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                         MainScreenTabBarVC.data = self.data
                         MainScreenTabBarVC.modalPresentationStyle = .fullScreen
+                        MainScreenTabBarVC.modalTransitionStyle = .flipHorizontal
                         self.present(MainScreenTabBarVC, animated: true, completion: nil)
                     })
                 }
@@ -426,6 +427,7 @@ class SignIn: UIViewController {
                         let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                         MainScreenTabBarVC.data = self.data
                         MainScreenTabBarVC.modalPresentationStyle = .fullScreen
+                        MainScreenTabBarVC.modalTransitionStyle = .flipHorizontal
                         self.present(MainScreenTabBarVC, animated: true, completion: nil)
                     })
                 }

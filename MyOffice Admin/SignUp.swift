@@ -34,7 +34,10 @@ class SignUp: UIViewController {
     private var dateTextField: UITextField!
     private var emailTextField: UITextField!
     private var phoneTextField: UITextField!
-    private var passTextField: UITextField!
+    private var passportTextField: UITextField!
+    private var passwordTextField: UITextField!
+    private var patronymicTextField: UITextField!
+    private var wifiTextField: UITextField!
     private var constraints: [NSLayoutConstraint]!
     
     // MARK: - Lifecycle
@@ -131,17 +134,32 @@ class SignUp: UIViewController {
         
         phoneTextField = standartTextField("Телефон")
         
-        passTextField = standartTextField("Паспорт")
+        passportTextField = standartTextField("Паспорт")
         
-        let stackViewInfo = UIStackView(arrangedSubviews: [emailTextField, nameTextField, surnameTextField, dateTextField, phoneTextField, passTextField])
-        stackViewInfo.axis = .vertical
-        stackViewInfo.distribution = .fillEqually
-        stackViewInfo.spacing = 15
-        stackViewInfo.alignment = .center
-        stackViewInfo.backgroundColor = .black
-        stackViewInfo.translatesAutoresizingMaskIntoConstraints = false
-        infoView.addSubview(stackViewInfo)
+        passwordTextField = standartTextField("Пароль")
         
+        patronymicTextField = standartTextField("Отчество")
+        
+        wifiTextField = standartTextField("Wi-Fi")
+        
+        let firstStackViewInfo = UIStackView(arrangedSubviews: [emailTextField, nameTextField, surnameTextField, patronymicTextField, dateTextField, phoneTextField])
+        firstStackViewInfo.axis = .vertical
+        firstStackViewInfo.distribution = .fillEqually
+        firstStackViewInfo.spacing = 15
+        firstStackViewInfo.alignment = .center
+        firstStackViewInfo.backgroundColor = .black
+        firstStackViewInfo.translatesAutoresizingMaskIntoConstraints = false
+        infoView.addSubview(firstStackViewInfo)
+        
+        let secondStackViewInfo = UIStackView(arrangedSubviews: [passwordTextField, passportTextField, wifiTextField])
+        secondStackViewInfo.axis = .vertical
+        secondStackViewInfo.distribution = .fillEqually
+        secondStackViewInfo.spacing = 15
+        secondStackViewInfo.alignment = .center
+        secondStackViewInfo.backgroundColor = .black
+        secondStackViewInfo.translatesAutoresizingMaskIntoConstraints = false
+        infoView.addSubview(secondStackViewInfo)
+
         let nextButton = UIButton()
         nextButton.setTitle("Продолжить", for: .normal)
         nextButton.setTitleColor(.white, for: .normal)
@@ -165,7 +183,8 @@ class SignUp: UIViewController {
         constraints = [
             companyView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             companyView.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 20),
-            companyView.widthAnchor.constraint(equalToConstant: screenWidth / 1.3),
+            companyView.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
+            companyView.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -10),
             companyView.heightAnchor.constraint(equalToConstant: screenHeight / 6.5),
             
             companyTextField.bottomAnchor.constraint(equalTo: companyView.bottomAnchor, constant: -26),
@@ -184,37 +203,53 @@ class SignUp: UIViewController {
             
             infoView.topAnchor.constraint(equalTo: companyView.bottomAnchor, constant: 10),
             infoView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
-            infoView.widthAnchor.constraint(equalToConstant: screenWidth / 1.3),
+            infoView.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
+            infoView.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -10),
             infoView.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor, constant: -20),
             
             infoLabel.topAnchor.constraint(equalTo: infoView.topAnchor),
             infoLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor),
             infoLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor),
+            infoLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            stackViewInfo.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 15),
-            stackViewInfo.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 10),
-            stackViewInfo.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -10),
-            stackViewInfo.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -60),
+            firstStackViewInfo.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 15),
+            firstStackViewInfo.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
+            firstStackViewInfo.widthAnchor.constraint(equalToConstant: screenWidth / 2.5),
+            firstStackViewInfo.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -60),
             
-            nameTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
-            nameTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
+            nameTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
+            nameTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
             
-            surnameTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
-            surnameTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
+            surnameTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
+            surnameTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
             
-            dateTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
-            dateTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
+            dateTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
+            dateTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
             
-            emailTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
-            emailTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
+            emailTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
+            emailTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
             
-            phoneTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
-            phoneTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
+            phoneTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
+            phoneTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
             
-            passTextField.leadingAnchor.constraint(equalTo: stackViewInfo.leadingAnchor),
-            passTextField.trailingAnchor.constraint(equalTo: stackViewInfo.trailingAnchor),
+            patronymicTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
+            patronymicTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
             
-            nextButton.topAnchor.constraint(equalTo: stackViewInfo.bottomAnchor, constant: 10),
+            secondStackViewInfo.topAnchor.constraint(equalTo: firstStackViewInfo.topAnchor),
+            secondStackViewInfo.leadingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor, constant: 15),
+            secondStackViewInfo.widthAnchor.constraint(equalToConstant: screenWidth / 2.5),
+            secondStackViewInfo.bottomAnchor.constraint(equalTo: surnameTextField.bottomAnchor),
+            
+            passwordTextField.leadingAnchor.constraint(equalTo: secondStackViewInfo.leadingAnchor),
+            passwordTextField.trailingAnchor.constraint(equalTo: secondStackViewInfo.trailingAnchor),
+            
+            passportTextField.leadingAnchor.constraint(equalTo: secondStackViewInfo.leadingAnchor),
+            passportTextField.trailingAnchor.constraint(equalTo: secondStackViewInfo.trailingAnchor),
+            
+            wifiTextField.leadingAnchor.constraint(equalTo: secondStackViewInfo.leadingAnchor),
+            wifiTextField.trailingAnchor.constraint(equalTo: secondStackViewInfo.trailingAnchor),
+            
+            nextButton.topAnchor.constraint(equalTo: firstStackViewInfo.bottomAnchor, constant: 10),
             nextButton.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 10),
             nextButton.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -10),
             nextButton.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -10),
@@ -252,16 +287,15 @@ class SignUp: UIViewController {
         activityIndicator.frame = view.bounds
         activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
         if typeOfSignUp {
-            Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (result, error) in
+            Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
                 let hams = Auth.auth().currentUser?.uid
                 let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
                 let info = base.child("info")
                 let work = base.child("work")
-                info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
-                // TODO: - Добавить patronymic
-                // TODO: - Добавить Wi-Fi и считывать его
-                work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0])
-                Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (user, error) in
+                info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
+                // TODO: - Cчитывать Wi-Fi
+                work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
+                Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
                     if user != nil {
                         let hams = Auth.auth().currentUser?.uid
                         let base = Database.database().reference().child((self.companyTextField.text!))
@@ -341,10 +375,11 @@ class SignUp: UIViewController {
                             
                             UserDefaults.standard.set(true, forKey: "autoSignIn")
                             UserDefaults.standard.set(self.emailTextField.text!.lowercased(), forKey: "login")
-                            UserDefaults.standard.set(self.phoneTextField.text, forKey: "password")
+                            UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
                             let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                             MainScreenTabBarVC.data = self.data
                             MainScreenTabBarVC.modalPresentationStyle = .fullScreen
+                            MainScreenTabBarVC.modalTransitionStyle = .flipHorizontal
                             self.present(MainScreenTabBarVC, animated: true, completion: nil)
                         })
                     }
@@ -357,14 +392,13 @@ class SignUp: UIViewController {
                 }
             }
         } else {
-            Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.phoneTextField.text!) { (result, error) in
+            Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
                 let hams = Auth.auth().currentUser?.uid
                 let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!)
                 let info = base.child("info")
                 let work = base.child("work")
-                info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
-                // TODO: - Добавить patronymic
-                work.updateChildValues(["admin": self.buttonAdmin.isSelected, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0])
+                info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
+                work.updateChildValues(["admin": self.buttonAdmin.isSelected, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
                 self.dismiss(animated: true, completion: nil)
             }
         }
