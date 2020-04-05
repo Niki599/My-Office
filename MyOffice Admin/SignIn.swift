@@ -11,16 +11,13 @@ import Firebase
 
 class SignIn: UIViewController {
     
-    // MARK: - Public Methods
+    // MARK: - Private Properties
     
     /**
      Модель всех сотрудников
      */
-    var data = Company.shared
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek())
-    
-    // MARK: - Private Properties
-    
+    private var data = Company.shared
+    private var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime())
     private var loginTextField: UITextField!
     private var passwordTextField: UITextField!
     private var mainLogo: UIImageView!
@@ -67,6 +64,7 @@ class SignIn: UIViewController {
                                 }
                             }
                         }
+                        // TODO: - Получать и удалять старые coming и leaving
 //                        print(dict.value(forKeyPath: "\(currentCompany).\(hams).work.check"))
 //                        if Calendar.current.component(.weekday, from: Date()) == 2 {
 //                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
@@ -147,7 +145,8 @@ class SignIn: UIViewController {
                         activityIndicator.stopAnimating() // TODO: - Вовремя
                         let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                         MainScreenTabBarVC.data = self.data
-                        self.navigationController?.pushViewController(MainScreenTabBarVC, animated: true)
+                        MainScreenTabBarVC.modalPresentationStyle = .fullScreen
+                        self.present(MainScreenTabBarVC, animated: true, completion: nil)
                     })
                 }
                 else {
@@ -426,7 +425,8 @@ class SignIn: UIViewController {
                         activityIndicator.stopAnimating() // TODO: - Вовремя
                         let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
                         MainScreenTabBarVC.data = self.data
-                        self.navigationController?.pushViewController(MainScreenTabBarVC, animated: true)
+                        MainScreenTabBarVC.modalPresentationStyle = .fullScreen
+                        self.present(MainScreenTabBarVC, animated: true, completion: nil)
                     })
                 }
                 else {

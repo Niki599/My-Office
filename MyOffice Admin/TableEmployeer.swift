@@ -17,7 +17,7 @@ class TableEmployeer: UIViewController {
      Модель всех сотрудников
      */
     var data: Company!
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek())
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime())
     
     // MARK: - Private Properties
     
@@ -83,7 +83,7 @@ class TableEmployeer: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         guard UserDefaults.standard.string(forKey: "login") != nil else {
-            self.navigationController?.popViewController(animated: false)
+            self.dismiss(animated: true, completion: nil)
             return
         }
         self.navigationController?.setNavigationBarHidden(true, animated: animated)

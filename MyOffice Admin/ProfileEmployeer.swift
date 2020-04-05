@@ -28,7 +28,7 @@ class ProfileEmployeer: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         guard UserDefaults.standard.string(forKey: "login") != nil else {
-            self.navigationController?.popViewController(animated: false)
+            self.dismiss(animated: true, completion: nil)
             return
         }
         super.viewWillAppear(animated)
@@ -238,7 +238,7 @@ class ProfileEmployeer: UIViewController {
             if let appDomain = Bundle.main.bundleIdentifier {
                 UserDefaults.standard.removePersistentDomain(forName: appDomain)
             }
-            self.navigationController?.popViewController(animated: false)
+            self.dismiss(animated: true, completion: nil)
         } catch let signOutError as NSError {
           print ("Error signing out: \(signOutError)")
         }
@@ -250,7 +250,7 @@ class ProfileEmployeer: UIViewController {
         Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
             _ = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(String( Auth.auth().currentUser!.uid)).removeValue()
             Auth.auth().currentUser?.delete(completion: { (error) in
-                self.navigationController?.popViewController(animated: false)
+                self.dismiss(animated: true, completion: nil)
             })
         }
         

@@ -23,7 +23,7 @@ class SignUp: UIViewController {
      Модель всех сотрудников
      */
     var data = Company.shared
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek())
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime())
     
     // MARK: - Private Properties
     private var  companyView: UIView!
@@ -340,13 +340,12 @@ class SignUp: UIViewController {
                             }
                             
                             UserDefaults.standard.set(true, forKey: "autoSignIn")
-                            UserDefaults.standard.set(self.emailTextField.text?.lowercased(), forKey: "login")
+                            UserDefaults.standard.set(self.emailTextField.text!.lowercased(), forKey: "login")
                             UserDefaults.standard.set(self.phoneTextField.text, forKey: "password")
-                            UIView.transition(with: self.view, duration: 1.5, options: .transitionFlipFromBottom, animations: {
-                                let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
-                                MainScreenTabBarVC.data = self.data
-                                self.navigationController?.pushViewController(MainScreenTabBarVC, animated: false)
-                            }, completion: nil)
+                            let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
+                            MainScreenTabBarVC.data = self.data
+                            MainScreenTabBarVC.modalPresentationStyle = .fullScreen
+                            self.present(MainScreenTabBarVC, animated: true, completion: nil)
                         })
                     }
                     else {
@@ -366,11 +365,7 @@ class SignUp: UIViewController {
                 info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!])
                 // TODO: - Добавить patronymic
                 work.updateChildValues(["admin": self.buttonAdmin.isSelected, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0])
-                UIView.transition(with: self.view, duration: 1.5, options: .transitionFlipFromBottom, animations: {
-                    let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
-                    MainScreenTabBarVC.data = self.data
-                    self.navigationController?.pushViewController(MainScreenTabBarVC, animated: false)
-                }, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             }
         }
         activityIndicator.stopAnimating() // TODO: - Вовремя

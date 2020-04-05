@@ -17,7 +17,7 @@ class TableEmployeers: UIViewController {
      Модель всех сотрудников
      */
     var data: Company!
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek())
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime())
 
     // MARK: - Private Properties
     
@@ -41,7 +41,7 @@ class TableEmployeers: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         guard UserDefaults.standard.string(forKey: "login") != nil else {
-            self.navigationController?.popViewController(animated: false)
+            self.dismiss(animated: true, completion: nil)
             return
         }
         super.viewWillAppear(animated)
@@ -209,7 +209,8 @@ class TableEmployeers: UIViewController {
         
         let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "SignUp") as! SignUp
         signUpVC.typeOfSignUp = false
-        self.navigationController?.pushViewController(signUpVC, animated: true)
+        signUpVC.modalPresentationStyle = .fullScreen
+        self.present(signUpVC, animated: true, completion: nil)
         
     }
     

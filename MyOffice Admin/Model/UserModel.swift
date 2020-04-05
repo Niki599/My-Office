@@ -43,6 +43,8 @@ struct User {
     var info: InfoUser
     var work: WorkUser
     var days: DaysOfWeek
+    var coming: ComingTime
+    var leaving: LeavingTime
 }
 
 struct InfoUser {

@@ -32,14 +32,14 @@ class MainScreen: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         guard UserDefaults.standard.string(forKey: "login") != nil else {
-            self.navigationController?.popViewController(animated: false)
+            self.dismiss(animated: true, completion: nil)
             return
         }
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         for i in 0...data.users.count - 1 {
             if data.users[i].info.email == UserDefaults.standard.string(forKey: "login") {
                 if (data.users[i].work.check == true) {
-//                    timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerUpdate), userInfo: NSDate(), repeats: true)
+                    timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerUpdate), userInfo: NSDate(), repeats: true)
                     // TODO: - Продумать логику
                     infoConnection.text = "На работе"
                     infoConnection.textColor = .green
@@ -290,7 +290,7 @@ class MainScreen: UIViewController {
     @objc private func didTapJoinButton(_ sender: UIButton) {
         // TODO: - Разобраться почему происходит автообновление
         if (sender.isSelected){
-//            timer.invalidate()
+            timer.invalidate()
             infoConnection.text = "Отсутствует"
             infoConnection.textColor = .red
             sender.isSelected = false
@@ -365,6 +365,7 @@ class MainScreen: UIViewController {
             Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
+                    // TODO: - У новых сотрудников не появляется "working" и "coming"
                     let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("coming")
                     let baseWork = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work")
                     baseWork.updateChildValues(["check": true])
