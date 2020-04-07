@@ -153,15 +153,15 @@ class TableEmployeers: UIViewController {
                                     continue
                                 }
                                 if nameOfField as? String == "monthHours" {
-                                    self.oneOfUsers.work.monthHours = valueOfField as? Int
+                                    self.oneOfUsers.work.monthHours = valueOfField as? Double
                                     continue
                                 }
                                 if nameOfField as? String == "totalHours" {
-                                    self.oneOfUsers.work.totalHours = valueOfField as? Int
+                                    self.oneOfUsers.work.totalHours = valueOfField as? Double
                                     continue
                                 }
                                 if nameOfField as? String == "weekHours" {
-                                    self.oneOfUsers.work.weekHours = valueOfField as? Int
+                                    self.oneOfUsers.work.weekHours = valueOfField as? Double
                                     continue
                                 }
                                 if nameOfField as? String == "date" {
@@ -192,6 +192,8 @@ class TableEmployeers: UIViewController {
                         }
                         self.data.users.append(self.oneOfUsers)
                     }
+                    self.staffCount()
+                    self.tableEmployeers.reloadData()
                 })
                 activityIndicator.stopAnimating() // TODO: - Вовремя
             }
@@ -200,8 +202,6 @@ class TableEmployeers: UIViewController {
             }
         }
         // TODO: - Только при двойном нажатии он обновит таблицу
-        staffCount()
-        tableEmployeers.reloadData()
         
     }
     

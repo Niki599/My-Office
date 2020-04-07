@@ -333,15 +333,15 @@ class SignUp: UIViewController {
                                             continue
                                         }
                                         if nameOfField as? String == "monthHours" {
-                                            self.oneOfUsers.work.monthHours = valueOfField as? Int
+                                            self.oneOfUsers.work.monthHours = valueOfField as? Double
                                             continue
                                         }
                                         if nameOfField as? String == "totalHours" {
-                                            self.oneOfUsers.work.totalHours = valueOfField as? Int
+                                            self.oneOfUsers.work.totalHours = valueOfField as? Double
                                             continue
                                         }
                                         if nameOfField as? String == "weekHours" {
-                                            self.oneOfUsers.work.weekHours = valueOfField as? Int
+                                            self.oneOfUsers.work.weekHours = valueOfField as? Double
                                             continue
                                         }
                                         if nameOfField as? String == "date" {

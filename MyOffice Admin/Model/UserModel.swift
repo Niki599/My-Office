@@ -62,9 +62,9 @@ struct WorkUser: Decodable {
     var check: Bool?
     var coming: String?
     var leaving: String?
-    var monthHours: Int?
-    var weekHours: Int?
-    var totalHours: Int?
+    var monthHours: Double?
+    var weekHours: Double?
+    var totalHours: Double?
 }
 
 struct DaysOfWeek {

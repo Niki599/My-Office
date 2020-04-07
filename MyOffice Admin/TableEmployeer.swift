@@ -291,23 +291,23 @@ class TableEmployeer: UIViewController {
                                     continue
                                 }
                                 if nameOfField as? String == "monthHours" {
-                                    self.oneOfUsers.work.monthHours = valueOfField as? Int
+                                    self.oneOfUsers.work.monthHours = valueOfField as? Double
                                     if hams == uid as? String {
-                                        self.labelQuantityHoursMonth.text = String(valueOfField as! Int)
+                                        self.labelQuantityHoursMonth.text = String(valueOfField as! Double)
                                     }
                                     continue
                                 }
                                 if nameOfField as? String == "totalHours" {
-                                    self.oneOfUsers.work.totalHours = valueOfField as? Int
+                                    self.oneOfUsers.work.totalHours = valueOfField as? Double
                                     if hams == uid as? String {
-                                        self.labelQuantityAllOfHours.text = String(valueOfField as! Int)
+                                        self.labelQuantityAllOfHours.text = String(valueOfField as! Double)
                                     }
                                     continue
                                 }
                                 if nameOfField as? String == "weekHours" {
-                                    self.oneOfUsers.work.weekHours = valueOfField as? Int
+                                    self.oneOfUsers.work.weekHours = valueOfField as? Double
                                     if hams == uid as? String {
-                                        self.labelQuantityHoursWeek.text = String(valueOfField as! Int)
+                                        self.labelQuantityHoursWeek.text = String(valueOfField as! Double)
                                     }
                                     continue
                                 }
@@ -339,6 +339,7 @@ class TableEmployeer: UIViewController {
                         }
                         self.data.users.append(self.oneOfUsers)
                     }
+                    self.tableEmployeer.reloadData()
                 })
                 activityIndicator.stopAnimating() // TODO: - Вовремя
             }
@@ -347,7 +348,6 @@ class TableEmployeer: UIViewController {
             }
         }
         // TODO: - Только при двойном нажатии он обновит таблицу
-        self.tableEmployeer.reloadData()
         
     }
         
