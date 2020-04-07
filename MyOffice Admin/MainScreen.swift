@@ -230,6 +230,7 @@ class MainScreen: UIViewController {
 //        guard self.timer != nil else { return }
         let elapsed = -(self.timer.userInfo as! NSDate).timeIntervalSinceNow
         minutesIsJob = floor(elapsed / 60)
+        
         if elapsed < 10 {
             timerLabel.text = String(format: "00:00:0%.0f", elapsed)
             return
@@ -306,9 +307,10 @@ class MainScreen: UIViewController {
                     guard minutesIsJob != nil else {
                         return
                     }
-                    data.users[i].work.weekHours! += minutesIsJob / 60 + minutesIsJob.truncatingRemainder(dividingBy: 60)
-                    data.users[i].work.monthHours! += minutesIsJob / 60 + minutesIsJob.truncatingRemainder(dividingBy: 60)
-                    data.users[i].work.totalHours! += minutesIsJob / 60 + minutesIsJob.truncatingRemainder(dividingBy: 60)
+                    let roundedMinutes = minutesIsJob / 60
+                    data.users[i].work.weekHours! += Double(Int(minutesIsJob) / 60) + roundedMinutes.rounded(toPlaces: 2)
+                    data.users[i].work.monthHours! += Double(Int(minutesIsJob) / 60) + roundedMinutes.rounded(toPlaces: 2)
+                    data.users[i].work.totalHours! += Double(Int(minutesIsJob) / 60) + roundedMinutes.rounded(toPlaces: 2)
                 }
             }
             Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
