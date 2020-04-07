@@ -26,7 +26,7 @@ class SignIn: UIViewController {
     private var enteryLabel: UILabel!
     private var createCompanyButton: UIButton!
     
-    private let logoImage = UIImage(imageLiteralResourceName: "sebbia-logo.jpg").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
+    private let logoImage = UIImage(imageLiteralResourceName: "donkomlekt.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     private let checkBoxImage = UIImage(imageLiteralResourceName: "checkBox.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     
     // MARK: - Lifecycle

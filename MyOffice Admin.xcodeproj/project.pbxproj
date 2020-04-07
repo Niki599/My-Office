@@ -21,6 +21,7 @@
 		3A3637B52396604C00C7E7E4 /* sigma.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637AA2396604C00C7E7E4 /* sigma.png */; };
 		3A3637B62396604C00C7E7E4 /* update.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637AB2396604C00C7E7E4 /* update.png */; };
 		3A9E503A23B25FDF00B41754 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E503923B25FDF00B41754 /* MainScreen.swift */; };
+		3ABD7E87243D0E2D0027681B /* donkomlekt.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ABD7E86243D0E2C0027681B /* donkomlekt.png */; };
 		3AC495F023BA412700A5974F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */; };
 		4703C441240D0B1100B9B70E /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4703C440240D0B1100B9B70E /* UserModel.swift */; };
 		4728B04423F86C1E002E7D76 /* TableEmployeers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728B04323F86C1E002E7D76 /* TableEmployeers.swift */; };
@@ -75,6 +76,7 @@
 		3A3637AA2396604C00C7E7E4 /* sigma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sigma.png; sourceTree = "<group>"; };
 		3A3637AB2396604C00C7E7E4 /* update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = update.png; sourceTree = "<group>"; };
 		3A9E503923B25FDF00B41754 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		3ABD7E86243D0E2C0027681B /* donkomlekt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = donkomlekt.png; path = ../../../Desktop/donkomlekt.png; sourceTree = "<group>"; };
 		3AC495EF23BA412700A5974F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4703C440240D0B1100B9B70E /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		4728B04323F86C1E002E7D76 /* TableEmployeers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableEmployeers.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				3A3637A52396604C00C7E7E4 /* house.png */,
 				3A3637A72396604C00C7E7E4 /* icons8-Ð¾ÑÐ¼ÐµÑÐµÐ½Ð½ÑÐ¹-ÑÐµÐºÐ±Ð¾ÐºÑ-100.png */,
 				3A3637A22396604B00C7E7E4 /* sebbia-logo.jpg */,
+				3ABD7E86243D0E2C0027681B /* donkomlekt.png */,
 				3A3637A32396604B00C7E7E4 /* settings.png */,
 				3A3637AA2396604C00C7E7E4 /* sigma.png */,
 				3A3637A82396604C00C7E7E4 /* table.png */,
@@ -371,6 +374,7 @@
 				3A3637B22396604C00C7E7E4 /* icons8-Ð¾ÑÐ¼ÐµÑÐµÐ½Ð½ÑÐ¹-ÑÐµÐºÐ±Ð¾ÐºÑ-100.png in Resources */,
 				3A3637B12396604C00C7E7E4 /* addRound.png in Resources */,
 				47D830A52392AF2A00DB9168 /* Assets.xcassets in Resources */,
+				3ABD7E87243D0E2D0027681B /* donkomlekt.png in Resources */,
 				3A3637AC2396604C00C7E7E4 /* employee.png in Resources */,
 				3A3637B52396604C00C7E7E4 /* sigma.png in Resources */,
 				3A3637B32396604C00C7E7E4 /* table.png in Resources */,
