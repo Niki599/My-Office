@@ -294,8 +294,9 @@ class MainScreen: UIViewController {
         // TODO: - Разобраться почему происходит автообновление
         if (sender.isSelected) {
             timer.invalidate()
-            print(minutesIsJob)
             var f = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+            print(Calendar.current.component(.month, from: f))
+            
             infoConnection.text = "Отсутствует"
             infoConnection.textColor = .red
             sender.isSelected = false

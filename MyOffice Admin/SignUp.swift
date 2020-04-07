@@ -23,7 +23,7 @@ class SignUp: UIViewController {
      Модель всех сотрудников
      */
     var data = Company.shared
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime())
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser()/*, days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime()*/)
     
     // MARK: - Private Properties
     private var  companyView: UIView!
@@ -320,16 +320,8 @@ class SignUp: UIViewController {
                                             self.oneOfUsers.work.check = valueOfField as? Bool
                                             continue
                                         }
-                                        if nameOfField as? String == "coming" {
-                                            self.oneOfUsers.work.coming = valueOfField as? String
-                                            continue
-                                        }
                                         if nameOfField as? String == "patronymic" {
                                             self.oneOfUsers.info.patronymic = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "leaving" {
-                                            self.oneOfUsers.work.leaving = valueOfField as? String
                                             continue
                                         }
                                         if nameOfField as? String == "monthHours" {

@@ -17,7 +17,7 @@ class SignIn: UIViewController {
      Модель всех сотрудников
      */
     private var data = Company.shared
-    private var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime())
+    private var oneOfUsers: User = User(info: InfoUser(), work: WorkUser()/*, days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime()*/)
     private var loginTextField: UITextField!
     private var passwordTextField: UITextField!
     private var mainLogo: UIImageView!
@@ -64,7 +64,9 @@ class SignIn: UIViewController {
                                 }
                             }
                         }
-                        // TODO: - Получать и удалять старые coming и leaving
+//                        var a = dict.value(forKeyPath: "\(currentCompany).\(hams).coming") as! NSDictionary
+//                        print(a.allKeys)
+                        // TODO: - Удалять старые coming и leaving
 //                        print(dict.value(forKeyPath: "\(currentCompany).\(hams).work.check"))
 //                        if Calendar.current.component(.weekday, from: Date()) == 2 {
 //                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
@@ -76,6 +78,17 @@ class SignIn: UIViewController {
                             if company as? String == currentCompany {
                                 for (uid, categories) in uids as! NSDictionary {
                                     for (category, fields) in categories as! NSDictionary {
+                                        if category as? String == "coming" {
+                                            for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                                self.oneOfUsers.days.append(nameOfField as! String)
+                                                self.oneOfUsers.coming.append(valueOfField as! String)
+                                            }
+                                        }
+                                        if category as? String == "leaving" {
+                                            for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                                self.oneOfUsers.leaving.append(valueOfField as! String)
+                                            }
+                                        }
                                         for (nameOfField, valueOfField) in fields as! NSDictionary {
                                             if nameOfField as? String == "admin" {
                                                 if hams == uid as? String {
@@ -88,16 +101,8 @@ class SignIn: UIViewController {
                                                 self.oneOfUsers.work.check = valueOfField as? Bool
                                                 continue
                                             }
-                                            if nameOfField as? String == "coming" {
-                                                self.oneOfUsers.work.coming = valueOfField as? String
-                                                continue
-                                            }
                                             if nameOfField as? String == "patronymic" {
                                                 self.oneOfUsers.info.patronymic = valueOfField as? String
-                                                continue
-                                            }
-                                            if nameOfField as? String == "leaving" {
-                                                self.oneOfUsers.work.leaving = valueOfField as? String
                                                 continue
                                             }
                                             if nameOfField as? String == "monthHours" {
@@ -353,6 +358,17 @@ class SignIn: UIViewController {
                             if company as? String == currentCompany {
                                 for (uid, categories) in uids as! NSDictionary {
                                     for (category, fields) in categories as! NSDictionary {
+                                        if category as? String == "coming" {
+                                            for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                                self.oneOfUsers.days.append(nameOfField as! String)
+                                                self.oneOfUsers.coming.append(valueOfField as! String)
+                                            }
+                                        }
+                                        if category as? String == "leaving" {
+                                            for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                                self.oneOfUsers.leaving.append(valueOfField as! String)
+                                            }
+                                        }
                                         for (nameOfField, valueOfField) in fields as! NSDictionary {
                                             if nameOfField as? String == "admin" {
                                                 if hams == uid as? String {
@@ -365,16 +381,8 @@ class SignIn: UIViewController {
                                                 self.oneOfUsers.work.check = valueOfField as? Bool
                                                 continue
                                             }
-                                            if nameOfField as? String == "coming" {
-                                                self.oneOfUsers.work.coming = valueOfField as? String
-                                                continue
-                                            }
                                             if nameOfField as? String == "patronymic" {
                                                 self.oneOfUsers.info.patronymic = valueOfField as? String
-                                                continue
-                                            }
-                                            if nameOfField as? String == "leaving" {
-                                                self.oneOfUsers.work.leaving = valueOfField as? String
                                                 continue
                                             }
                                             if nameOfField as? String == "monthHours" {

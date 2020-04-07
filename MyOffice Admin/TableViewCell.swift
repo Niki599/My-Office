@@ -12,7 +12,7 @@ class TableViewCell: UITableViewCell {
     
     // MARK: - Lifecycle
     
-    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, data: Company, indexPath: IndexPath, accessoryType: UITableViewCell.AccessoryType) {
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, data: Company, indexPath: IndexPath, accessoryType: UITableViewCell.AccessoryType, id: Int = 0) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         var stackViewCell: UIStackView!
@@ -48,10 +48,16 @@ class TableViewCell: UITableViewCell {
             labelThrid.textColor = UIColor(red: 0.721, green: 0.029, blue: 0, alpha: 1)
             labelFourth.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
 
-            labelFirst.text = data.users[indexPath.row].info.name
-            labelSecond.text = data.users[indexPath.row].work.coming
-            labelThrid.text = data.users[indexPath.row].work.leaving
-            labelFourth.text = "\(data.users[indexPath.row].work.weekHours ?? 0) ч"
+            // TODO: -Доработать порядок
+            labelFirst.text = data.users[id].days[indexPath.row]
+            labelSecond.text = data.users[id].coming[indexPath.row]
+            labelThrid.text = data.users[id].leaving[indexPath.row]
+            let minutesBefore = data.users[id].coming[indexPath.row].components(separatedBy: [":"])
+            let minutesAfter = data.users[id].leaving[indexPath.row].components(separatedBy: [":"])
+            let totalMinutesAfter = Int(minutesAfter[0])! * 60 + Int(minutesAfter[1])!
+            let totalMinutesBefore = Int(minutesBefore[0])! * 60 + Int(minutesBefore[1])!
+            
+            labelFourth.text = "\(Int(floor(Double(totalMinutesAfter - totalMinutesBefore) / 60.0))).\((totalMinutesAfter - totalMinutesBefore) - (Int(floor(Double(totalMinutesAfter - totalMinutesBefore) / 60.0)) * 60)) ч"
             
             stackViewCell = UIStackView(arrangedSubviews: [labelFirst, labelSecond, labelThrid, labelFourth])
         } else {

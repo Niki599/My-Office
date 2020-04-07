@@ -17,16 +17,17 @@ class TableEmployeer: UIViewController {
      Модель всех сотрудников
      */
     var data: Company!
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime())
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser()/*, days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime()*/)
     
     // MARK: - Private Properties
     
     private let identifire = "MyCell"
-
+    private var myId: Int!
     private var titleLabel: UILabel!
     private var tableEmployeer: UITableView!
     private var backgroundView: UIView!
     private var updateButton: UIButton!
+    private var countOfDays: Int = 0
     private var labelQuantityHoursWeek: UILabel!
     private var labelQuantityHoursMonth: UILabel!
     private var labelQuantityAllOfHours: UILabel!
@@ -78,6 +79,7 @@ class TableEmployeer: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        daysCount()
         setupView()
     }
     
@@ -278,16 +280,8 @@ class TableEmployeer: UIViewController {
                                     self.oneOfUsers.work.check = valueOfField as? Bool
                                     continue
                                 }
-                                if nameOfField as? String == "coming" {
-                                    self.oneOfUsers.work.coming = valueOfField as? String
-                                    continue
-                                }
                                 if nameOfField as? String == "patronymic" {
                                     self.oneOfUsers.info.patronymic = valueOfField as? String
-                                    continue
-                                }
-                                if nameOfField as? String == "leaving" {
-                                    self.oneOfUsers.work.leaving = valueOfField as? String
                                     continue
                                 }
                                 if nameOfField as? String == "monthHours" {
@@ -346,15 +340,22 @@ class TableEmployeer: UIViewController {
             else {
                 print("Error")
             }
-        }
-        // TODO: - Только при двойном нажатии он обновит таблицу
-        
+        }        
     }
         
     private func info() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "Info")
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func daysCount() {
+        for i in 0...data.users.count - 1 {
+            if data.users[i].info.email == UserDefaults.standard.string(forKey: "login") {
+                myId = i
+                countOfDays = data.users[i].days.count
+            }
+        }
     }
     
 }
@@ -396,11 +397,11 @@ extension TableEmployeer : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.users.count
+        return countOfDays
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = TableViewCell(style: .default, reuseIdentifier: "MyCell", data: data, indexPath: indexPath, accessoryType: .none)
+        let cell = TableViewCell(style: .default, reuseIdentifier: "MyCell", data: data, indexPath: indexPath, accessoryType: .none, id: myId)
         return cell
     }
     

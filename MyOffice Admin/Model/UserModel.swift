@@ -42,9 +42,9 @@ extension Company: NSCopying {
 struct User {
     var info: InfoUser
     var work: WorkUser
-    var days: DaysOfWeek
-    var coming: ComingTime
-    var leaving: LeavingTime
+    var days: [String] = []
+    var coming: [String] = []
+    var leaving: [String] = []
 }
 
 struct InfoUser {
@@ -60,8 +60,6 @@ struct InfoUser {
 struct WorkUser: Decodable {
     var admin: Bool?
     var check: Bool?
-    var coming: String?
-    var leaving: String?
     var monthHours: Double?
     var weekHours: Double?
     var totalHours: Double?

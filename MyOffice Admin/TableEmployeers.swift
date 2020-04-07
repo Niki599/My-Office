@@ -17,7 +17,7 @@ class TableEmployeers: UIViewController {
      Модель всех сотрудников
      */
     var data: Company!
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser(), days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime())
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser()/*, days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime()*/)
 
     // MARK: - Private Properties
     
@@ -140,16 +140,8 @@ class TableEmployeers: UIViewController {
                                     self.oneOfUsers.work.check = valueOfField as? Bool
                                     continue
                                 }
-                                if nameOfField as? String == "coming" {
-                                    self.oneOfUsers.work.coming = valueOfField as? String
-                                    continue
-                                }
                                 if nameOfField as? String == "patronymic" {
                                     self.oneOfUsers.info.patronymic = valueOfField as? String
-                                    continue
-                                }
-                                if nameOfField as? String == "leaving" {
-                                    self.oneOfUsers.work.leaving = valueOfField as? String
                                     continue
                                 }
                                 if nameOfField as? String == "monthHours" {
@@ -200,9 +192,7 @@ class TableEmployeers: UIViewController {
             else {
                 print(error as Any)
             }
-        }
-        // TODO: - Только при двойном нажатии он обновит таблицу
-        
+        }        
     }
     
     @objc private func didCreateEmployyButtonTap() {
