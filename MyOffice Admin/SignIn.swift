@@ -65,8 +65,6 @@ class SignIn: UIViewController {
                             }
                         }
 //                        var a = dict.value(forKeyPath: "\(currentCompany).\(hams).coming") as! NSDictionary
-//                        print(a.allKeys)
-                        // TODO: - Удалять старые coming и leaving
 //                        print(dict.value(forKeyPath: "\(currentCompany).\(hams).work.check"))
 //                        if Calendar.current.component(.weekday, from: Date()) == 2 {
 //                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
@@ -80,13 +78,21 @@ class SignIn: UIViewController {
                                     for (category, fields) in categories as! NSDictionary {
                                         if category as? String == "coming" {
                                             for (nameOfField, valueOfField) in fields as! NSDictionary {
-                                                self.oneOfUsers.days.append(nameOfField as! String)
-                                                self.oneOfUsers.coming.append(valueOfField as! String)
+                                                if !(self.dateNow(baseDate: nameOfField as! String)) {
+                                                    base.child(currentCompany!).child(hams!).child("coming").child(nameOfField as! String).removeValue()
+                                                } else {
+                                                    self.oneOfUsers.days.append(nameOfField as! String)
+                                                    self.oneOfUsers.coming.append(valueOfField as! String)
+                                                }
                                             }
                                         }
                                         if category as? String == "leaving" {
                                             for (nameOfField, valueOfField) in fields as! NSDictionary {
-                                                self.oneOfUsers.leaving.append(valueOfField as! String)
+                                                if !(self.dateNow(baseDate: nameOfField as! String)) {
+                                                    base.child(currentCompany!).child(hams!).child("leaving").child(nameOfField as! String).removeValue()
+                                                } else {
+                                                    self.oneOfUsers.leaving.append(valueOfField as! String)
+                                                }
                                             }
                                         }
                                         for (nameOfField, valueOfField) in fields as! NSDictionary {
@@ -360,13 +366,21 @@ class SignIn: UIViewController {
                                     for (category, fields) in categories as! NSDictionary {
                                         if category as? String == "coming" {
                                             for (nameOfField, valueOfField) in fields as! NSDictionary {
-                                                self.oneOfUsers.days.append(nameOfField as! String)
-                                                self.oneOfUsers.coming.append(valueOfField as! String)
+                                                if !(self.dateNow(baseDate: nameOfField as! String)) {
+                                                    base.child(currentCompany!).child(hams!).child("comming").child(nameOfField as! String).removeValue()
+                                                } else {
+                                                    self.oneOfUsers.days.append(nameOfField as! String)
+                                                    self.oneOfUsers.coming.append(valueOfField as! String)
+                                                }
                                             }
                                         }
                                         if category as? String == "leaving" {
                                             for (nameOfField, valueOfField) in fields as! NSDictionary {
-                                                self.oneOfUsers.leaving.append(valueOfField as! String)
+                                                if !(self.dateNow(baseDate: nameOfField as! String)) {
+                                                    base.child(currentCompany!).child(hams!).child("leaving").child(nameOfField as! String).removeValue()
+                                                } else {
+                                                    self.oneOfUsers.leaving.append(valueOfField as! String)
+                                                }
                                             }
                                         }
                                         for (nameOfField, valueOfField) in fields as! NSDictionary {
@@ -467,6 +481,50 @@ class SignIn: UIViewController {
         self.navigationController?.pushViewController(signUpVC, animated: true)
     }
     
+    func dateNow(baseDate: String) -> Bool {
+        var dateNow: String
+        switch Calendar.current.component(.month, from: Date()) {
+        case 1:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) января"
+        case 2:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) февраля"
+        case 3:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) марта"
+        case 4:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) апреля"
+        case 5:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) мая"
+        case 6:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) июня"
+        case 7:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) июля"
+        case 8:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) августа"
+        case 9:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) сентября"
+        case 10:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) октября"
+        case 11:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) ноября"
+        case 12:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) декабря"
+        default:
+            dateNow = "0"
+            // Невозможное невозможно
+        }
+        let separatedBaseDate = baseDate.components(separatedBy: [" "])
+        let separatedNowDate = dateNow.components(separatedBy: [" "])
+
+        if separatedBaseDate[1] == separatedNowDate[1] {
+            if Int(separatedNowDate[0])! - Int(separatedBaseDate[0])! > 7 {
+                return false
+            }
+        } else {
+            return false
+        }
+        return true
+        
+    }
     
 }
 
