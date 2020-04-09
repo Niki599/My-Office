@@ -65,7 +65,6 @@ class SignIn: UIViewController {
                             }
                         }
 //                        var a = dict.value(forKeyPath: "\(currentCompany).\(hams).coming") as! NSDictionary
-//                        print(dict.value(forKeyPath: "\(currentCompany).\(hams).work.check"))
                         if Calendar.current.component(.weekday, from: Date()) == 2 {
                             base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
                         }

@@ -281,120 +281,122 @@ class SignUp: UIViewController {
     }
     
     @objc private func didNextButtonTap() {
-        let activityIndicator = UIActivityIndicatorView(style: .large)
-        view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
-        activityIndicator.frame = view.bounds
-        activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
-        if typeOfSignUp {
-            Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
-                let hams = Auth.auth().currentUser?.uid
-                let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
-                let info = base.child("info")
-                let work = base.child("work")
-                info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
-                // TODO: - Cчитывать Wi-Fi
-                work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
-                Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
-                    if user != nil {
-                        let hams = Auth.auth().currentUser?.uid
-                        let base = Database.database().reference().child((self.companyTextField.text!))
-                        self.data.users.removeAll()
-                        // TODO: Вынести в отдельную функцию
-                        base.observe(.value, with:  { (snapshot) in
-                            guard let value = snapshot.value, snapshot.exists() else { return }
-                            let dict: NSDictionary = value as! NSDictionary
-                            for (uid, categories) in dict as! NSDictionary {
-                                for (category, fields) in categories as! NSDictionary {
-                                    for (nameOfField, valueOfField) in fields as! NSDictionary {
-                                        if nameOfField as? String == "admin" {
-                                            // Всегда true
-                                            if hams == uid as? String {
-                                                UserDefaults.standard.set(valueOfField, forKey: "admin")
-                                                UserDefaults.standard.set((self.companyTextField.text!), forKey: "company")
+        if (nameTextField.text! != "" || surnameTextField.text! != "" || dateTextField.text! != "" || emailTextField.text! != "" || phoneTextField.text! != "" || passportTextField.text! != "" || passwordTextField.text! != "" || patronymicTextField.text! != "" || wifiTextField.text! != "") {
+            let activityIndicator = UIActivityIndicatorView(style: .large)
+            view.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+            activityIndicator.frame = view.bounds
+            activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
+            if typeOfSignUp {
+                Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
+                    let hams = Auth.auth().currentUser?.uid
+                    let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
+                    let info = base.child("info")
+                    let work = base.child("work")
+                    info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
+                    // TODO: - Cчитывать Wi-Fi
+                    work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
+                    Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
+                        if user != nil {
+                            let hams = Auth.auth().currentUser?.uid
+                            let base = Database.database().reference().child((self.companyTextField.text!))
+                            self.data.users.removeAll()
+                            // TODO: Вынести в отдельную функцию
+                            base.observe(.value, with:  { (snapshot) in
+                                guard let value = snapshot.value, snapshot.exists() else { return }
+                                let dict: NSDictionary = value as! NSDictionary
+                                for (uid, categories) in dict as! NSDictionary {
+                                    for (category, fields) in categories as! NSDictionary {
+                                        for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                            if nameOfField as? String == "admin" {
+                                                // Всегда true
+                                                if hams == uid as? String {
+                                                    UserDefaults.standard.set(valueOfField, forKey: "admin")
+                                                    UserDefaults.standard.set((self.companyTextField.text!), forKey: "company")
+                                                }
+                                                self.oneOfUsers.work.admin = valueOfField as? Bool
+                                                continue
                                             }
-                                            self.oneOfUsers.work.admin = valueOfField as? Bool
-                                            continue
-                                        }
-                                        if nameOfField as? String == "check" {
-                                            self.oneOfUsers.work.check = valueOfField as? Bool
-                                            continue
-                                        }
-                                        if nameOfField as? String == "patronymic" {
-                                            self.oneOfUsers.info.patronymic = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "monthHours" {
-                                            self.oneOfUsers.work.monthHours = valueOfField as? Double
-                                            continue
-                                        }
-                                        if nameOfField as? String == "totalHours" {
-                                            self.oneOfUsers.work.totalHours = valueOfField as? Double
-                                            continue
-                                        }
-                                        if nameOfField as? String == "weekHours" {
-                                            self.oneOfUsers.work.weekHours = valueOfField as? Double
-                                            continue
-                                        }
-                                        if nameOfField as? String == "date" {
-                                            self.oneOfUsers.info.date = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "email" {
-                                            self.oneOfUsers.info.email = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "name" {
-                                            self.oneOfUsers.info.name = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "pass" {
-                                            self.oneOfUsers.info.pass = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "phone" {
-                                            self.oneOfUsers.info.phone = valueOfField as? String
-                                            continue
-                                        }
-                                        if nameOfField as? String == "surname" {
-                                            self.oneOfUsers.info.surname = valueOfField as? String
-                                            continue
+                                            if nameOfField as? String == "check" {
+                                                self.oneOfUsers.work.check = valueOfField as? Bool
+                                                continue
+                                            }
+                                            if nameOfField as? String == "patronymic" {
+                                                self.oneOfUsers.info.patronymic = valueOfField as? String
+                                                continue
+                                            }
+                                            if nameOfField as? String == "monthHours" {
+                                                self.oneOfUsers.work.monthHours = valueOfField as? Double
+                                                continue
+                                            }
+                                            if nameOfField as? String == "totalHours" {
+                                                self.oneOfUsers.work.totalHours = valueOfField as? Double
+                                                continue
+                                            }
+                                            if nameOfField as? String == "weekHours" {
+                                                self.oneOfUsers.work.weekHours = valueOfField as? Double
+                                                continue
+                                            }
+                                            if nameOfField as? String == "date" {
+                                                self.oneOfUsers.info.date = valueOfField as? String
+                                                continue
+                                            }
+                                            if nameOfField as? String == "email" {
+                                                self.oneOfUsers.info.email = valueOfField as? String
+                                                continue
+                                            }
+                                            if nameOfField as? String == "name" {
+                                                self.oneOfUsers.info.name = valueOfField as? String
+                                                continue
+                                            }
+                                            if nameOfField as? String == "pass" {
+                                                self.oneOfUsers.info.pass = valueOfField as? String
+                                                continue
+                                            }
+                                            if nameOfField as? String == "phone" {
+                                                self.oneOfUsers.info.phone = valueOfField as? String
+                                                continue
+                                            }
+                                            if nameOfField as? String == "surname" {
+                                                self.oneOfUsers.info.surname = valueOfField as? String
+                                                continue
+                                            }
                                         }
                                     }
+                                    self.data.users.append(self.oneOfUsers)
                                 }
-                                self.data.users.append(self.oneOfUsers)
+                                
+                                UserDefaults.standard.set(true, forKey: "autoSignIn")
+                                UserDefaults.standard.set(self.emailTextField.text!.lowercased(), forKey: "login")
+                                UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
+                                let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
+                                MainScreenTabBarVC.data = self.data
+                                MainScreenTabBarVC.modalPresentationStyle = .fullScreen
+                                MainScreenTabBarVC.modalTransitionStyle = .flipHorizontal
+                                self.present(MainScreenTabBarVC, animated: true, completion: nil)
+                            })
+                        }
+                        else {
+                            // Очистка всего UserDefaults, если вход не был выполнен
+                            if let appDomain = Bundle.main.bundleIdentifier {
+                                UserDefaults.standard.removePersistentDomain(forName: appDomain)
                             }
-                            
-                            UserDefaults.standard.set(true, forKey: "autoSignIn")
-                            UserDefaults.standard.set(self.emailTextField.text!.lowercased(), forKey: "login")
-                            UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
-                            let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
-                            MainScreenTabBarVC.data = self.data
-                            MainScreenTabBarVC.modalPresentationStyle = .fullScreen
-                            MainScreenTabBarVC.modalTransitionStyle = .flipHorizontal
-                            self.present(MainScreenTabBarVC, animated: true, completion: nil)
-                        })
-                    }
-                    else {
-                        // Очистка всего UserDefaults, если вход не был выполнен
-                        if let appDomain = Bundle.main.bundleIdentifier {
-                            UserDefaults.standard.removePersistentDomain(forName: appDomain)
                         }
                     }
                 }
+            } else {
+                Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
+                    let hams = Auth.auth().currentUser?.uid
+                    let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!)
+                    let info = base.child("info")
+                    let work = base.child("work")
+                    info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
+                    work.updateChildValues(["admin": self.buttonAdmin.isSelected, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
-        } else {
-            Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
-                let hams = Auth.auth().currentUser?.uid
-                let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!)
-                let info = base.child("info")
-                let work = base.child("work")
-                info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
-                work.updateChildValues(["admin": self.buttonAdmin.isSelected, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
-                self.dismiss(animated: true, completion: nil)
-            }
+            activityIndicator.stopAnimating() // TODO: - Вовремя
         }
-        activityIndicator.stopAnimating() // TODO: - Вовремя
     }
     
 }
