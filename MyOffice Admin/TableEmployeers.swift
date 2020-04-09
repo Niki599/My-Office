@@ -17,7 +17,7 @@ class TableEmployeers: UIViewController {
      Модель всех сотрудников
      */
     var data: Company!
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser()/*, days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime()*/)
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
 
     // MARK: - Private Properties
     

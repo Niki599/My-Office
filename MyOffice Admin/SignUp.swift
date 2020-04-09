@@ -23,7 +23,7 @@ class SignUp: UIViewController {
      Модель всех сотрудников
      */
     var data = Company.shared
-    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser()/*, days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime()*/)
+    var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
     
     // MARK: - Private Properties
     private var  companyView: UIView!

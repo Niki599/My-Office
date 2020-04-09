@@ -17,7 +17,7 @@ class SignIn: UIViewController {
      Модель всех сотрудников
      */
     private var data = Company.shared
-    private var oneOfUsers: User = User(info: InfoUser(), work: WorkUser()/*, days: DaysOfWeek(), coming: ComingTime(), leaving: LeavingTime()*/)
+    private var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
     private var loginTextField: UITextField!
     private var passwordTextField: UITextField!
     private var mainLogo: UIImageView!
@@ -66,12 +66,12 @@ class SignIn: UIViewController {
                         }
 //                        var a = dict.value(forKeyPath: "\(currentCompany).\(hams).coming") as! NSDictionary
 //                        print(dict.value(forKeyPath: "\(currentCompany).\(hams).work.check"))
-//                        if Calendar.current.component(.weekday, from: Date()) == 2 {
-//                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
-//                        }
-//                        if Calendar.current.component(.day, from: Date()) == 1 {
-//                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["monthHours": 0])
-//                        }
+                        if Calendar.current.component(.weekday, from: Date()) == 2 {
+                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
+                        }
+                        if Calendar.current.component(.day, from: Date()) == 1 {
+                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["monthHours": 0])
+                        }
                         for (company, uids) in dict {
                             if company as? String == currentCompany {
                                 for (uid, categories) in uids as! NSDictionary {
@@ -354,12 +354,12 @@ class SignIn: UIViewController {
                                 }
                             }
                         }
-//                        if Calendar.current.component(.weekday, from: Date()) == 2 {
-//                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
-//                        }
-//                        if Calendar.current.component(.day, from: Date()) == 1 {
-//                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["monthHours": 0])
-//                        }
+                        if Calendar.current.component(.weekday, from: Date()) == 2 {
+                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
+                        }
+                        if Calendar.current.component(.day, from: Date()) == 1 {
+                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["monthHours": 0])
+                        }
                         for (company, uids) in dict {
                             if company as? String == currentCompany {
                                 for (uid, categories) in uids as! NSDictionary {
@@ -475,13 +475,13 @@ class SignIn: UIViewController {
         }
     }
     
-    @objc func didCreateCompanyButtonTap() {
+    @objc private func didCreateCompanyButtonTap() {
         let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "SignUp") as! SignUp
         signUpVC.typeOfSignUp = true
         self.navigationController?.pushViewController(signUpVC, animated: true)
     }
     
-    func dateNow(baseDate: String) -> Bool {
+    private func dateNow(baseDate: String) -> Bool {
         var dateNow: String
         switch Calendar.current.component(.month, from: Date()) {
         case 1:

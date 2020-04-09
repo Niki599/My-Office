@@ -294,9 +294,12 @@ class MainScreen: UIViewController {
         // TODO: - Разобраться почему происходит автообновление
         if (sender.isSelected) {
             timer.invalidate()
-            var f = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-            print(Calendar.current.component(.month, from: f))
-            
+            let activityIndicator = UIActivityIndicatorView(style: .large)
+            view.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+            activityIndicator.frame = view.bounds
+            activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
+
             infoConnection.text = "Отсутствует"
             infoConnection.textColor = .red
             sender.isSelected = false
@@ -362,11 +365,19 @@ class MainScreen: UIViewController {
                     }
 
                 }
+                activityIndicator.stopAnimating()
             })
             return
         } else {
             // TODO: - Продумать логику
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerUpdate), userInfo: NSDate(), repeats: true)
+            
+            let activityIndicator = UIActivityIndicatorView(style: .large)
+            view.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+            activityIndicator.frame = view.bounds
+            activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
+
             infoConnection.text = "На работе"
             infoConnection.textColor = .green
             sender.isSelected = true
@@ -493,6 +504,7 @@ class MainScreen: UIViewController {
                         default:
                             print("Быть такого не может")
                         }
+                        activityIndicator.stopAnimating()
                     })
                 }
             })
