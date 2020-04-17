@@ -226,7 +226,6 @@ class MainScreen: UIViewController {
         /**
          Уверен, что этот код можно сократить, я писал в лоб, чтобы просто добиться формата "00:00:00"
          */
-        // TODO: - Продумать логику
 //        guard self.timer != nil else { return }
         let elapsed = -(self.timer.userInfo as! NSDate).timeIntervalSinceNow
         minutesIsJob = floor(elapsed / 60)

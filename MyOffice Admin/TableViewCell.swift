@@ -48,7 +48,6 @@ class TableViewCell: UITableViewCell {
             labelThrid.textColor = UIColor(red: 0.721, green: 0.029, blue: 0, alpha: 1)
             labelFourth.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
 
-            // TODO: -Доработать порядок
             labelFirst.text = data.users[id].days[indexPath.row]
             labelSecond.text = data.users[id].coming[indexPath.row]
             labelThrid.text = data.users[id].leaving[indexPath.row]
@@ -68,7 +67,9 @@ class TableViewCell: UITableViewCell {
             stackViewCell = UIStackView(arrangedSubviews: [labelFirst])
         }
         
-        // Зеленый фон нажатия на таблицу
+        /**
+         Зеленый фон нажатия на таблицу
+         */
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor(red: 0.954, green: 1, blue: 0.956, alpha: 1)
         selectedBackgroundView = backgroundView

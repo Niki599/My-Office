@@ -35,10 +35,14 @@ class SignIn: UIViewController {
         super.viewDidLoad()
         
         setupView()
-        //Тап по экрану, чтобы спрятать клаву
+        /**
+         Тап по экрану, чтобы спрятать клаву
+         */
         let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(gesture)
-        //Реализация автовхода
+        /**
+         Реализация автовхода
+         */
         if (UserDefaults.standard.bool(forKey: "autoSignIn")) {
             let activityIndicator = UIActivityIndicatorView(style: .large)
             view.addSubview(activityIndicator)

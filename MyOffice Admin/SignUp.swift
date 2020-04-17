@@ -129,18 +129,23 @@ class SignUp: UIViewController {
         surnameTextField = standartTextField("Фамилия")
         
         dateTextField = standartTextField("Дата")
+        dateTextField.keyboardType = .numbersAndPunctuation
         
         emailTextField = standartTextField("Почта")
+        emailTextField.keyboardType = .emailAddress
         
         phoneTextField = standartTextField("Телефон")
+        phoneTextField.keyboardType = .numberPad
         
         passportTextField = standartTextField("Паспорт")
+        passportTextField.keyboardType = .numberPad
         
         passwordTextField = standartTextField("Пароль")
         
         patronymicTextField = standartTextField("Отчество")
         
         wifiTextField = standartTextField("Wi-Fi")
+        wifiTextField.keyboardType = .numbersAndPunctuation
         
         let firstStackViewInfo = UIStackView(arrangedSubviews: [emailTextField, nameTextField, surnameTextField, patronymicTextField, dateTextField, phoneTextField])
         firstStackViewInfo.axis = .vertical
@@ -294,7 +299,6 @@ class SignUp: UIViewController {
                     let info = base.child("info")
                     let work = base.child("work")
                     info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
-                    // TODO: - Cчитывать Wi-Fi
                     work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
                     Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
                         if user != nil {
@@ -377,7 +381,9 @@ class SignUp: UIViewController {
                             })
                         }
                         else {
-                            // Очистка всего UserDefaults, если вход не был выполнен
+                            /**
+                             Очистка всего UserDefaults, если вход не был выполнен
+                             */
                             if let appDomain = Bundle.main.bundleIdentifier {
                                 UserDefaults.standard.removePersistentDomain(forName: appDomain)
                             }
