@@ -77,7 +77,7 @@ class SignUp: UIViewController {
     private func setupView() {
         
         navigationController?.navigationBar.backgroundColor = .black
-        navigationItem.title = "Создание компании"
+        navigationItem.title = "Создание филиала"
         
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
@@ -93,12 +93,12 @@ class SignUp: UIViewController {
         
         let companyLabel = UILabel()
         companyLabel.textColor = .black
-        companyLabel.text = "Имя вашей компании"
+        companyLabel.text = "Имя вашего филиала"
         companyLabel.textAlignment = .center
         companyLabel.translatesAutoresizingMaskIntoConstraints = false
         companyView.addSubview(companyLabel)
         
-        companyTextField = standartTextField("Имя компании")
+        companyTextField = standartTextField("Имя филиала")
         companyView.addSubview(companyTextField)
         
         buttonAdmin = UIButton(type: .custom)
