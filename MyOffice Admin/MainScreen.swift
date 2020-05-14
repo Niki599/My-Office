@@ -57,13 +57,13 @@ class MainScreen: UIViewController {
     // MARK: - Private Methods
     
     private func setupViews() {
-        
-//        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-//        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-//        leftSwipe.direction = .left
-//        rightSwipe.direction = .right
-//        self.view.addGestureRecognizer(leftSwipe)
-//        self.view.addGestureRecognizer(rightSwipe)
+                
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        leftSwipe.direction = .left
+        rightSwipe.direction = .right
+        self.view.addGestureRecognizer(leftSwipe)
+        self.view.addGestureRecognizer(rightSwipe)
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = .white
@@ -224,12 +224,28 @@ class MainScreen: UIViewController {
     }
     
     @objc private func handleSwipes(_ sender:UISwipeGestureRecognizer) {
-        if sender.direction == .left {
-            self.tabBarController!.selectedIndex += 1
-        }
-        if sender.direction == .right {
-            self.tabBarController!.selectedIndex -= 1
-        }
+//        if sender.direction == .left {
+//            self.tabBarController!.selectedIndex += 1
+//        }
+//        if sender.direction == .right {
+//            self.tabBarController!.selectedIndex -= 1
+//        }
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
+            self.view.alpha = 0
+        }, completion: { (didEnding) in
+            if sender.direction == .left {
+                self.tabBarController!.selectedIndex += 1
+            }
+            if sender.direction == .right {
+                self.tabBarController!.selectedIndex -= 1
+            }
+            self.view.alpha = 0
+            UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
+                self.view.alpha = 1
+            }, completion: { (didEnding) in
+//                self.endOfEditing = true
+            })
+        })
     }
 
     @objc private func timerUpdate() {
