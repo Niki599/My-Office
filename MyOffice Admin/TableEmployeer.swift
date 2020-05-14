@@ -101,6 +101,10 @@ class TableEmployeer: UIViewController {
     
     private func setupView() {
         
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        leftSwipe.direction = .left
+        self.view.addGestureRecognizer(leftSwipe)
+        
         backgroundView = UIView()
         backgroundView.backgroundColor = .white
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -248,6 +252,12 @@ class TableEmployeer: UIViewController {
             tableEmployeer.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor),
         ]
                 
+    }
+    
+    @objc private func handleSwipes(_ sender:UISwipeGestureRecognizer) {
+        if sender.direction == .left {
+            self.tabBarController!.selectedIndex += 1
+        }
     }
     
     @objc private func didUpdateButtonTap() {

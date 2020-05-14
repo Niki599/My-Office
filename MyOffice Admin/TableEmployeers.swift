@@ -60,6 +60,10 @@ class TableEmployeers: UIViewController {
     
     private func setupViews() {
         
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        leftSwipe.direction = .left
+        self.view.addGestureRecognizer(leftSwipe)
+        
         titleLabel = UILabel()
         titleLabel.text = "Штат сотрудников"
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -108,6 +112,12 @@ class TableEmployeers: UIViewController {
 
         ]
         
+    }
+    
+    @objc private func handleSwipes(_ sender:UISwipeGestureRecognizer) {
+        if sender.direction == .left {
+            self.tabBarController!.selectedIndex += 1
+        }
     }
     
     @objc private func didUpdateButtonTap() {

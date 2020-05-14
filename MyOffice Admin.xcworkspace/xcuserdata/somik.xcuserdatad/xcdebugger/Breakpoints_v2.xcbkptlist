@@ -15,5 +15,495 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9EE0721E-B572-4F95-9A2D-AA84A88CA45F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyOffice Admin/MainScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
+            landmarkName = "didTapJoinButton(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EF50CC43-D57D-4212-8FBA-4F6A9E45238B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyOffice Admin/MainScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "410"
+            endingLineNumber = "410"
+            landmarkName = "didTapJoinButton(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "59F60E4B-9E90-41C8-8B47-81077D4FF01F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyOffice Admin/MainScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
+            landmarkName = "didTapJoinButton(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ABDD96A8-F719-414D-A63B-6A0CB4929ECB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyOffice Admin/MainScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
+            landmarkName = "didTapJoinButton(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyOffice Admin/SignUp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "440"
+            endingLineNumber = "440"
+            landmarkName = "didNextButtonTap()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "13823">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "14043">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "15684">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "17325">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "18966">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "20607">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "22248">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "23889">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "25530">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "27171">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "28812">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "30453">
+               </Location>
+               <Location
+                  uuid = "F1EE293C-E1DC-4C9A-B6AC-89B883EBE4A8 - 2aa8af92bd307699"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "32094">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5049F297-083D-4743-9D65-F36AECE7C600"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyOffice Admin/SignUp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
+            landmarkName = "didNextButtonTap()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "13516">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "13736">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "15377">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "17018">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "18659">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "20300">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "21941">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "23582">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "25223">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "26864">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "28505">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "30146">
+               </Location>
+               <Location
+                  uuid = "5049F297-083D-4743-9D65-F36AECE7C600 - ec2a0ec2e5781c96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRAuthDataResult&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyOffice_Admin.SignUp.(didNextButtonTap in _DACCF9541A460B1BF69F3423484D0D94)() -&gt; ()"
+                  moduleName = "MyOffice Admin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/somik/Desktop/MyOffice/MyOffice%20Admin/SignUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "300"
+                  endingLineNumber = "300"
+                  offsetFromSymbolStart = "31787">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

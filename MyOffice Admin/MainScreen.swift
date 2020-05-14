@@ -58,15 +58,19 @@ class MainScreen: UIViewController {
     
     private func setupViews() {
         
-        let logoImage = UIImage(imageLiteralResourceName: "employee.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
+//        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+//        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+//        leftSwipe.direction = .left
+//        rightSwipe.direction = .right
+//        self.view.addGestureRecognizer(leftSwipe)
+//        self.view.addGestureRecognizer(rightSwipe)
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = .white
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundView)
         
-        let avatarUser = UIImageView(image: logoImage)
-        avatarUser.layer.cornerRadius = 0.5
+        let avatarUser = UIImageView(image: UIImage(named: "employee.png"))//Берем с базы
         avatarUser.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(avatarUser)
         
@@ -75,9 +79,9 @@ class MainScreen: UIViewController {
         connectionButton.layer.cornerRadius = 5
         connectionButton.setTitle("Подключиться", for: .normal)
         connectionButton.setTitle("Отключиться", for: .selected)
-        connectionButton.setTitleColor(.white, for: .normal)
+        connectionButton.setTitleColor(.yellow, for: .normal)
         connectionButton.setTitleColor(.lightGray, for: .highlighted)
-        connectionButton.backgroundColor = .black
+        connectionButton.backgroundColor = .blue
         connectionButton.translatesAutoresizingMaskIntoConstraints = false
         connectionButton.clipsToBounds = true
         connectionButton.addTarget(nil, action: #selector(didTapJoinButton(_:)), for: .touchUpInside)
@@ -196,10 +200,8 @@ class MainScreen: UIViewController {
             title.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             title.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             
-            avatarUser.topAnchor.constraint(equalTo: title.bottomAnchor,constant: 50),
+            avatarUser.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: UIScreen.main.bounds.height / 6.0),
             avatarUser.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            avatarUser.heightAnchor.constraint(equalToConstant: 120),
-            avatarUser.widthAnchor.constraint(equalTo: avatarUser.heightAnchor),
             
             infoConnection.topAnchor.constraint(equalTo: avatarUser.bottomAnchor, constant: 14),
             infoConnection.leadingAnchor.constraint(equalTo: avatarUser.leadingAnchor,constant: -10),
@@ -221,6 +223,15 @@ class MainScreen: UIViewController {
         ])
     }
     
+    @objc private func handleSwipes(_ sender:UISwipeGestureRecognizer) {
+        if sender.direction == .left {
+            self.tabBarController!.selectedIndex += 1
+        }
+        if sender.direction == .right {
+            self.tabBarController!.selectedIndex -= 1
+        }
+    }
+
     @objc private func timerUpdate() {
         
         /**
@@ -364,8 +375,8 @@ class MainScreen: UIViewController {
                     }
 
                 }
-                activityIndicator.stopAnimating()
             })
+            activityIndicator.stopAnimating()
             return
         } else {
             // TODO: - Продумать логику
@@ -503,10 +514,10 @@ class MainScreen: UIViewController {
                         default:
                             print("Быть такого не может")
                         }
-                        activityIndicator.stopAnimating()
                     })
                 }
             })
+            activityIndicator.stopAnimating()
         }
     }
     

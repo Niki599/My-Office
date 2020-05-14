@@ -43,6 +43,10 @@ class ProfileEmployeer: UIViewController {
     
     private func setupView() {
         
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        rightSwipe.direction = .right
+        self.view.addGestureRecognizer(rightSwipe)
+        
         view.backgroundColor = .white
         let title = UILabel()
         title.text = "Информация о сотруднике"
@@ -199,11 +203,11 @@ class ProfileEmployeer: UIViewController {
             title.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             title.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             
-            deleteAccButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 20),
+            deleteAccButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             deleteAccButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
             
             image.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            image.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 60),
+            image.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: UIScreen.main.bounds.height / 6.0),
             
             labelNumberOfPass.topAnchor.constraint(equalTo: stackViewPass.topAnchor),
             
@@ -220,14 +224,20 @@ class ProfileEmployeer: UIViewController {
             stackViewPass.trailingAnchor.constraint(equalTo: groupStackViewInfo.trailingAnchor),
             
             groupStackViewInfo.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 40),
-            groupStackViewInfo.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 15),
-            groupStackViewInfo.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -15),
+            groupStackViewInfo.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.2),
+            groupStackViewInfo.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             
             buttonExit.topAnchor.constraint(equalTo: groupStackViewInfo.bottomAnchor, constant: 20),
             buttonExit.heightAnchor.constraint(equalToConstant: 40),
             buttonExit.widthAnchor.constraint(equalToConstant: 60),
             buttonExit.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
         ]
+    }
+    
+    @objc private func handleSwipes(_ sender:UISwipeGestureRecognizer) {
+        if sender.direction == .right {
+            self.tabBarController!.selectedIndex -= 1
+        }
     }
     
     @objc private func exitAction() {

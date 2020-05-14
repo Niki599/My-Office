@@ -277,7 +277,7 @@ class SignIn: UIViewController {
         enteryLabel = UILabel()
         enteryLabel.translatesAutoresizingMaskIntoConstraints = false
         enteryLabel.layer.borderColor = UIColor.black.cgColor
-        enteryLabel.text = "Добро пожаловать"
+        enteryLabel.text = "Добро пожаловать в MyOffice"
         enteryLabel.numberOfLines = 3
         enteryLabel.textAlignment = .center
         enteryLabel.font = UIFont.italicSystemFont(ofSize: 32)
@@ -285,36 +285,42 @@ class SignIn: UIViewController {
         view.addSubview(enteryLabel)
         
         loginTextField = UITextField()
-        loginTextField.draw(CGRect.init())
+        loginTextField.borderStyle = .none
+        loginTextField.layer.backgroundColor = UIColor.white.cgColor
+        loginTextField.layer.masksToBounds = false
+        loginTextField.layer.shadowColor = UIColor.gray.cgColor
+        loginTextField.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        loginTextField.layer.shadowOpacity = 1.0
+        loginTextField.layer.shadowRadius = 0.0
         loginTextField.translatesAutoresizingMaskIntoConstraints = false
         loginTextField.placeholder = "Логин"
+        loginTextField.attributedPlaceholder = NSAttributedString(string: "Логин", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         loginTextField.autocapitalizationType = .none
         loginTextField.textAlignment = .left
         view.addSubview(loginTextField)
         
         passwordTextField = UITextField()
-        let bottomLine = CALayer()
-        bottomLine.frame = CGRect(x:0.0, y:100.0, width: passwordTextField.frame.width, height: passwordTextField.frame.height - 1)
-        bottomLine.backgroundColor = UIColor.black.cgColor
-        passwordTextField.layer.addSublayer(bottomLine)
+        passwordTextField.borderStyle = .none
+        passwordTextField.layer.backgroundColor = UIColor.white.cgColor
+        passwordTextField.layer.masksToBounds = false
+        passwordTextField.layer.shadowColor = UIColor.gray.cgColor
+        passwordTextField.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        passwordTextField.layer.shadowOpacity = 1.0
+        passwordTextField.layer.shadowRadius = 0.0
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.placeholder = "Пароль"
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Пароль", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         passwordTextField.isSecureTextEntry = true
         passwordTextField.textAlignment = .left
-        passwordTextField.clipsToBounds = true
         view.addSubview(passwordTextField)
         
         authorizationButton = UIButton()
-        authorizationButton.layer.borderWidth = 1
-        authorizationButton.layer.cornerRadius = 5
         authorizationButton.setTitle("Присоединиться", for: .normal)
-        authorizationButton.setTitleColor(.white, for: .normal)
+        authorizationButton.setTitleColor(.yellow, for: .normal)
         authorizationButton.setTitleColor(.lightGray, for: .highlighted)
-        authorizationButton.backgroundColor = .black
-        authorizationButton.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+        authorizationButton.backgroundColor = .blue
         authorizationButton.translatesAutoresizingMaskIntoConstraints = false
         authorizationButton.addTarget(self, action:#selector(didAuthButtonTap), for: .touchUpInside)
-        authorizationButton.clipsToBounds = true
         view.addSubview(authorizationButton)
         
         createCompanyButton = UIButton()

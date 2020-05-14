@@ -18,7 +18,7 @@ class SignUp: UIViewController {
      Если регистрируют человека, то добавим radioButton, иначе -- нет
      */
     var typeOfSignUp: Bool!
-    
+    var endOfEditing: Bool = false
     /**
      Модель всех сотрудников
      */
@@ -26,7 +26,8 @@ class SignUp: UIViewController {
     var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
     
     // MARK: - Private Properties
-    private var  companyView: UIView!
+    private var companyView: UIView!
+    private var infoView: UIView!
     private var companyTextField: UITextField!
     private var buttonAdmin: UIButton!
     private var nameTextField: UITextField!
@@ -76,198 +77,192 @@ class SignUp: UIViewController {
     
     private func setupView() {
         
-        navigationController?.navigationBar.backgroundColor = .black
+        navigationController?.navigationBar.backgroundColor = .gray
         navigationItem.title = "Создание филиала"
         
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         
         companyView = UIView()
-        companyView.layer.cornerRadius = 20
         companyView.backgroundColor = .white
         companyView.translatesAutoresizingMaskIntoConstraints = false
-        companyView.alpha = 0.8
         view.addSubview(companyView)
         
         let companyLabel = UILabel()
         companyLabel.textColor = .black
-        companyLabel.text = "Имя вашего филиала"
+        companyLabel.text = "Филиал"
+        companyLabel.font = UIFont.systemFont(ofSize: 18)
         companyLabel.textAlignment = .center
         companyLabel.translatesAutoresizingMaskIntoConstraints = false
         companyView.addSubview(companyLabel)
         
-        companyTextField = standartTextField("Имя филиала")
+        companyTextField = standartTextField("Название филиала")
         companyView.addSubview(companyTextField)
         
-        buttonAdmin = UIButton(type: .custom)
-        buttonAdmin.layer.borderWidth = 1
-        buttonAdmin.layer.cornerRadius = 5
-        buttonAdmin.backgroundColor = .red
-        buttonAdmin.translatesAutoresizingMaskIntoConstraints = false
-        buttonAdmin.addTarget(nil, action: #selector(didTapRadioButton(_:)), for: .touchUpInside)
-        companyView.addSubview(buttonAdmin)
+//        buttonAdmin = UIButton(type: .custom)
+//        buttonAdmin.layer.borderWidth = 1
+//        buttonAdmin.layer.cornerRadius = 5
+//        buttonAdmin.backgroundColor = .red
+//        buttonAdmin.translatesAutoresizingMaskIntoConstraints = false
+//        buttonAdmin.addTarget(nil, action: #selector(didTapRadioButton(_:)), for: .touchUpInside)
+//        companyView.addSubview(buttonAdmin)
         
-        let infoView = UIView()
-        infoView.layer.cornerRadius = 20
+        infoView = UIView()
         infoView.backgroundColor = .white
         infoView.translatesAutoresizingMaskIntoConstraints = false
-        infoView.alpha = 0.8
+        infoView.alpha = 0
         view.addSubview(infoView)
         
         let infoLabel = UILabel()
         infoLabel.textColor = .black
-        infoLabel.text = "Информация для отображения в таблице"
+        infoLabel.text = "Руководитель компании"
+        infoLabel.font = UIFont.systemFont(ofSize: 18)
         infoLabel.numberOfLines = 0
         infoLabel.textAlignment = .center
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         infoView.addSubview(infoLabel)
         
         nameTextField = standartTextField("Имя")
-        
+        infoView.addSubview(nameTextField)
+
         surnameTextField = standartTextField("Фамилия")
-        
+        infoView.addSubview(surnameTextField)
+
         dateTextField = standartTextField("Дата")
         dateTextField.keyboardType = .numbersAndPunctuation
-        
+        infoView.addSubview(dateTextField)
+
         emailTextField = standartTextField("Почта")
         emailTextField.keyboardType = .emailAddress
-        
+        infoView.addSubview(emailTextField)
+
         phoneTextField = standartTextField("Телефон")
         phoneTextField.keyboardType = .numberPad
-        
+        infoView.addSubview(phoneTextField)
+
         passportTextField = standartTextField("Паспорт")
         passportTextField.keyboardType = .numberPad
-        
+        infoView.addSubview(passportTextField)
+
         passwordTextField = standartTextField("Пароль")
-        
+        infoView.addSubview(passwordTextField)
+
         patronymicTextField = standartTextField("Отчество")
-        
+        infoView.addSubview(patronymicTextField)
+
         wifiTextField = standartTextField("Wi-Fi")
         wifiTextField.keyboardType = .numbersAndPunctuation
-        
-        let firstStackViewInfo = UIStackView(arrangedSubviews: [emailTextField, nameTextField, surnameTextField, patronymicTextField, dateTextField, phoneTextField])
-        firstStackViewInfo.axis = .vertical
-        firstStackViewInfo.distribution = .fillEqually
-        firstStackViewInfo.spacing = 15
-        firstStackViewInfo.alignment = .center
-        firstStackViewInfo.backgroundColor = .black
-        firstStackViewInfo.translatesAutoresizingMaskIntoConstraints = false
-        infoView.addSubview(firstStackViewInfo)
-        
-        let secondStackViewInfo = UIStackView(arrangedSubviews: [passwordTextField, passportTextField, wifiTextField])
-        secondStackViewInfo.axis = .vertical
-        secondStackViewInfo.distribution = .fillEqually
-        secondStackViewInfo.spacing = 15
-        secondStackViewInfo.alignment = .center
-        secondStackViewInfo.backgroundColor = .black
-        secondStackViewInfo.translatesAutoresizingMaskIntoConstraints = false
-        infoView.addSubview(secondStackViewInfo)
+        infoView.addSubview(wifiTextField)
 
         let nextButton = UIButton()
-        nextButton.setTitle("Продолжить", for: .normal)
-        nextButton.setTitleColor(.white, for: .normal)
+        nextButton.setTitle("Далее", for: .normal)
+        nextButton.setTitleColor(.yellow, for: .normal)
         nextButton.setTitleColor(.lightGray, for: .highlighted)
-        nextButton.backgroundColor = .black
+        nextButton.backgroundColor = .blue
         nextButton.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.addTarget(self, action:#selector(didNextButtonTap), for: .touchUpInside)
-        infoView.addSubview(nextButton)
+        view.addSubview(nextButton)
         
-        if typeOfSignUp {
-            companyLabel.isHidden = false
-            companyTextField.isHidden = false
-            buttonAdmin.isHidden = true
+        if !typeOfSignUp {
+//            Регистрация человека
+            endOfEditing = true
+            self.companyView.alpha = 0.0
+            self.infoView.alpha = 1
+            infoLabel.text = "Новый сотрудник"
+//            buttonAdmin.isHidden = true
         } else {
-            companyLabel.isHidden = true
-            companyTextField.isHidden = true
-            buttonAdmin.isHidden = false
+            infoLabel.text = "Руководитель филиала"
+//            buttonAdmin.isHidden = false
         }
         
         constraints = [
             companyView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
-            companyView.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 20),
-            companyView.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
-            companyView.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -10),
-            companyView.heightAnchor.constraint(equalToConstant: screenHeight / 6.5),
+            companyView.centerYAnchor.constraint(equalTo: view.safeArea.centerYAnchor),
+            companyView.widthAnchor.constraint(equalToConstant: screenWidth / 1.3),
+            companyView.heightAnchor.constraint(equalToConstant: screenHeight / 5.0),
             
-            companyTextField.bottomAnchor.constraint(equalTo: companyView.bottomAnchor, constant: -26),
-            companyTextField.leadingAnchor.constraint(equalTo: companyView.leadingAnchor, constant: 10),
-            companyTextField.trailingAnchor.constraint(equalTo: companyView.trailingAnchor, constant: -10),
-            companyTextField.heightAnchor.constraint(equalToConstant: 25),
+            companyTextField.centerYAnchor.constraint(equalTo: companyView.centerYAnchor),
+            companyTextField.centerXAnchor.constraint(equalTo: companyView.centerXAnchor),
+            companyTextField.heightAnchor.constraint(equalToConstant: 44),
+            companyTextField.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.8),
             
             companyLabel.bottomAnchor.constraint(equalTo: companyTextField.topAnchor, constant: -10),
-            companyLabel.leadingAnchor.constraint(equalTo: companyTextField.leadingAnchor),
-            companyLabel.trailingAnchor.constraint(equalTo: companyTextField.trailingAnchor),
-            
-            buttonAdmin.centerXAnchor.constraint(equalTo: companyView.safeArea.centerXAnchor),
-            buttonAdmin.centerYAnchor.constraint(equalTo: companyView.safeArea.centerYAnchor),
-            buttonAdmin.widthAnchor.constraint(equalToConstant: 45),
-            buttonAdmin.heightAnchor.constraint(equalToConstant: 45),
-            
-            infoView.topAnchor.constraint(equalTo: companyView.bottomAnchor, constant: 10),
+            companyLabel.centerXAnchor.constraint(equalTo: companyView.centerXAnchor),
+                        
+            infoView.heightAnchor.constraint(equalToConstant: screenHeight / 1.4),
+            infoView.widthAnchor.constraint(equalToConstant: screenWidth / 1.3),
             infoView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
-            infoView.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
-            infoView.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -10),
-            infoView.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor, constant: -20),
+            infoView.centerYAnchor.constraint(equalTo: view.safeArea.centerYAnchor),
             
             infoLabel.topAnchor.constraint(equalTo: infoView.topAnchor),
-            infoLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor),
-            infoLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor),
-            infoLabel.heightAnchor.constraint(equalToConstant: 30),
+            infoLabel.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
             
-            firstStackViewInfo.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 15),
-            firstStackViewInfo.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 15),
-            firstStackViewInfo.widthAnchor.constraint(equalToConstant: screenWidth / 2.5),
-            firstStackViewInfo.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -60),
+            nameTextField.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
+            nameTextField.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 13),
+            nameTextField.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.3),
+            nameTextField.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 20),
             
-            nameTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
-            nameTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
+            surnameTextField.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
+            surnameTextField.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 13),
+            surnameTextField.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.3),
+            surnameTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 3),
             
-            surnameTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
-            surnameTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
+            patronymicTextField.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
+            patronymicTextField.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 13),
+            patronymicTextField.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.3),
+            patronymicTextField.topAnchor.constraint(equalTo: surnameTextField.bottomAnchor, constant: 3),
             
-            dateTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
-            dateTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
+            dateTextField.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
+            dateTextField.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 13),
+            dateTextField.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.3),
+            dateTextField.topAnchor.constraint(equalTo: patronymicTextField.bottomAnchor, constant: 3),
             
-            emailTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
-            emailTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
+            passportTextField.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
+            passportTextField.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 13),
+            passportTextField.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.3),
+            passportTextField.topAnchor.constraint(equalTo: dateTextField.bottomAnchor, constant: 3),
             
-            phoneTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
-            phoneTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
+            phoneTextField.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
+            phoneTextField.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 13),
+            phoneTextField.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.3),
+            phoneTextField.topAnchor.constraint(equalTo: passportTextField.bottomAnchor, constant: 3),
+                        
+            wifiTextField.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
+            wifiTextField.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 13),
+            wifiTextField.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.3),
+            wifiTextField.topAnchor.constraint(equalTo: phoneTextField.bottomAnchor, constant: 3),
+
+            emailTextField.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
+            emailTextField.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 13),
+            emailTextField.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.3),
+            emailTextField.topAnchor.constraint(equalTo: wifiTextField.bottomAnchor, constant: 3),
             
-            patronymicTextField.leadingAnchor.constraint(equalTo: firstStackViewInfo.leadingAnchor),
-            patronymicTextField.trailingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor),
-            
-            secondStackViewInfo.topAnchor.constraint(equalTo: firstStackViewInfo.topAnchor),
-            secondStackViewInfo.leadingAnchor.constraint(equalTo: firstStackViewInfo.trailingAnchor, constant: 15),
-            secondStackViewInfo.widthAnchor.constraint(equalToConstant: screenWidth / 2.5),
-            secondStackViewInfo.bottomAnchor.constraint(equalTo: surnameTextField.bottomAnchor),
-            
-            passwordTextField.leadingAnchor.constraint(equalTo: secondStackViewInfo.leadingAnchor),
-            passwordTextField.trailingAnchor.constraint(equalTo: secondStackViewInfo.trailingAnchor),
-            
-            passportTextField.leadingAnchor.constraint(equalTo: secondStackViewInfo.leadingAnchor),
-            passportTextField.trailingAnchor.constraint(equalTo: secondStackViewInfo.trailingAnchor),
-            
-            wifiTextField.leadingAnchor.constraint(equalTo: secondStackViewInfo.leadingAnchor),
-            wifiTextField.trailingAnchor.constraint(equalTo: secondStackViewInfo.trailingAnchor),
-            
-            nextButton.topAnchor.constraint(equalTo: firstStackViewInfo.bottomAnchor, constant: 10),
-            nextButton.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 10),
-            nextButton.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -10),
-            nextButton.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -10),
+            passwordTextField.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
+            passwordTextField.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 13),
+            passwordTextField.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.3),
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 3),
+                        
+            nextButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
+            nextButton.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor, constant: -20),
+            nextButton.widthAnchor.constraint(equalToConstant: screenWidth / 1.3),
+            nextButton.heightAnchor.constraint(equalToConstant: 44)
             
         ]
     }
     
     func standartTextField(_ placeholder: String) -> UITextField {
         let textField = UITextField()
-        textField.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+        textField.borderStyle = .none
+        textField.layer.backgroundColor = UIColor.white.cgColor
+        textField.layer.masksToBounds = false
+        textField.layer.shadowColor = UIColor.gray.cgColor
+        textField.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        textField.layer.shadowOpacity = 1.0
+        textField.layer.shadowRadius = 0.0
         textField.textAlignment = .center
-        textField.layer.borderWidth = 2
-        textField.layer.cornerRadius = 3
         textField.delegate = self
         textField.placeholder = placeholder
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -286,122 +281,219 @@ class SignUp: UIViewController {
     }
     
     @objc private func didNextButtonTap() {
-        if (nameTextField.text! != "" || surnameTextField.text! != "" || dateTextField.text! != "" || emailTextField.text! != "" || phoneTextField.text! != "" || passportTextField.text! != "" || passwordTextField.text! != "" || patronymicTextField.text! != "" || wifiTextField.text! != "") {
-            let activityIndicator = UIActivityIndicatorView(style: .large)
-            view.addSubview(activityIndicator)
-            activityIndicator.startAnimating()
-            activityIndicator.frame = view.bounds
-            activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
-            if typeOfSignUp {
-                Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
-                    let hams = Auth.auth().currentUser?.uid
-                    let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
-                    let info = base.child("info")
-                    let work = base.child("work")
-                    info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
-                    work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
-                    Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
-                        if user != nil {
-                            let hams = Auth.auth().currentUser?.uid
-                            let base = Database.database().reference().child((self.companyTextField.text!))
-                            self.data.users.removeAll()
-                            // TODO: Вынести в отдельную функцию
-                            base.observe(.value, with:  { (snapshot) in
-                                guard let value = snapshot.value, snapshot.exists() else { return }
-                                let dict: NSDictionary = value as! NSDictionary
-                                for (uid, categories) in dict as! NSDictionary {
-                                    for (category, fields) in categories as! NSDictionary {
-                                        for (nameOfField, valueOfField) in fields as! NSDictionary {
-                                            if nameOfField as? String == "admin" {
-                                                // Всегда true
-                                                if hams == uid as? String {
-                                                    UserDefaults.standard.set(valueOfField, forKey: "admin")
-                                                    UserDefaults.standard.set((self.companyTextField.text!), forKey: "company")
+        if endOfEditing {
+            if (nameTextField.text! != "" || surnameTextField.text! != "" || dateTextField.text! != "" || emailTextField.text! != "" || phoneTextField.text! != "" || passportTextField.text! != "" || passwordTextField.text! != "" || patronymicTextField.text! != "" || wifiTextField.text! != "") {
+                let activityIndicator = UIActivityIndicatorView(style: .large)
+                view.addSubview(activityIndicator)
+                activityIndicator.startAnimating()
+                activityIndicator.frame = view.bounds
+                activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
+                if typeOfSignUp {
+                    Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
+                        let hams = Auth.auth().currentUser?.uid
+                        let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
+                        let baseComing = Database.database().reference().child(self.companyTextField.text!).child(hams!).child("coming")
+                        let info = base.child("info")
+                        let work = base.child("work")
+                        info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
+                        work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
+                        switch Calendar.current.component(.month, from: Date()) {
+                        case 1:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) января": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 2:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) февраля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 3:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) марта": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 4:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) апреля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 5:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) мая": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 6:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июня": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 7:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 8:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) августа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 9:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) сентября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 10:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) октября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 11:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) ноября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 12:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) декабря": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        default:
+                            print("Быть такого не может")
+                        }
+
+                        Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
+                            if user != nil {
+                                let hams = Auth.auth().currentUser?.uid
+                                let base = Database.database().reference().child((self.companyTextField.text!))
+                                self.data.users.removeAll()
+                                // TODO: Вынести в отдельную функцию
+                                base.observe(.value, with:  { (snapshot) in
+                                    guard let value = snapshot.value, snapshot.exists() else { return }
+                                    let dict: NSDictionary = value as! NSDictionary
+                                    for (uid, categories) in dict as! NSDictionary {
+                                        for (category, fields) in categories as! NSDictionary {
+                                            for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                                if nameOfField as? String == "admin" {
+                                                    // Всегда true
+                                                    if hams == uid as? String {
+                                                        UserDefaults.standard.set(valueOfField, forKey: "admin")
+                                                        UserDefaults.standard.set((self.companyTextField.text!), forKey: "company")
+                                                    }
+                                                    self.oneOfUsers.work.admin = valueOfField as? Bool
+                                                    continue
                                                 }
-                                                self.oneOfUsers.work.admin = valueOfField as? Bool
-                                                continue
-                                            }
-                                            if nameOfField as? String == "check" {
-                                                self.oneOfUsers.work.check = valueOfField as? Bool
-                                                continue
-                                            }
-                                            if nameOfField as? String == "patronymic" {
-                                                self.oneOfUsers.info.patronymic = valueOfField as? String
-                                                continue
-                                            }
-                                            if nameOfField as? String == "monthHours" {
-                                                self.oneOfUsers.work.monthHours = valueOfField as? Double
-                                                continue
-                                            }
-                                            if nameOfField as? String == "totalHours" {
-                                                self.oneOfUsers.work.totalHours = valueOfField as? Double
-                                                continue
-                                            }
-                                            if nameOfField as? String == "weekHours" {
-                                                self.oneOfUsers.work.weekHours = valueOfField as? Double
-                                                continue
-                                            }
-                                            if nameOfField as? String == "date" {
-                                                self.oneOfUsers.info.date = valueOfField as? String
-                                                continue
-                                            }
-                                            if nameOfField as? String == "email" {
-                                                self.oneOfUsers.info.email = valueOfField as? String
-                                                continue
-                                            }
-                                            if nameOfField as? String == "name" {
-                                                self.oneOfUsers.info.name = valueOfField as? String
-                                                continue
-                                            }
-                                            if nameOfField as? String == "pass" {
-                                                self.oneOfUsers.info.pass = valueOfField as? String
-                                                continue
-                                            }
-                                            if nameOfField as? String == "phone" {
-                                                self.oneOfUsers.info.phone = valueOfField as? String
-                                                continue
-                                            }
-                                            if nameOfField as? String == "surname" {
-                                                self.oneOfUsers.info.surname = valueOfField as? String
-                                                continue
+                                                if nameOfField as? String == "check" {
+                                                    self.oneOfUsers.work.check = valueOfField as? Bool
+                                                    continue
+                                                }
+                                                if nameOfField as? String == "patronymic" {
+                                                    self.oneOfUsers.info.patronymic = valueOfField as? String
+                                                    continue
+                                                }
+                                                if nameOfField as? String == "monthHours" {
+                                                    self.oneOfUsers.work.monthHours = valueOfField as? Double
+                                                    continue
+                                                }
+                                                if nameOfField as? String == "totalHours" {
+                                                    self.oneOfUsers.work.totalHours = valueOfField as? Double
+                                                    continue
+                                                }
+                                                if nameOfField as? String == "weekHours" {
+                                                    self.oneOfUsers.work.weekHours = valueOfField as? Double
+                                                    continue
+                                                }
+                                                if nameOfField as? String == "date" {
+                                                    self.oneOfUsers.info.date = valueOfField as? String
+                                                    continue
+                                                }
+                                                if nameOfField as? String == "email" {
+                                                    self.oneOfUsers.info.email = valueOfField as? String
+                                                    continue
+                                                }
+                                                if nameOfField as? String == "name" {
+                                                    self.oneOfUsers.info.name = valueOfField as? String
+                                                    continue
+                                                }
+                                                if nameOfField as? String == "pass" {
+                                                    self.oneOfUsers.info.pass = valueOfField as? String
+                                                    continue
+                                                }
+                                                if nameOfField as? String == "phone" {
+                                                    self.oneOfUsers.info.phone = valueOfField as? String
+                                                    continue
+                                                }
+                                                if nameOfField as? String == "surname" {
+                                                    self.oneOfUsers.info.surname = valueOfField as? String
+                                                    continue
+                                                }
                                             }
                                         }
+                                        self.data.users.append(self.oneOfUsers)
                                     }
-                                    self.data.users.append(self.oneOfUsers)
+                                    
+                                    UserDefaults.standard.set(true, forKey: "autoSignIn")
+                                    UserDefaults.standard.set(self.emailTextField.text!.lowercased(), forKey: "login")
+                                    UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
+                                    let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
+                                    MainScreenTabBarVC.data = self.data
+                                    MainScreenTabBarVC.modalPresentationStyle = .fullScreen
+                                    MainScreenTabBarVC.modalTransitionStyle = .flipHorizontal
+                                    self.present(MainScreenTabBarVC, animated: true, completion: nil)
+                                })
+                            }
+                            else {
+                                /**
+                                 Очистка всего UserDefaults, если вход не был выполнен
+                                 */
+                                if let appDomain = Bundle.main.bundleIdentifier {
+                                    UserDefaults.standard.removePersistentDomain(forName: appDomain)
                                 }
-                                
-                                UserDefaults.standard.set(true, forKey: "autoSignIn")
-                                UserDefaults.standard.set(self.emailTextField.text!.lowercased(), forKey: "login")
-                                UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
-                                let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
-                                MainScreenTabBarVC.data = self.data
-                                MainScreenTabBarVC.modalPresentationStyle = .fullScreen
-                                MainScreenTabBarVC.modalTransitionStyle = .flipHorizontal
-                                self.present(MainScreenTabBarVC, animated: true, completion: nil)
-                            })
-                        }
-                        else {
-                            /**
-                             Очистка всего UserDefaults, если вход не был выполнен
-                             */
-                            if let appDomain = Bundle.main.bundleIdentifier {
-                                UserDefaults.standard.removePersistentDomain(forName: appDomain)
                             }
                         }
                     }
+                } else {
+                    Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
+                        let hams = Auth.auth().currentUser?.uid
+                        let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!)
+                        let baseComing = Database.database().reference().child(self.companyTextField.text!).child(hams!).child("coming")
+                        let info = base.child("info")
+                        let work = base.child("work")
+                        info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
+                        work.updateChildValues(["admin": self.buttonAdmin.isSelected, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
+                        switch Calendar.current.component(.month, from: Date()) {
+                        case 1:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) января": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 2:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) февраля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 3:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) марта": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 4:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) апреля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 5:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) мая": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 6:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июня": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 7:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 8:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) августа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 9:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) сентября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 10:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) октября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 11:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) ноября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        case 12:
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) декабря": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            return
+                        default:
+                            print("Быть такого не может")
+                        }
+
+                        self.dismiss(animated: true, completion: nil)
+                    }
                 }
-            } else {
-                Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
-                    let hams = Auth.auth().currentUser?.uid
-                    let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!)
-                    let info = base.child("info")
-                    let work = base.child("work")
-                    info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
-                    work.updateChildValues(["admin": self.buttonAdmin.isSelected, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
-                    self.dismiss(animated: true, completion: nil)
-                }
+                activityIndicator.stopAnimating() // TODO: - Вовремя
             }
-            activityIndicator.stopAnimating() // TODO: - Вовремя
+        }
+        else {
+            UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
+                self.companyView.alpha = 0.0
+            }, completion: { (didEnding) in
+                UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
+                    self.infoView.alpha = 1
+                }, completion: { (didEnding) in
+                    self.endOfEditing = true
+                })
+            })
         }
     }
     
