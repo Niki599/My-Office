@@ -30,6 +30,7 @@ class SignUp: UIViewController {
     private var infoView: UIView!
     private var companyTextField: UITextField!
     private var buttonAdmin: UIButton!
+    private var labelAdmin: UILabel!
     private var nameTextField: UITextField!
     private var surnameTextField: UITextField!
     private var dateTextField: UITextField!
@@ -101,23 +102,33 @@ class SignUp: UIViewController {
         companyTextField = standartTextField("Название филиала")
         companyView.addSubview(companyTextField)
         
-//        buttonAdmin = UIButton(type: .custom)
-//        buttonAdmin.layer.borderWidth = 1
-//        buttonAdmin.layer.cornerRadius = 5
-//        buttonAdmin.backgroundColor = .red
-//        buttonAdmin.translatesAutoresizingMaskIntoConstraints = false
-//        buttonAdmin.addTarget(nil, action: #selector(didTapRadioButton(_:)), for: .touchUpInside)
-//        companyView.addSubview(buttonAdmin)
-        
         infoView = UIView()
         infoView.backgroundColor = .white
         infoView.translatesAutoresizingMaskIntoConstraints = false
         infoView.alpha = 0
         view.addSubview(infoView)
         
+        labelAdmin = UILabel()
+        labelAdmin.textColor = .black
+        labelAdmin.text = "Права администратора"
+        labelAdmin.font = UIFont.systemFont(ofSize: 18)
+        labelAdmin.numberOfLines = 0
+        labelAdmin.textAlignment = .left
+        labelAdmin.translatesAutoresizingMaskIntoConstraints = false
+        infoView.addSubview(labelAdmin)
+        
+        buttonAdmin = UIButton(type: .custom)
+        buttonAdmin.layer.borderWidth = 1
+        buttonAdmin.setImage(UIImage(named: "checkBox.png"), for: .selected)
+        buttonAdmin.layer.cornerRadius = 5
+        buttonAdmin.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+        buttonAdmin.backgroundColor = .none
+        buttonAdmin.translatesAutoresizingMaskIntoConstraints = false
+        buttonAdmin.addTarget(nil, action: #selector(didTapRadioButton(_:)), for: .touchUpInside)
+        infoView.addSubview(buttonAdmin)
+        
         let infoLabel = UILabel()
         infoLabel.textColor = .black
-        infoLabel.text = "Руководитель компании"
         infoLabel.font = UIFont.systemFont(ofSize: 18)
         infoLabel.numberOfLines = 0
         infoLabel.textAlignment = .center
@@ -166,19 +177,35 @@ class SignUp: UIViewController {
         nextButton.addTarget(self, action:#selector(didNextButtonTap), for: .touchUpInside)
         view.addSubview(nextButton)
         
-        if !typeOfSignUp {
-//            Регистрация человека
+        let backButton = UIButton()
+        backButton.addTarget(self, action: #selector(didBackButtonTap), for: .touchUpInside)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.setImage(UIImage(imageLiteralResourceName: "arrowLeft.png"), for: .normal)
+        view.addSubview(backButton)
+        
+        if typeOfSignUp {
+            infoLabel.text = "Руководитель филиала"
+            buttonAdmin.isHidden = true
+            labelAdmin.isHidden = true
+            backButton.isHidden = true
+        } else {
+            //            Регистрация человека
             endOfEditing = true
             self.companyView.alpha = 0.0
             self.infoView.alpha = 1
             infoLabel.text = "Новый сотрудник"
-//            buttonAdmin.isHidden = true
-        } else {
-            infoLabel.text = "Руководитель филиала"
-//            buttonAdmin.isHidden = false
+            buttonAdmin.isHidden = false
+            labelAdmin.isHidden = false
+            backButton.isHidden = false
         }
         
         constraints = [
+            
+            backButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 10),
+            backButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
+            backButton.widthAnchor.constraint(equalToConstant: 40),
+            backButton.heightAnchor.constraint(equalToConstant: 40),
+            
             companyView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             companyView.centerYAnchor.constraint(equalTo: view.safeArea.centerYAnchor),
             companyView.widthAnchor.constraint(equalToConstant: screenWidth / 1.3),
@@ -244,6 +271,16 @@ class SignUp: UIViewController {
             passwordTextField.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 13),
             passwordTextField.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.3),
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 3),
+            
+            labelAdmin.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
+            labelAdmin.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
+            labelAdmin.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 13),
+            labelAdmin.widthAnchor.constraint(equalToConstant: screenWidth / 1.3 / 1.7),
+            
+            buttonAdmin.topAnchor.constraint(equalTo: labelAdmin.topAnchor),
+            buttonAdmin.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor),
+            buttonAdmin.heightAnchor.constraint(equalToConstant: screenHeight / 1.4 / 14),
+            buttonAdmin.widthAnchor.constraint(equalToConstant: screenHeight / 1.4 / 14),
                         
             nextButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             nextButton.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor, constant: -20),
@@ -269,14 +306,18 @@ class SignUp: UIViewController {
         return textField
     }
     
+    @objc private func didBackButtonTap() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @objc private func didTapRadioButton(_ sender: UIButton) {
         if (sender.isSelected) {
-            sender.backgroundColor = .red
+            sender.backgroundColor = .none
             sender.isSelected = false
             return
         } else {
             sender.isSelected = true
-            sender.backgroundColor = .green
+//            sender.backgroundColor = .green
         }
     }
     
@@ -292,7 +333,7 @@ class SignUp: UIViewController {
                     Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
                         let hams = Auth.auth().currentUser?.uid
                         let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
-                        let baseComing = Database.database().reference().child(self.companyTextField.text!).child(hams!).child("coming")
+                        let baseComing = base.child("coming")
                         let info = base.child("info")
                         let work = base.child("work")
                         info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
@@ -432,7 +473,8 @@ class SignUp: UIViewController {
                     Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
                         let hams = Auth.auth().currentUser?.uid
                         let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!)
-                        let baseComing = Database.database().reference().child(self.companyTextField.text!).child(hams!).child("coming")
+                        let baseComing = base.child("coming")
+                        let baseLeaving = base.child("leaving")
                         let info = base.child("info")
                         let work = base.child("work")
                         info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
@@ -440,40 +482,28 @@ class SignUp: UIViewController {
                         switch Calendar.current.component(.month, from: Date()) {
                         case 1:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) января": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         case 2:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) февраля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         case 3:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) марта": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         case 4:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) апреля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         case 5:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) мая": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         case 6:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июня": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         case 7:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         case 8:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) августа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         case 9:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) сентября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         case 10:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) октября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         case 11:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) ноября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         case 12:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) декабря": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
                         default:
                             print("Быть такого не может")
                         }
