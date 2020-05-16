@@ -317,7 +317,6 @@ class MainScreen: UIViewController {
     }
         
     @objc private func didTapJoinButton(_ sender: UIButton) {
-        // TODO: - Разобраться почему происходит автообновление
         if (sender.isSelected) {
             timer.invalidate()
             let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -416,7 +415,6 @@ class MainScreen: UIViewController {
             Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!, completion: { (user, error) in
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
-                    // TODO: - У новых сотрудников не появляется "working" и "coming"
                     let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("coming")
                     let baseWork = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work")
                     baseWork.updateChildValues(["check": true])

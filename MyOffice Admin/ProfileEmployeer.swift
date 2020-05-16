@@ -14,10 +14,16 @@ class ProfileEmployeer: UIViewController {
     // MARK: - Public Properties
     
     var data: Company!
+    var typeOfShowVC = true
     
     // MARK: - Private Properties
     
     private var constraints: [NSLayoutConstraint]!
+    private var labelFullName = UILabel()
+    private var labelBirthdayDate = UILabel()
+    private var labelPhoneNumber = UILabel()
+    private var labelNumberOfPass = UILabel()
+    private var deleteAccButton = UIButton()
     
     // MARK: - Lifecycle
     
@@ -39,6 +45,26 @@ class ProfileEmployeer: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
     
+    // MARK: - Initializers
+        
+    init(emailUser: String, data: Company) {
+        super.init(nibName: nil, bundle: nil)
+        self.data = data
+        typeOfShowVC = false
+        for user in data.users {
+            if user.info.email == emailUser {
+                labelFullName.text = "\(user.info.name!) \(user.info.surname!) \(user.info.patronymic!) 111"
+                labelBirthdayDate.text = "\(user.info.date!)"
+                labelPhoneNumber.text = "\(user.info.phone!)"
+                labelNumberOfPass.text = "\(user.info.pass!)"
+            }
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     // MARK: - Private Methods
     
     private func setupView() {
@@ -55,7 +81,7 @@ class ProfileEmployeer: UIViewController {
         title.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(title)
         
-        let deleteAccButton = UIButton()
+        deleteAccButton = UIButton()
         deleteAccButton.addTarget(self, action: #selector(didDeleteAccButtonTap), for: .touchUpInside)
         deleteAccButton.translatesAutoresizingMaskIntoConstraints = false
         deleteAccButton.setImage(UIImage(systemName: "xmark")!.resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
@@ -75,17 +101,10 @@ class ProfileEmployeer: UIViewController {
         labelName.textAlignment = .left
         labelName.translatesAutoresizingMaskIntoConstraints = false
         
-        let labelFullName = UILabel()
-        for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login") {
-                labelFullName.text = "\(user.info.name!) \(user.info.surname!)"
-            }
-        }
         labelFullName.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         labelFullName.numberOfLines = 0
         labelFullName.font.withSize(8)
         labelFullName.translatesAutoresizingMaskIntoConstraints = false
-        
         
         let labelBirthday = UILabel()
         labelBirthday.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
@@ -96,12 +115,6 @@ class ProfileEmployeer: UIViewController {
         labelBirthday.textAlignment = .left
         labelBirthday.translatesAutoresizingMaskIntoConstraints = false
         
-        let labelBirthdayDate = UILabel()
-        for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login") {
-                labelBirthdayDate.text = String(user.info.date!)
-            }
-        }
         labelBirthdayDate.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         labelBirthdayDate.font = UIFont(name: "Roboto-Regular", size: 8)
         labelBirthdayDate.translatesAutoresizingMaskIntoConstraints = false
@@ -115,12 +128,6 @@ class ProfileEmployeer: UIViewController {
         labelPhone.textAlignment = .left
         labelPhone.translatesAutoresizingMaskIntoConstraints = false
         
-        let labelPhoneNumber = UILabel()
-        for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login") {
-                labelPhoneNumber.text = String(user.info.phone!)
-            }
-        }
         labelPhoneNumber.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         labelPhoneNumber.font = UIFont(name: "Roboto-Regular", size: 8)
         labelPhoneNumber.translatesAutoresizingMaskIntoConstraints = false
@@ -134,12 +141,6 @@ class ProfileEmployeer: UIViewController {
         labelPass.textAlignment = .left
         labelPass.translatesAutoresizingMaskIntoConstraints = false
         
-        let labelNumberOfPass = UILabel()
-        for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
-                labelNumberOfPass.text = String(user.info.pass!)
-            }
-        }
         labelNumberOfPass.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         labelNumberOfPass.font.withSize(8)
         labelNumberOfPass.translatesAutoresizingMaskIntoConstraints = false
@@ -199,12 +200,37 @@ class ProfileEmployeer: UIViewController {
         groupStackViewInfo.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(groupStackViewInfo)
         
+        let backButton = UIButton()
+        backButton.addTarget(self, action: #selector(didBackButtonTap), for: .touchUpInside)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.setImage(UIImage(imageLiteralResourceName: "arrowLeft.png"), for: .normal)
+        view.addSubview(backButton)
+        
+        if typeOfShowVC {
+            for user in data.users {
+                if user.info.email == UserDefaults.standard.string(forKey: "login") {
+                    labelFullName.text = "\(user.info.name!) \(user.info.surname!)"
+                    labelBirthdayDate.text = String(user.info.date!)
+                    labelPhoneNumber.text = String(user.info.phone!)
+                    labelNumberOfPass.text = String(user.info.pass!)
+                    backButton.isHidden = true
+                }
+            }
+        } else {
+            deleteAccButton.isHidden = true
+        }
+        
         constraints = [
             title.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             title.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             
             deleteAccButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             deleteAccButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
+            
+            backButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 10),
+            backButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
+            backButton.widthAnchor.constraint(equalToConstant: 40),
+            backButton.heightAnchor.constraint(equalToConstant: 40),
             
             image.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             image.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: UIScreen.main.bounds.height / 6.0),
@@ -255,6 +281,10 @@ class ProfileEmployeer: UIViewController {
         
     }
     
+    @objc private func didBackButtonTap() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
     @objc private func didDeleteAccButtonTap() {
         
         Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
