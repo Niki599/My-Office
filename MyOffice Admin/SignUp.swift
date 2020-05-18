@@ -223,7 +223,7 @@ class SignUp: UIViewController {
             infoView.heightAnchor.constraint(equalToConstant: screenHeight / 1.4),
             infoView.widthAnchor.constraint(equalToConstant: screenWidth / 1.3),
             infoView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
-            infoView.centerYAnchor.constraint(equalTo: view.safeArea.centerYAnchor),
+            infoView.centerYAnchor.constraint(equalTo: view.safeArea.bottomAnchor, constant: -100),
             
             infoLabel.topAnchor.constraint(equalTo: infoView.topAnchor),
             infoLabel.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
@@ -521,9 +521,11 @@ class SignUp: UIViewController {
         else {
             UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
                 self.companyView.alpha = 0.0
+                self.companyView.center.y = 200
             }, completion: { (didEnding) in
                 UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
                     self.infoView.alpha = 1
+                    self.infoView.center.y = UIScreen.main.bounds.height / 2.0
                 }, completion: { (didEnding) in
                     self.endOfEditing = true
                 })

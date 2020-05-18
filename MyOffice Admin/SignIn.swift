@@ -170,6 +170,7 @@ class SignIn: UIViewController {
                     if let appDomain = Bundle.main.bundleIdentifier {
                         UserDefaults.standard.removePersistentDomain(forName: appDomain)
                     }
+                    activityIndicator.stopAnimating() // TODO: - Вовремя
                 }
             }
         }
@@ -470,6 +471,7 @@ class SignIn: UIViewController {
                     if let appDomain = Bundle.main.bundleIdentifier {
                         UserDefaults.standard.removePersistentDomain(forName: appDomain)
                     }
+                    activityIndicator.stopAnimating() // TODO: - Вовремя
                 }
             })
         }
