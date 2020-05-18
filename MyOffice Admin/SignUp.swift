@@ -59,7 +59,7 @@ class SignUp: UIViewController {
         super.viewWillAppear(animated)
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
             self.companyView.alpha = 1
-            self.companyView.center.y = -UIScreen.main.bounds.height
+            self.companyView.center.y = -UIScreen.main.bounds.height / 2.0
         }, completion: nil)
     }
     
