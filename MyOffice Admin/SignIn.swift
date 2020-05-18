@@ -55,6 +55,9 @@ class SignIn: UIViewController {
                     let hams = Auth.auth().currentUser?.uid
                     let base = Database.database().reference()
                     self.data.users.removeAll()
+                    self.oneOfUsers.coming.removeAll()
+                    self.oneOfUsers.days.removeAll()
+                    self.oneOfUsers.leaving.removeAll()
                     // TODO: Вынести в отдельную функцию
                     base.observe(.value, with:  { (snapshot) in
                         guard let value = snapshot.value, snapshot.exists() else { return }
@@ -318,6 +321,7 @@ class SignIn: UIViewController {
         authorizationButton.setTitle("Присоединиться", for: .normal)
         authorizationButton.setTitleColor(.yellow, for: .normal)
         authorizationButton.setTitleColor(.lightGray, for: .highlighted)
+        authorizationButton.layer.cornerRadius = 6
         authorizationButton.backgroundColor = .blue
         authorizationButton.translatesAutoresizingMaskIntoConstraints = false
         authorizationButton.addTarget(self, action:#selector(didAuthButtonTap), for: .touchUpInside)
@@ -347,8 +351,10 @@ class SignIn: UIViewController {
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
                     let base = Database.database().reference()
-                    var currentCompany: String?
                     self.data.users.removeAll()
+                    self.oneOfUsers.coming.removeAll()
+                    self.oneOfUsers.days.removeAll()
+                    self.oneOfUsers.leaving.removeAll()
                     // TODO: Вынести в отдельную функцию
                     base.observe(.value, with:  { (snapshot) in
                         guard let value = snapshot.value, snapshot.exists() else { return }
@@ -357,24 +363,23 @@ class SignIn: UIViewController {
                             for (uid, _) in uids as! NSDictionary {
                                 if hams == uid as? String {
                                     UserDefaults.standard.set(company, forKey: "company")
-                                    currentCompany = company as? String
                                 }
                             }
                         }
                         if Calendar.current.component(.weekday, from: Date()) == 2 {
-                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["weekHours": 0])
+                            base.child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work").updateChildValues(["weekHours": 0])
                         }
                         if Calendar.current.component(.day, from: Date()) == 1 {
-                            base.child(currentCompany!).child(hams!).child("work").updateChildValues(["monthHours": 0])
+                            base.child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work").updateChildValues(["monthHours": 0])
                         }
                         for (company, uids) in dict {
-                            if company as? String == currentCompany {
+                            if company as? String == UserDefaults.standard.string(forKey: "company")! {
                                 for (uid, categories) in uids as! NSDictionary {
                                     for (category, fields) in categories as! NSDictionary {
                                         if category as? String == "coming" {
                                             for (nameOfField, valueOfField) in fields as! NSDictionary {
                                                 if !(self.dateNow(baseDate: nameOfField as! String)) {
-                                                    base.child(currentCompany!).child(hams!).child("comming").child(nameOfField as! String).removeValue()
+                                                    base.child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("comming").child(nameOfField as! String).removeValue()
                                                 } else {
                                                     self.oneOfUsers.days.append(nameOfField as! String)
                                                     self.oneOfUsers.coming.append(valueOfField as! String)
@@ -384,7 +389,7 @@ class SignIn: UIViewController {
                                         if category as? String == "leaving" {
                                             for (nameOfField, valueOfField) in fields as! NSDictionary {
                                                 if !(self.dateNow(baseDate: nameOfField as! String)) {
-                                                    base.child(currentCompany!).child(hams!).child("leaving").child(nameOfField as! String).removeValue()
+                                                    base.child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("leaving").child(nameOfField as! String).removeValue()
                                                 } else {
                                                     self.oneOfUsers.leaving.append(valueOfField as! String)
                                                 }

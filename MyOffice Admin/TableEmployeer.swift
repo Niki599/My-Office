@@ -131,10 +131,20 @@ class TableEmployeer: UIViewController {
         view.addSubview(updateButton)
         
         let profileButton = UIButton()
-//        profileButton.addTarget(self, action: #selector(requestData), for: .touchUpInside)
-        profileButton.backgroundColor = .red
+        profileButton.addTarget(self, action: #selector(didProfileButtonTaped), for: .touchUpInside)
+//        profileButton.backgroundColor = .red
         profileButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileButton)
+        
+        let imageOfProfileButton = UIImageView(image: UIImage(named: "employee.png"))//Берем с базы
+        imageOfProfileButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageOfProfileButton)
+        
+        let labelOfProfileButton = UILabel()
+        labelOfProfileButton.font.withSize(14)
+        labelOfProfileButton.textAlignment = .center
+        labelOfProfileButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(labelOfProfileButton)
         
         let labelHoursWeek = UILabel()
         labelHoursWeek.text = "за неделю"
@@ -146,11 +156,6 @@ class TableEmployeer: UIViewController {
         labelQuantityHoursWeek = UILabel()
         labelQuantityHoursWeek.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursWeek.textAlignment = .center
-        for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
-                labelQuantityHoursWeek.text = String(user.work.weekHours!)
-            }
-        }
         labelQuantityHoursWeek.translatesAutoresizingMaskIntoConstraints = false
         
         let labelHoursMonth = UILabel()
@@ -163,11 +168,6 @@ class TableEmployeer: UIViewController {
         labelQuantityHoursMonth = UILabel()
         labelQuantityHoursMonth.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursMonth.textAlignment = .center
-        for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
-                labelQuantityHoursMonth.text = String(user.work.monthHours!)
-            }
-        }
         labelQuantityHoursMonth.translatesAutoresizingMaskIntoConstraints = false
         
         let labelAllOfHours = UILabel()
@@ -180,12 +180,16 @@ class TableEmployeer: UIViewController {
         labelQuantityAllOfHours = UILabel()
         labelQuantityAllOfHours.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityAllOfHours.textAlignment = .center
+        labelQuantityAllOfHours.translatesAutoresizingMaskIntoConstraints = false
+        
         for user in data.users {
             if user.info.email == UserDefaults.standard.string(forKey: "login")! {
-                labelQuantityAllOfHours.text = String(user.work.totalHours!)
+                labelQuantityHoursWeek.text = "\(user.work.weekHours!)"
+                labelQuantityAllOfHours.text = "\(user.work.totalHours!)"
+                labelQuantityHoursMonth.text = "\(user.work.monthHours!)"
+                labelOfProfileButton.text = "\(user.info.name!) \(user.info.surname!)"
             }
         }
-        labelQuantityAllOfHours.translatesAutoresizingMaskIntoConstraints = false
         
         let stackViewWeekLabel = UIStackView(arrangedSubviews: [labelQuantityHoursWeek, labelHoursWeek])
         stackViewWeekLabel.axis = .vertical
@@ -241,6 +245,14 @@ class TableEmployeer: UIViewController {
             profileButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -25),
             profileButton.heightAnchor.constraint(equalToConstant: 62),
             
+            imageOfProfileButton.topAnchor.constraint(equalTo: profileButton.topAnchor),
+            imageOfProfileButton.leadingAnchor.constraint(equalTo: profileButton.leadingAnchor),
+            imageOfProfileButton.heightAnchor.constraint(equalToConstant: 62),
+            imageOfProfileButton.widthAnchor.constraint(equalToConstant: 62),
+            
+            labelOfProfileButton.centerXAnchor.constraint(equalTo: profileButton.centerXAnchor),
+            labelOfProfileButton.centerYAnchor.constraint(equalTo: profileButton.centerYAnchor),
+            
             groupStackViewStatistic.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             groupStackViewStatistic.topAnchor.constraint(equalTo: profileButton.bottomAnchor, constant: 44),
             groupStackViewStatistic.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
@@ -272,12 +284,34 @@ class TableEmployeer: UIViewController {
                 let hams = Auth.auth().currentUser?.uid
                 let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!)
                 self.data.users.removeAll()
+                self.oneOfUsers.coming.removeAll()
+                self.oneOfUsers.days.removeAll()
+                self.oneOfUsers.leaving.removeAll()
                 // TODO: Вынести в отдельную функцию
                 base.observe(.value, with:  { (snapshot) in
                     guard let value = snapshot.value, snapshot.exists() else { return }
                     let dict: NSDictionary = value as! NSDictionary
                     for (uid, categories) in dict as! NSDictionary {
                         for (category, fields) in categories as! NSDictionary {
+                            if category as? String == "coming" {
+                                for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                    if !(self.dateNow(baseDate: nameOfField as! String)) {
+                                        base.child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("coming").child(nameOfField as! String).removeValue()
+                                    } else {
+                                        self.oneOfUsers.days.append(nameOfField as! String)
+                                        self.oneOfUsers.coming.append(valueOfField as! String)
+                                    }
+                                }
+                            }
+                            if category as? String == "leaving" {
+                                for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                    if !(self.dateNow(baseDate: nameOfField as! String)) {
+                                        base.child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("leaving").child(nameOfField as! String).removeValue()
+                                    } else {
+                                        self.oneOfUsers.leaving.append(valueOfField as! String)
+                                    }
+                                }
+                            }
                             for (nameOfField, valueOfField) in fields as! NSDictionary {
                                 if nameOfField as? String == "admin" {
                                     if hams == uid as? String {
@@ -348,15 +382,20 @@ class TableEmployeer: UIViewController {
                 activityIndicator.stopAnimating() // TODO: - Вовремя
             }
             else {
-                print("Error")
+                print(error as Any)
             }
         }        
     }
         
-    private func info() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "Info")
-        self.navigationController?.pushViewController(vc, animated: true)
+    @objc private func didProfileButtonTaped() {
+        for user in data.users {
+            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
+                let vc = ProfileEmployeer(emailUser: user.info.email!, data: data)
+                vc.modalPresentationStyle = .fullScreen
+                vc.modalTransitionStyle = .coverVertical
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
     }
     
     private func daysCount() {
@@ -367,6 +406,52 @@ class TableEmployeer: UIViewController {
             }
         }
     }
+    
+    private func dateNow(baseDate: String) -> Bool {
+        var dateNow: String
+        switch Calendar.current.component(.month, from: Date()) {
+        case 1:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) января"
+        case 2:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) февраля"
+        case 3:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) марта"
+        case 4:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) апреля"
+        case 5:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) мая"
+        case 6:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) июня"
+        case 7:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) июля"
+        case 8:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) августа"
+        case 9:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) сентября"
+        case 10:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) октября"
+        case 11:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) ноября"
+        case 12:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) декабря"
+        default:
+            dateNow = "0"
+            // Невозможное невозможно
+        }
+        let separatedBaseDate = baseDate.components(separatedBy: [" "])
+        let separatedNowDate = dateNow.components(separatedBy: [" "])
+
+        if separatedBaseDate[1] == separatedNowDate[1] {
+            if Int(separatedNowDate[0])! - Int(separatedBaseDate[0])! > 7 {
+                return false
+            }
+        } else {
+            return false
+        }
+        return true
+        
+    }
+
     
 }
 

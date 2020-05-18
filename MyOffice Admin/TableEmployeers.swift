@@ -132,12 +132,34 @@ class TableEmployeers: UIViewController {
                 let hams = Auth.auth().currentUser?.uid
                 let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!)
                 self.data.users.removeAll()
+                self.oneOfUsers.coming.removeAll()
+                self.oneOfUsers.days.removeAll()
+                self.oneOfUsers.leaving.removeAll()
                 // TODO: Вынести в отдельную функцию
                 base.observe(.value, with:  { (snapshot) in
                     guard let value = snapshot.value, snapshot.exists() else { return }
                     let dict: NSDictionary = value as! NSDictionary
                     for (uid, categories) in dict as! NSDictionary {
                         for (category, fields) in categories as! NSDictionary {
+                            if category as? String == "coming" {
+                                for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                    if !(self.dateNow(baseDate: nameOfField as! String)) {
+                                        base.child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("coming").child(nameOfField as! String).removeValue()
+                                    } else {
+                                        self.oneOfUsers.days.append(nameOfField as! String)
+                                        self.oneOfUsers.coming.append(valueOfField as! String)
+                                    }
+                                }
+                            }
+                            if category as? String == "leaving" {
+                                for (nameOfField, valueOfField) in fields as! NSDictionary {
+                                    if !(self.dateNow(baseDate: nameOfField as! String)) {
+                                        base.child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("leaving").child(nameOfField as! String).removeValue()
+                                    } else {
+                                        self.oneOfUsers.leaving.append(valueOfField as! String)
+                                    }
+                                }
+                            }
                             for (nameOfField, valueOfField) in fields as! NSDictionary {
                                 if nameOfField as? String == "admin" {
                                     if hams == uid as? String {
@@ -225,6 +247,52 @@ class TableEmployeers: UIViewController {
             }
         }
     }
+    
+    private func dateNow(baseDate: String) -> Bool {
+        var dateNow: String
+        switch Calendar.current.component(.month, from: Date()) {
+        case 1:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) января"
+        case 2:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) февраля"
+        case 3:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) марта"
+        case 4:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) апреля"
+        case 5:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) мая"
+        case 6:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) июня"
+        case 7:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) июля"
+        case 8:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) августа"
+        case 9:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) сентября"
+        case 10:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) октября"
+        case 11:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) ноября"
+        case 12:
+            dateNow = "\(Calendar.current.component(.day, from: Date())) декабря"
+        default:
+            dateNow = "0"
+            // Невозможное невозможно
+        }
+        let separatedBaseDate = baseDate.components(separatedBy: [" "])
+        let separatedNowDate = dateNow.components(separatedBy: [" "])
+
+        if separatedBaseDate[1] == separatedNowDate[1] {
+            if Int(separatedNowDate[0])! - Int(separatedBaseDate[0])! > 7 {
+                return false
+            }
+        } else {
+            return false
+        }
+        return true
+        
+    }
+
     
 }
 
@@ -324,16 +392,12 @@ extension TableEmployeers : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        let vc = ProfileEmployeer(emailUser: data.users[indexPath.row].info.email!, data: data)
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .coverVertical
+        self.present(vc, animated: true, completion: nil)
     }
-    
-    /**
-     Нажатие на (i)
-     */
-    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        print("hui")
-    }
-    
+        
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 
         if editingStyle == .delete {

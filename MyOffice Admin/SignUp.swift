@@ -111,7 +111,7 @@ class SignUp: UIViewController {
         labelAdmin = UILabel()
         labelAdmin.textColor = .black
         labelAdmin.text = "Права администратора"
-        labelAdmin.font = UIFont.systemFont(ofSize: 18)
+        labelAdmin.font = UIFont.systemFont(ofSize: 15)
         labelAdmin.numberOfLines = 0
         labelAdmin.textAlignment = .left
         labelAdmin.translatesAutoresizingMaskIntoConstraints = false
@@ -173,6 +173,7 @@ class SignUp: UIViewController {
         nextButton.setTitleColor(.lightGray, for: .highlighted)
         nextButton.backgroundColor = .blue
         nextButton.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+        nextButton.layer.cornerRadius = 6
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.addTarget(self, action:#selector(didNextButtonTap), for: .touchUpInside)
         view.addSubview(nextButton)
@@ -384,6 +385,9 @@ class SignUp: UIViewController {
                                 let hams = Auth.auth().currentUser?.uid
                                 let base = Database.database().reference().child((self.companyTextField.text!))
                                 self.data.users.removeAll()
+                                self.oneOfUsers.coming.removeAll()
+                                self.oneOfUsers.days.removeAll()
+                                self.oneOfUsers.leaving.removeAll()
                                 // TODO: Вынести в отдельную функцию
                                 base.observe(.value, with:  { (snapshot) in
                                     guard let value = snapshot.value, snapshot.exists() else { return }

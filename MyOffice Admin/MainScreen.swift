@@ -317,14 +317,13 @@ class MainScreen: UIViewController {
     }
         
     @objc private func didTapJoinButton(_ sender: UIButton) {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        activityIndicator.frame = view.bounds
+        activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
         if (sender.isSelected) {
             timer.invalidate()
-            let activityIndicator = UIActivityIndicatorView(style: .large)
-            view.addSubview(activityIndicator)
-            activityIndicator.startAnimating()
-            activityIndicator.frame = view.bounds
-            activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
-
             infoConnection.text = "Отсутствует"
             infoConnection.textColor = .red
             sender.isSelected = false
@@ -348,6 +347,7 @@ class MainScreen: UIViewController {
                     let baseLeaving = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("leaving")
                     let baseWork = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work")
                     baseWork.updateChildValues(["check": false, "weekHours": self.data.users[self.myId].work.weekHours!, "monthHours": self.data.users[self.myId].work.monthHours!, "totalHours": self.data.users[self.myId].work.totalHours!])
+                    activityIndicator.stopAnimating()
                     switch Calendar.current.component(.month, from: Date()) {
                     case 1:
                         baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) января": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
@@ -388,21 +388,14 @@ class MainScreen: UIViewController {
                     default:
                         print("Быть такого не может")
                     }
-
+                } else {
+                    activityIndicator.stopAnimating()
                 }
             })
-            activityIndicator.stopAnimating()
             return
         } else {
             // TODO: - Продумать логику
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerUpdate), userInfo: NSDate(), repeats: true)
-            
-            let activityIndicator = UIActivityIndicatorView(style: .large)
-            view.addSubview(activityIndicator)
-            activityIndicator.startAnimating()
-            activityIndicator.frame = view.bounds
-            activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
-
             infoConnection.text = "На работе"
             infoConnection.textColor = .green
             sender.isSelected = true
@@ -421,7 +414,7 @@ class MainScreen: UIViewController {
                     base.observe(.value, with:  { (snapshot) in
                         guard let value = snapshot.value, snapshot.exists() else { return }
                         let dict: NSDictionary = value as! NSDictionary
-                        print(dict)
+                        activityIndicator.stopAnimating()
                         for i in dict.allKeys {
                             switch Calendar.current.component(.month, from: Date()) {
                             case 1:
@@ -517,9 +510,10 @@ class MainScreen: UIViewController {
                             print("Быть такого не может")
                         }
                     })
+                } else {
+                    activityIndicator.stopAnimating()
                 }
             })
-            activityIndicator.stopAnimating()
         }
     }
     
