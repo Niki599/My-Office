@@ -57,6 +57,10 @@ class SignUp: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillAppear(animated)
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
+            self.companyView.alpha = 1
+            self.companyView.center.y = -UIScreen.main.bounds.height
+        }, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -89,6 +93,7 @@ class SignUp: UIViewController {
         companyView = UIView()
         companyView.backgroundColor = .white
         companyView.translatesAutoresizingMaskIntoConstraints = false
+        companyView.alpha = 0
         view.addSubview(companyView)
         
         let companyLabel = UILabel()
