@@ -29,6 +29,7 @@
 		47414E9923D7155D00C1EE7D /* ProfileEmployeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */; };
 		47459ADD23F2CBB800164823 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47459ADC23F2CBB800164823 /* SignUp.swift */; };
 		476ADA4E23959D7E0030C0A5 /* TableEmployeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476ADA4D23959D7E0030C0A5 /* TableEmployeer.swift */; };
+		4795573424758EE400CC2C79 /* mdi_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 4795573324758EE400CC2C79 /* mdi_error.png */; };
 		47C2731323CDEAFE005361B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47C2731223CDEAFE005361B7 /* GoogleService-Info.plist */; };
 		47D8309C2392AF2900DB9168 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D8309B2392AF2900DB9168 /* AppDelegate.swift */; };
 		47D8309E2392AF2900DB9168 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D8309D2392AF2900DB9168 /* SceneDelegate.swift */; };
@@ -84,6 +85,7 @@
 		47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEmployeer.swift; sourceTree = "<group>"; };
 		47459ADC23F2CBB800164823 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		476ADA4D23959D7E0030C0A5 /* TableEmployeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableEmployeer.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		4795573324758EE400CC2C79 /* mdi_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mdi_error.png; sourceTree = "<group>"; };
 		47C2731223CDEAFE005361B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		47D830982392AF2900DB9168 /* MyOffice Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyOffice Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47D8309B2392AF2900DB9168 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 		3ABB1F8C2396553E0006CF57 /* Resourses */ = {
 			isa = PBXGroup;
 			children = (
+				4795573324758EE400CC2C79 /* mdi_error.png */,
 				3A623B2E2449C1ED001AF800 /* donkomlekt.png */,
 				3A3637A62396604C00C7E7E4 /* addRound.png */,
 				3A3637A92396604C00C7E7E4 /* arrowLeft.png */,
@@ -365,6 +368,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4795573424758EE400CC2C79 /* mdi_error.png in Resources */,
 				3A3637B02396604C00C7E7E4 /* house.png in Resources */,
 				3A3637AE2396604C00C7E7E4 /* settings.png in Resources */,
 				47C2731323CDEAFE005361B7 /* GoogleService-Info.plist in Resources */,

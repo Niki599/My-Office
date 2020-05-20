@@ -23,6 +23,8 @@ class MainScreen: UIViewController {
     private var timerLabel: UILabel!
     private var timer: Timer!
     private var minutesIsJob: Double!
+    private var wifi: String!
+    private var alertView: UIView!
     
     // MARK: - Lifecycle
     
@@ -112,11 +114,6 @@ class MainScreen: UIViewController {
         let labelQuantityHoursWeek = UILabel()
         labelQuantityHoursWeek.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursWeek.textAlignment = .center
-        for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
-                labelQuantityHoursWeek.text = String(user.work.weekHours!)
-            }
-        }
         labelQuantityHoursWeek.translatesAutoresizingMaskIntoConstraints = false
         
         let labelHoursMonth = UILabel()
@@ -129,11 +126,6 @@ class MainScreen: UIViewController {
         let labelQuantityHoursMonth = UILabel()
         labelQuantityHoursMonth.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursMonth.textAlignment = .center
-        for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
-                labelQuantityHoursMonth.text = String(user.work.monthHours!)
-            }
-        }
         labelQuantityHoursMonth.translatesAutoresizingMaskIntoConstraints = false
         
         let labelAllOfHours = UILabel()
@@ -146,12 +138,16 @@ class MainScreen: UIViewController {
         let labelQuantityAllOfHours = UILabel()
         labelQuantityAllOfHours.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityAllOfHours.textAlignment = .center
+        labelQuantityAllOfHours.translatesAutoresizingMaskIntoConstraints = false
+        
         for user in data.users {
             if user.info.email == UserDefaults.standard.string(forKey: "login")! {
-                labelQuantityAllOfHours.text = String(user.work.totalHours!)
+                labelQuantityHoursWeek.text = "\(user.work.weekHours!)"
+                labelQuantityHoursMonth.text = "\(user.work.monthHours!)"
+                labelQuantityAllOfHours.text = "\(user.work.totalHours!)"
+                wifi = user.work.wifi
             }
         }
-        labelQuantityAllOfHours.translatesAutoresizingMaskIntoConstraints = false
         
         let stackViewWeekLabel = UIStackView(arrangedSubviews: [labelQuantityHoursWeek, labelHoursWeek])
         stackViewWeekLabel.axis = .vertical
@@ -191,6 +187,27 @@ class MainScreen: UIViewController {
         timerLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(timerLabel)
         
+        alertView = UIView()
+        alertView.alpha = 0
+        alertView.backgroundColor = .white
+        alertView.layer.shadowColor = UIColor.black.cgColor
+        alertView.layer.shadowOpacity = 0.7
+        alertView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        alertView.layer.shadowRadius = 5
+        alertView.layer.cornerRadius = 3
+        alertView.layer.masksToBounds = false
+        alertView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(alertView)
+        
+        let alertImage = UIImageView(image: UIImage(named: "mdi_error.png"))
+        alertImage.translatesAutoresizingMaskIntoConstraints = false
+        alertView.addSubview(alertImage)
+
+        let alertLabel = UILabel()
+        alertLabel.text = "Вы не подключились к Wi-Fi сети"
+        alertLabel.translatesAutoresizingMaskIntoConstraints = false
+        alertView.addSubview(alertLabel)
+
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -219,7 +236,18 @@ class MainScreen: UIViewController {
             connectionButton.heightAnchor.constraint(equalToConstant: 40),
             
             timerLabel.topAnchor.constraint(equalTo: connectionButton.bottomAnchor, constant: 20),
-            timerLabel.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor)
+            timerLabel.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
+            
+            alertView.heightAnchor.constraint(equalTo: connectionButton.heightAnchor),
+            alertView.widthAnchor.constraint(equalTo: connectionButton.widthAnchor, constant: 10),
+            alertView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
+            alertView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 30),
+            
+            alertImage.centerYAnchor.constraint(equalTo: alertView.centerYAnchor),
+            alertImage.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: 5),
+            
+            alertLabel.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
+            alertLabel.centerYAnchor.constraint(equalTo: alertView.centerYAnchor),
         ])
     }
     
@@ -317,6 +345,7 @@ class MainScreen: UIViewController {
     }
         
     @objc private func didTapJoinButton(_ sender: UIButton) {
+        if getIp() == wifi {
         let activityIndicator = UIActivityIndicatorView(style: .large)
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
@@ -515,6 +544,55 @@ class MainScreen: UIViewController {
                 }
             })
         }
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                self.alertView.alpha = 1
+            }, completion: { (bool) in
+                UIView.animate(withDuration: 0.5, delay: 1, options: .curveEaseOut, animations: {
+                    self.alertView.alpha = 0
+                }, completion: nil)
+            })
+        }
     }
+    
+    //Функция по нахождению ip-адреса
+    func getIp() -> String {
+        let url = URL(string: "https://api.ipify.org")
+        do {
+            if let url = url {
+                let ipAddress = try String(contentsOf: url)
+                return ipAddress
+            }
+        } catch let error {
+            print(error)
+        }
+        return ""
+    }
+    
+//    //Проверка соединения с интернетом
+//    func Connection() -> Bool{
+//        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+//        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+//        zeroAddress.sin_family = sa_family_t(AF_INET)
+//
+//        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+//            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+//                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+//            }
+//        }
+//
+//        var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: 0)
+//        if SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) == false {
+//            return false
+//        }
+//
+//
+//        // Working for Cellular and WIFI
+//        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+//        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+//        let ret = (isReachable && !needsConnection)
+//
+//        return ret
+//    }
     
 }

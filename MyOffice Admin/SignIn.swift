@@ -115,6 +115,10 @@ class SignIn: UIViewController {
                                                 self.oneOfUsers.info.patronymic = valueOfField as? String
                                                 continue
                                             }
+                                            if nameOfField as? String == "wifi" {
+                                                self.oneOfUsers.work.wifi = valueOfField as? String
+                                                continue
+                                            }
                                             if nameOfField as? String == "monthHours" {
                                                 self.oneOfUsers.work.monthHours = valueOfField as? Double
                                                 continue
@@ -410,6 +414,10 @@ class SignIn: UIViewController {
                                             }
                                             if nameOfField as? String == "patronymic" {
                                                 self.oneOfUsers.info.patronymic = valueOfField as? String
+                                                continue
+                                            }
+                                            if nameOfField as? String == "wifi" {
+                                                self.oneOfUsers.work.wifi = valueOfField as? String
                                                 continue
                                             }
                                             if nameOfField as? String == "monthHours" {

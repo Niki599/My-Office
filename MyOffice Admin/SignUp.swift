@@ -126,7 +126,7 @@ class SignUp: UIViewController {
         buttonAdmin.layer.borderWidth = 1
         buttonAdmin.setImage(UIImage(named: "checkBox.png"), for: .selected)
         buttonAdmin.layer.cornerRadius = 5
-        buttonAdmin.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+        buttonAdmin.layer.borderColor = UIColor.black.cgColor
         buttonAdmin.backgroundColor = .none
         buttonAdmin.translatesAutoresizingMaskIntoConstraints = false
         buttonAdmin.addTarget(nil, action: #selector(didTapRadioButton(_:)), for: .touchUpInside)
@@ -177,7 +177,7 @@ class SignUp: UIViewController {
         nextButton.setTitleColor(.yellow, for: .normal)
         nextButton.setTitleColor(.lightGray, for: .highlighted)
         nextButton.backgroundColor = .blue
-        nextButton.layer.borderColor = .init(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+        nextButton.layer.borderColor = UIColor.black.cgColor
         nextButton.layer.cornerRadius = 6
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.addTarget(self, action:#selector(didNextButtonTap), for: .touchUpInside)
@@ -228,7 +228,7 @@ class SignUp: UIViewController {
             infoView.heightAnchor.constraint(equalToConstant: screenHeight / 1.4),
             infoView.widthAnchor.constraint(equalToConstant: screenWidth / 1.3),
             infoView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
-            infoView.centerYAnchor.constraint(equalTo: view.safeArea.bottomAnchor, constant: -100),
+            infoView.centerYAnchor.constraint(equalTo: view.safeArea.centerYAnchor),
             
             infoLabel.topAnchor.constraint(equalTo: infoView.topAnchor),
             infoLabel.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
@@ -340,47 +340,48 @@ class SignUp: UIViewController {
                         let hams = Auth.auth().currentUser?.uid
                         let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
                         let baseComing = base.child("coming")
+                        let baseLeaving = base.child("leaving")
                         let info = base.child("info")
                         let work = base.child("work")
                         info.updateChildValues(["name": self.nameTextField.text!, "surname": self.surnameTextField.text!, "email": self.emailTextField.text!.lowercased(), "pass": self.passportTextField.text!, "date": self.dateTextField.text!, "phone": self.phoneTextField.text!, "patronymic": self.patronymicTextField.text!])
-                        work.updateChildValues(["admin": true, "check": false, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
+                        work.updateChildValues(["admin": true, "check": true, "monthHours": 0, "weekHours": 0, "totalHours": 0, "wifi": self.wifiTextField.text!])
                         switch Calendar.current.component(.month, from: Date()) {
                         case 1:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) января": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) января": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 2:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) февраля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) февраля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 3:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) марта": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) марта": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 4:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) апреля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) апреля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 5:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) мая": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) мая": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 6:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июня": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июня": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 7:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 8:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) августа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) августа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 9:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) сентября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) сентября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 10:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) октября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) октября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 11:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) ноября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) ноября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 12:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) декабря": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            return
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) декабря": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         default:
                             print("Быть такого не может")
                         }
@@ -415,6 +416,10 @@ class SignUp: UIViewController {
                                                 }
                                                 if nameOfField as? String == "patronymic" {
                                                     self.oneOfUsers.info.patronymic = valueOfField as? String
+                                                    continue
+                                                }
+                                                if nameOfField as? String == "wifi" {
+                                                    self.oneOfUsers.work.wifi = valueOfField as? String
                                                     continue
                                                 }
                                                 if nameOfField as? String == "monthHours" {
@@ -491,32 +496,43 @@ class SignUp: UIViewController {
                         switch Calendar.current.component(.month, from: Date()) {
                         case 1:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) января": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) января": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 2:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) февраля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) февраля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 3:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) марта": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) марта": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 4:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) апреля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) апреля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 5:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) мая": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) мая": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 6:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июня": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июня": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 7:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) июля": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 8:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) августа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) августа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 9:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) сентября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) сентября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 10:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) октября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) октября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 11:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) ноября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) ноября": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 12:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) декабря": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) декабря": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         default:
                             print("Быть такого не может")
                         }
-
                         self.dismiss(animated: true, completion: nil)
                     }
                 }
@@ -530,7 +546,6 @@ class SignUp: UIViewController {
             }, completion: { (didEnding) in
                 UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
                     self.infoView.alpha = 1
-                    self.infoView.center.y = UIScreen.main.bounds.height / 2.0
                 }, completion: { (didEnding) in
                     self.endOfEditing = true
                 })
