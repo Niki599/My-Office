@@ -301,6 +301,7 @@ class SignUp: UIViewController {
         textField.borderStyle = .none
         textField.layer.backgroundColor = UIColor.white.cgColor
         textField.layer.masksToBounds = false
+        textField.delegate = self
         textField.layer.shadowColor = UIColor.gray.cgColor
         textField.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         textField.layer.shadowOpacity = 1.0
@@ -329,7 +330,7 @@ class SignUp: UIViewController {
     
     @objc private func didNextButtonTap() {
         if endOfEditing {
-            if (nameTextField.text! != "" || surnameTextField.text! != "" || dateTextField.text! != "" || emailTextField.text! != "" || phoneTextField.text! != "" || passportTextField.text! != "" || passwordTextField.text! != "" || patronymicTextField.text! != "" || wifiTextField.text! != "") {
+            if !(nameTextField.text! == "" || surnameTextField.text! == "" || dateTextField.text! == "" || emailTextField.text! == "" || phoneTextField.text! == "" || passportTextField.text! == "" || passwordTextField.text! == "" || patronymicTextField.text! == "" || wifiTextField.text! == "") {
                 let activityIndicator = UIActivityIndicatorView(style: .large)
                 view.addSubview(activityIndicator)
                 activityIndicator.startAnimating()
@@ -537,9 +538,47 @@ class SignUp: UIViewController {
                     }
                 }
                 activityIndicator.stopAnimating() // TODO: - Вовремя
+            } else {
+                if (nameTextField.text == "") {
+                    nameTextField.backgroundColor = .systemRed
+                    nameTextField.endEditing(true);
+                }
+                if (surnameTextField.text == "") {
+                    surnameTextField.backgroundColor = .systemRed
+                    surnameTextField.endEditing(true);
+                }
+                if (patronymicTextField.text == "") {
+                    patronymicTextField.backgroundColor = .systemRed
+                    patronymicTextField.endEditing(true);
+                }
+                if (dateTextField.text == "") {
+                    dateTextField.backgroundColor = .systemRed
+                    dateTextField.endEditing(true);
+                }
+                if (passportTextField.text == "") {
+                    passportTextField.backgroundColor = .systemRed
+                    passportTextField.endEditing(true);
+                }
+                if (phoneTextField.text == "") {
+                    phoneTextField.backgroundColor = .systemRed
+                    phoneTextField.endEditing(true);
+                }
+                if (wifiTextField.text == "") {
+                    wifiTextField.backgroundColor = .systemRed
+                    wifiTextField.endEditing(true);
+                }
+                if (emailTextField.text == "") {
+                    emailTextField.backgroundColor = .systemRed
+                    emailTextField.endEditing(true);
+                }
+                if (passwordTextField.text == "") {
+                    passwordTextField.backgroundColor = .systemRed
+                    passwordTextField.endEditing(true);
+                }
             }
         }
         else {
+            if companyTextField.text! == "" { companyTextField.backgroundColor = .systemRed; companyTextField.endEditing(true); return }
             UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
                 self.companyView.alpha = 0.0
                 self.companyView.center.y = 200
@@ -557,12 +596,37 @@ class SignUp: UIViewController {
 
 extension SignUp: UITextFieldDelegate {
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        //        var frame = self.viewCompany.frame
-        //        frame.origin.y = 800
-        //        UIView.animate(withDuration: 1.3, delay: 0, options: .curveEaseOut, animations: {
-        //            self.viewCompany.frame = frame
-        //        }, completion: nil)
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == nameTextField {
+            nameTextField.backgroundColor = .white
+        }
+        if textField == surnameTextField {
+            surnameTextField.backgroundColor = .white
+        }
+        if textField == patronymicTextField {
+            patronymicTextField.backgroundColor = .white
+        }
+        if textField == dateTextField {
+            dateTextField.backgroundColor = .white
+        }
+        if textField == passportTextField {
+            passportTextField.backgroundColor = .white
+        }
+        if textField == phoneTextField {
+            phoneTextField.backgroundColor = .white
+        }
+        if textField == wifiTextField {
+            wifiTextField.backgroundColor = .white
+        }
+        if textField == emailTextField {
+            emailTextField.backgroundColor = .white
+        }
+        if textField == passwordTextField {
+            passwordTextField.backgroundColor = .white
+        }
+        if textField == companyTextField {
+            companyTextField.backgroundColor = .white
+        }
     }
-    
+
 }

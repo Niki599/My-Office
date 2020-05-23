@@ -16,7 +16,7 @@ class TableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         var stackViewCell: UIStackView!
-        
+
         let labelFirst = UILabel()
         labelFirst.font = UIFont.italicSystemFont(ofSize: 13)
         labelFirst.numberOfLines = 0
@@ -59,12 +59,20 @@ class TableViewCell: UITableViewCell {
             labelFourth.text = "\(Int(floor(Double(totalMinutesAfter - totalMinutesBefore) / 60.0))).\((totalMinutesAfter - totalMinutesBefore) - (Int(floor(Double(totalMinutesAfter - totalMinutesBefore) / 60.0)) * 60)) ч"
             
             stackViewCell = UIStackView(arrangedSubviews: [labelFirst, labelSecond, labelThrid, labelFourth])
+            stackViewCell.distribution = .fillEqually
         } else {
             labelFirst.textAlignment = .left
 
             labelFirst.text = "\(data.users[indexPath.row].info.surname ?? "null") \(data.users[indexPath.row].info.name ?? "null") \(data.users[indexPath.row].info.patronymic ?? "null")"
-            
-            stackViewCell = UIStackView(arrangedSubviews: [labelFirst])
+            var statusImage: UIImageView!
+            if data.users[indexPath.row].work.check ?? false {
+                statusImage = UIImageView(image: UIImage(named: "Rectangle 2.png"))
+            } else {
+                statusImage = UIImageView(image: UIImage(named: "Rectangle.png"))
+            }
+            stackViewCell = UIStackView(arrangedSubviews: [labelFirst, statusImage])
+            statusImage.trailingAnchor.constraint(equalTo: stackViewCell.trailingAnchor, constant: -20).isActive = true
+            statusImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
         }
         
         /**
@@ -76,7 +84,6 @@ class TableViewCell: UITableViewCell {
         
         stackViewCell.axis = .horizontal
         stackViewCell.alignment = .center
-        stackViewCell.distribution = .fillEqually
         stackViewCell.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stackViewCell)
         

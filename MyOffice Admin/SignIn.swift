@@ -296,6 +296,7 @@ class SignIn: UIViewController {
         loginTextField.borderStyle = .none
         loginTextField.layer.backgroundColor = UIColor.white.cgColor
         loginTextField.layer.masksToBounds = false
+        loginTextField.delegate = self
         loginTextField.layer.shadowColor = UIColor.gray.cgColor
         loginTextField.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         loginTextField.layer.shadowOpacity = 1.0
@@ -311,6 +312,7 @@ class SignIn: UIViewController {
         passwordTextField.borderStyle = .none
         passwordTextField.layer.backgroundColor = UIColor.white.cgColor
         passwordTextField.layer.masksToBounds = false
+        passwordTextField.delegate = self
         passwordTextField.layer.shadowColor = UIColor.gray.cgColor
         passwordTextField.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         passwordTextField.layer.shadowOpacity = 1.0
@@ -345,13 +347,12 @@ class SignIn: UIViewController {
     }
             
     @objc private func didAuthButtonTap() {
-        let activityIndicator = UIActivityIndicatorView(style: .large)
-        view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
-        activityIndicator.frame = view.bounds
-        activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
-        
         if !(loginTextField.text! == "" || passwordTextField.text! == "") {
+            let activityIndicator = UIActivityIndicatorView(style: .large)
+            view.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+            activityIndicator.frame = view.bounds
+            activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
             Auth.auth().signIn(withEmail: loginTextField.text!, password: passwordTextField.text!, completion: { (user, error) in
                 if user != nil {
                     let hams = Auth.auth().currentUser?.uid
@@ -482,13 +483,14 @@ class SignIn: UIViewController {
                     activityIndicator.stopAnimating() // TODO: - Вовремя
                 }
             })
-        }
-        else {
+        } else {
             if (loginTextField.text == "") {
-                loginTextField.layer.backgroundColor = .init(srgbRed: 0, green: 255, blue: 0, alpha: 0.6)
+                loginTextField.backgroundColor = .systemRed
+                loginTextField.endEditing(true);
             }
             if (passwordTextField.text == "") {
-                passwordTextField.layer.backgroundColor = .init(srgbRed: 0, green: 255, blue: 0, alpha: 0.6)
+                passwordTextField.backgroundColor = .systemRed
+                passwordTextField.endEditing(true);
             }
             // Очистка всего UserDefaults, если вход не был выполнен
             if let appDomain = Bundle.main.bundleIdentifier {
@@ -553,8 +555,12 @@ class SignIn: UIViewController {
 extension SignIn : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        passwordTextField.backgroundColor = .none
-        loginTextField.backgroundColor = .none
+        if textField == passwordTextField {
+            passwordTextField.backgroundColor = .white
+        }
+        if textField == loginTextField {
+            loginTextField.backgroundColor = .white
+        }
     }
     
 }

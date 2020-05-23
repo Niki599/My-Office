@@ -241,7 +241,6 @@ class MainScreen: UIViewController {
             alertView.heightAnchor.constraint(equalTo: connectionButton.heightAnchor),
             alertView.widthAnchor.constraint(equalTo: connectionButton.widthAnchor, constant: 10),
             alertView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
-            alertView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 30),
             
             alertImage.centerYAnchor.constraint(equalTo: alertView.centerYAnchor),
             alertImage.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: 5),
@@ -547,10 +546,15 @@ class MainScreen: UIViewController {
         } else {
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
                 self.alertView.alpha = 1
+                self.alertView.center.y += 120
+                self.connectionButton.isUserInteractionEnabled = false
             }, completion: { (bool) in
                 UIView.animate(withDuration: 0.5, delay: 1, options: .curveEaseOut, animations: {
                     self.alertView.alpha = 0
-                }, completion: nil)
+                    self.alertView.center.y -= 120
+                }, completion: { (bool) in
+                    self.connectionButton.isUserInteractionEnabled = true
+                })
             })
         }
     }
