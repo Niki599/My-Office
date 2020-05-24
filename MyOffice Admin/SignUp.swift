@@ -72,12 +72,7 @@ class SignUp: UIViewController {
         NSLayoutConstraint.deactivate(constraints)
         NSLayoutConstraint.activate(constraints)
     }
-    
-    
-    // MARK: - Public Methods
-    
-    
-    
+        
     // MARK: - Private Methods
     
     private func setupView() {
@@ -142,36 +137,36 @@ class SignUp: UIViewController {
         
         nameTextField = standartTextField("Имя")
         infoView.addSubview(nameTextField)
-
+        
         surnameTextField = standartTextField("Фамилия")
         infoView.addSubview(surnameTextField)
-
+        
+        patronymicTextField = standartTextField("Отчество")
+        infoView.addSubview(patronymicTextField)
+        
         dateTextField = standartTextField("Дата")
         dateTextField.keyboardType = .numbersAndPunctuation
         infoView.addSubview(dateTextField)
-
-        emailTextField = standartTextField("Почта")
-        emailTextField.keyboardType = .emailAddress
-        infoView.addSubview(emailTextField)
-
+        
         phoneTextField = standartTextField("Телефон")
         phoneTextField.keyboardType = .numberPad
         infoView.addSubview(phoneTextField)
-
+        
         passportTextField = standartTextField("Паспорт")
         passportTextField.keyboardType = .numberPad
         infoView.addSubview(passportTextField)
-
-        passwordTextField = standartTextField("Пароль")
-        infoView.addSubview(passwordTextField)
-
-        patronymicTextField = standartTextField("Отчество")
-        infoView.addSubview(patronymicTextField)
-
+        
         wifiTextField = standartTextField("Wi-Fi")
         wifiTextField.keyboardType = .numbersAndPunctuation
         infoView.addSubview(wifiTextField)
-
+        
+        emailTextField = standartTextField("Почта")
+        emailTextField.keyboardType = .emailAddress
+        infoView.addSubview(emailTextField)
+        
+        passwordTextField = standartTextField("Пароль")
+        infoView.addSubview(passwordTextField)
+        
         let nextButton = UIButton()
         nextButton.setTitle("Далее", for: .normal)
         nextButton.setTitleColor(.yellow, for: .normal)
@@ -190,12 +185,13 @@ class SignUp: UIViewController {
         view.addSubview(backButton)
         
         if typeOfSignUp {
+            // Регистрация филиала
             infoLabel.text = "Руководитель филиала"
             buttonAdmin.isHidden = true
             labelAdmin.isHidden = true
             backButton.isHidden = true
         } else {
-            //            Регистрация человека
+            // Регистрация человека
             endOfEditing = true
             self.companyView.alpha = 0.0
             self.infoView.alpha = 1
@@ -296,7 +292,7 @@ class SignUp: UIViewController {
         ]
     }
     
-    func standartTextField(_ placeholder: String) -> UITextField {
+    private func standartTextField(_ placeholder: String) -> UITextField {
         let textField = UITextField()
         textField.borderStyle = .none
         textField.layer.backgroundColor = UIColor.white.cgColor
@@ -319,12 +315,10 @@ class SignUp: UIViewController {
     
     @objc private func didTapRadioButton(_ sender: UIButton) {
         if (sender.isSelected) {
-            sender.backgroundColor = .none
             sender.isSelected = false
             return
         } else {
             sender.isSelected = true
-//            sender.backgroundColor = .green
         }
     }
     
@@ -462,6 +456,9 @@ class SignUp: UIViewController {
                                             }
                                         }
                                         self.data.users.append(self.oneOfUsers)
+                                        self.oneOfUsers.coming.removeAll()
+                                        self.oneOfUsers.days.removeAll()
+                                        self.oneOfUsers.leaving.removeAll()
                                     }
                                     
                                     UserDefaults.standard.set(true, forKey: "autoSignIn")

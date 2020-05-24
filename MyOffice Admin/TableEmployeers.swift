@@ -219,6 +219,9 @@ class TableEmployeers: UIViewController {
                             }
                         }
                         self.data.users.append(self.oneOfUsers)
+                        self.oneOfUsers.coming.removeAll()
+                        self.oneOfUsers.days.removeAll()
+                        self.oneOfUsers.leaving.removeAll()
                     }
                     self.staffCount()
                     self.tableEmployeers.reloadData()
@@ -280,8 +283,7 @@ class TableEmployeers: UIViewController {
         case 12:
             dateNow = "\(Calendar.current.component(.day, from: Date())) декабря"
         default:
-            dateNow = "0"
-            // Невозможное невозможно
+            dateNow = "0" // Невозможное невозможно
         }
         let separatedBaseDate = baseDate.components(separatedBy: [" "])
         let separatedNowDate = dateNow.components(separatedBy: [" "])
@@ -336,7 +338,7 @@ extension TableEmployeers : UITableViewDelegate {
         case 12:
             labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) декабря"
         default:
-            print("Что сейчас происходит?")//Не вызовется, можно засунуть сюда "case 12:", но я этого не сделал
+            print("Что сейчас происходит?")//Не вызовется
         }
         labelHeader.textAlignment = .center
         labelHeader.translatesAutoresizingMaskIntoConstraints = false
@@ -396,7 +398,7 @@ extension TableEmployeers : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = ProfileEmployeer(emailUser: data.users[indexPath.row].info.email!, data: data)
+        let vc = TableEmployeer(emailUser: data.users[indexPath.row].info.email!, data: data)
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .coverVertical
         self.present(vc, animated: true, completion: nil)

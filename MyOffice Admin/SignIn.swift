@@ -158,6 +158,9 @@ class SignIn: UIViewController {
                                         }
                                     }
                                     self.data.users.append(self.oneOfUsers)
+                                    self.oneOfUsers.coming.removeAll()
+                                    self.oneOfUsers.days.removeAll()
+                                    self.oneOfUsers.leaving.removeAll()
                                 }
                             }
                         }
@@ -206,41 +209,25 @@ class SignIn: UIViewController {
     override func viewDidLayoutSubviews() {
         
         let screenWidth = UIScreen.main.bounds.width
-//        let screenHeight = UIScreen.main.bounds.height
         let space = screenWidth/2
         
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             mainLogo.topAnchor.constraint(equalTo: view.topAnchor,constant: space / 1.8 ),
             mainLogo.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor,constant: space / 4 ),
             mainLogo.widthAnchor.constraint(equalToConstant: space / 4),
             mainLogo.heightAnchor.constraint(equalTo: mainLogo.widthAnchor),
-            
-        ])
-        
-        NSLayoutConstraint.activate([
             loginTextField.topAnchor.constraint(equalTo: enteryLabel.bottomAnchor, constant: space / 3),
             loginTextField.leadingAnchor.constraint(equalTo: enteryLabel.leadingAnchor, constant: 20),
             loginTextField.trailingAnchor.constraint(equalTo: enteryLabel.trailingAnchor, constant: -20),
-            loginTextField.heightAnchor.constraint(equalToConstant: 44)
-        ])
-        
-        NSLayoutConstraint.activate([
+            loginTextField.heightAnchor.constraint(equalToConstant: 44),
             passwordTextField.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 14),
             passwordTextField.leadingAnchor.constraint(equalTo: loginTextField.leadingAnchor),
             passwordTextField.trailingAnchor.constraint(equalTo: loginTextField.trailingAnchor),
-            passwordTextField.heightAnchor.constraint(equalTo: loginTextField.heightAnchor)
-            
-        ])
-        
-        
-        NSLayoutConstraint.activate([
+            passwordTextField.heightAnchor.constraint(equalTo: loginTextField.heightAnchor),
             createCompanyButton.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor, constant: -50),
             createCompanyButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             createCompanyButton.widthAnchor.constraint(equalTo: enteryLabel.widthAnchor),
@@ -249,9 +236,6 @@ class SignIn: UIViewController {
             authorizationButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             authorizationButton.widthAnchor.constraint(equalTo: enteryLabel.widthAnchor),
             authorizationButton.heightAnchor.constraint(equalTo: passwordTextField.heightAnchor),
-        ])
-        
-        NSLayoutConstraint.activate([
             enteryLabel.leadingAnchor.constraint(equalTo: mainLogo.leadingAnchor),
             enteryLabel.topAnchor.constraint(equalTo: mainLogo.bottomAnchor, constant: 44),
             enteryLabel.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -space/4)
@@ -460,6 +444,9 @@ class SignIn: UIViewController {
                                         }
                                     }
                                     self.data.users.append(self.oneOfUsers)
+                                    self.oneOfUsers.coming.removeAll()
+                                    self.oneOfUsers.days.removeAll()
+                                    self.oneOfUsers.leaving.removeAll()
                                 }
                             }
                         }

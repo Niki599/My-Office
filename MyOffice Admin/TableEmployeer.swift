@@ -18,6 +18,7 @@ class TableEmployeer: UIViewController {
      */
     var data: Company!
     var oneOfUsers: User = User(info: InfoUser(), work: WorkUser())
+    var typeOfShowVC = true
     
     // MARK: - Private Properties
     
@@ -28,10 +29,10 @@ class TableEmployeer: UIViewController {
     private var backgroundView: UIView!
     private var updateButton: UIButton!
     private var countOfDays: Int = 0
-    private var labelQuantityHoursWeek: UILabel!
-    private var labelQuantityHoursMonth: UILabel!
-    private var labelQuantityAllOfHours: UILabel!
-
+    private var labelQuantityHoursWeek = UILabel()
+    private var labelQuantityHoursMonth = UILabel()
+    private var labelQuantityAllOfHours = UILabel()
+    private var labelOfProfileButton = UILabel()
     private var constraints: [NSLayoutConstraint]!
     private var stackViewHeader: UIStackView!
 
@@ -79,7 +80,6 @@ class TableEmployeer: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        daysCount()
         setupView()
     }
     
@@ -97,6 +97,28 @@ class TableEmployeer: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
     
+    // MARK: - Initializers
+        
+    init(emailUser: String, data: Company) {
+        super.init(nibName: nil, bundle: nil)
+        self.data = data
+        typeOfShowVC = false
+        for i in 0...data.users.count - 1 {
+            if data.users[i].info.email == emailUser {
+                labelQuantityHoursWeek.text = "\(data.users[i].work.weekHours!)"
+                labelQuantityAllOfHours.text = "\(data.users[i].work.totalHours!)"
+                labelQuantityHoursMonth.text = "\(data.users[i].work.monthHours!)"
+                labelOfProfileButton.text = "\(data.users[i].info.name!) \(data.users[i].info.surname!)"
+                myId = i
+                countOfDays = data.users[i].days.count
+            }
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     // MARK: - Private Methods
     
     private func setupView() {
@@ -111,19 +133,17 @@ class TableEmployeer: UIViewController {
         view.addSubview(backgroundView)
         
         titleLabel = UILabel()
-        titleLabel.text = "Мои данные"
+        titleLabel.text = "Статистика"
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .center
         view.addSubview(titleLabel)
         
-        tableEmployeer = UITableView()
-        tableEmployeer.translatesAutoresizingMaskIntoConstraints = false
-        tableEmployeer.register(UITableViewCell.self, forCellReuseIdentifier: identifire)
-        tableEmployeer.delegate = self
-        tableEmployeer.dataSource = self
-        tableEmployeer.separatorStyle = .none
-        view.addSubview(tableEmployeer)
-        
+        let backButton = UIButton()
+        backButton.addTarget(self, action: #selector(didBackButtonTap), for: .touchUpInside)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.setImage(UIImage(imageLiteralResourceName: "arrowLeft.png"), for: .normal)
+        view.addSubview(backButton)
+
         updateButton = UIButton()
         updateButton.addTarget(self, action: #selector(didUpdateButtonTap), for: .touchUpInside)
         updateButton.translatesAutoresizingMaskIntoConstraints = false
@@ -132,15 +152,13 @@ class TableEmployeer: UIViewController {
         
         let profileButton = UIButton()
         profileButton.addTarget(self, action: #selector(didProfileButtonTaped), for: .touchUpInside)
-//        profileButton.backgroundColor = .red
         profileButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileButton)
         
-        let imageOfProfileButton = UIImageView(image: UIImage(named: "employee.png"))//Берем с базы
+        let imageOfProfileButton = UIImageView(image: UIImage(named: "employee.png"))
         imageOfProfileButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageOfProfileButton)
         
-        let labelOfProfileButton = UILabel()
         labelOfProfileButton.font.withSize(14)
         labelOfProfileButton.textAlignment = .center
         labelOfProfileButton.translatesAutoresizingMaskIntoConstraints = false
@@ -153,7 +171,6 @@ class TableEmployeer: UIViewController {
         labelHoursWeek.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
         labelHoursWeek.translatesAutoresizingMaskIntoConstraints = false
         
-        labelQuantityHoursWeek = UILabel()
         labelQuantityHoursWeek.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursWeek.textAlignment = .center
         labelQuantityHoursWeek.translatesAutoresizingMaskIntoConstraints = false
@@ -165,7 +182,6 @@ class TableEmployeer: UIViewController {
         labelHoursMonth.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
         labelHoursMonth.translatesAutoresizingMaskIntoConstraints = false
         
-        labelQuantityHoursMonth = UILabel()
         labelQuantityHoursMonth.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityHoursMonth.textAlignment = .center
         labelQuantityHoursMonth.translatesAutoresizingMaskIntoConstraints = false
@@ -177,19 +193,31 @@ class TableEmployeer: UIViewController {
         labelAllOfHours.textColor = UIColor(red: 0.712, green: 0.712, blue: 0.712, alpha: 1)
         labelAllOfHours.translatesAutoresizingMaskIntoConstraints = false
         
-        labelQuantityAllOfHours = UILabel()
         labelQuantityAllOfHours.font = UIFont.boldSystemFont(ofSize: 18.0)
         labelQuantityAllOfHours.textAlignment = .center
         labelQuantityAllOfHours.translatesAutoresizingMaskIntoConstraints = false
         
-        for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
-                labelQuantityHoursWeek.text = "\(user.work.weekHours!)"
-                labelQuantityAllOfHours.text = "\(user.work.totalHours!)"
-                labelQuantityHoursMonth.text = "\(user.work.monthHours!)"
-                labelOfProfileButton.text = "\(user.info.name!) \(user.info.surname!)"
+        if typeOfShowVC {
+            for i in 0...data.users.count - 1 {
+                if data.users[i].info.email == UserDefaults.standard.string(forKey: "login") {
+                    labelQuantityHoursWeek.text = "\(data.users[i].work.weekHours!)"
+                    labelQuantityAllOfHours.text = "\(data.users[i].work.totalHours!)"
+                    labelQuantityHoursMonth.text = "\(data.users[i].work.monthHours!)"
+                    labelOfProfileButton.text = "\(data.users[i].info.name!) \(data.users[i].info.surname!)"
+                    myId = i
+                    countOfDays = data.users[i].days.count
+                    backButton.isHidden = true
+                }
             }
         }
+        
+        tableEmployeer = UITableView()
+        tableEmployeer.translatesAutoresizingMaskIntoConstraints = false
+        tableEmployeer.register(UITableViewCell.self, forCellReuseIdentifier: identifire)
+        tableEmployeer.delegate = self
+        tableEmployeer.dataSource = self
+        tableEmployeer.separatorStyle = .none
+        view.addSubview(tableEmployeer)
         
         let stackViewWeekLabel = UIStackView(arrangedSubviews: [labelQuantityHoursWeek, labelHoursWeek])
         stackViewWeekLabel.axis = .vertical
@@ -229,6 +257,11 @@ class TableEmployeer: UIViewController {
             backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            backButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 10),
+            backButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
+            backButton.widthAnchor.constraint(equalToConstant: 40),
+            backButton.heightAnchor.constraint(equalToConstant: 40),
             
             titleLabel.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -334,23 +367,14 @@ class TableEmployeer: UIViewController {
                                 }
                                 if nameOfField as? String == "monthHours" {
                                     self.oneOfUsers.work.monthHours = valueOfField as? Double
-                                    if hams == uid as? String {
-                                        self.labelQuantityHoursMonth.text = String(valueOfField as! Double)
-                                    }
                                     continue
                                 }
                                 if nameOfField as? String == "totalHours" {
                                     self.oneOfUsers.work.totalHours = valueOfField as? Double
-                                    if hams == uid as? String {
-                                        self.labelQuantityAllOfHours.text = String(valueOfField as! Double)
-                                    }
                                     continue
                                 }
                                 if nameOfField as? String == "weekHours" {
                                     self.oneOfUsers.work.weekHours = valueOfField as? Double
-                                    if hams == uid as? String {
-                                        self.labelQuantityHoursWeek.text = String(valueOfField as! Double)
-                                    }
                                     continue
                                 }
                                 if nameOfField as? String == "date" {
@@ -380,6 +404,9 @@ class TableEmployeer: UIViewController {
                             }
                         }
                         self.data.users.append(self.oneOfUsers)
+                        self.oneOfUsers.coming.removeAll()
+                        self.oneOfUsers.days.removeAll()
+                        self.oneOfUsers.leaving.removeAll()
                     }
                     self.tableEmployeer.reloadData()
                 })
@@ -392,25 +419,16 @@ class TableEmployeer: UIViewController {
     }
         
     @objc private func didProfileButtonTaped() {
-        for user in data.users {
-            if user.info.email == UserDefaults.standard.string(forKey: "login")! {
-                let vc = ProfileEmployeer(emailUser: user.info.email!, data: data)
+//        for i in 0...data.users.count - 1 {
+//            if data.users[i].info.email == UserDefaults.standard.string(forKey: "login")! {
+                let vc = ProfileEmployeer(emailUser: data.users[myId].info.email!, data: data)
                 vc.modalPresentationStyle = .fullScreen
                 vc.modalTransitionStyle = .coverVertical
                 self.present(vc, animated: true, completion: nil)
-            }
-        }
+//            }
+//        }
     }
-    
-    private func daysCount() {
-        for i in 0...data.users.count - 1 {
-            if data.users[i].info.email == UserDefaults.standard.string(forKey: "login") {
-                myId = i
-                countOfDays = data.users[i].days.count
-            }
-        }
-    }
-    
+        
     private func dateNow(baseDate: String) -> Bool {
         var dateNow: String
         switch Calendar.current.component(.month, from: Date()) {
@@ -444,7 +462,7 @@ class TableEmployeer: UIViewController {
         }
         let separatedBaseDate = baseDate.components(separatedBy: [" "])
         let separatedNowDate = dateNow.components(separatedBy: [" "])
-
+        
         if separatedBaseDate[1] == separatedNowDate[1] {
             if Int(separatedNowDate[0])! - Int(separatedBaseDate[0])! > 7 {
                 return false
@@ -453,9 +471,11 @@ class TableEmployeer: UIViewController {
             return false
         }
         return true
-        
     }
-
+    
+    @objc private func didBackButtonTap() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
 }
 
@@ -506,13 +526,6 @@ extension TableEmployeer : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
-    }
-    
-    /**
-     Нажатие на (i)
-     */
-    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        print("hui")
     }
     
 }

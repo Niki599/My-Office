@@ -53,7 +53,7 @@ class ProfileEmployeer: UIViewController {
         typeOfShowVC = false
         for user in data.users {
             if user.info.email == emailUser {
-                labelFullName.text = "\(user.info.name!) \(user.info.surname!) \(user.info.patronymic!) 111"
+                labelFullName.text = "\(user.info.name!) \(user.info.surname!) \(user.info.patronymic!)"
                 labelBirthdayDate.text = "\(user.info.date!)"
                 labelPhoneNumber.text = "\(user.info.phone!)"
                 labelNumberOfPass.text = "\(user.info.pass!)"
@@ -88,7 +88,7 @@ class ProfileEmployeer: UIViewController {
         deleteAccButton.setTitleColor(.black, for: .normal)
         view.addSubview(deleteAccButton)
         
-        let image = UIImageView(image: UIImage(named: "employee.png"))//Берем с базы
+        let image = UIImageView(image: UIImage(named: "employee.png"))
         image.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(image)
         
@@ -210,9 +210,9 @@ class ProfileEmployeer: UIViewController {
             for user in data.users {
                 if user.info.email == UserDefaults.standard.string(forKey: "login") {
                     labelFullName.text = "\(user.info.name!) \(user.info.surname!)"
-                    labelBirthdayDate.text = String(user.info.date!)
-                    labelPhoneNumber.text = String(user.info.phone!)
-                    labelNumberOfPass.text = String(user.info.pass!)
+                    labelBirthdayDate.text = "\(user.info.date!)"
+                    labelPhoneNumber.text = "\(user.info.phone!)"
+                    labelNumberOfPass.text = "\(user.info.pass!)"
                     backButton.isHidden = true
                 }
             }
