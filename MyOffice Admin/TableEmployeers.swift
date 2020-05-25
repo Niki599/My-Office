@@ -45,6 +45,7 @@ class TableEmployeers: UIViewController {
             return
         }
         super.viewWillAppear(animated)
+        didUpdateButtonTap()
     }
     
     override func viewWillLayoutSubviews() {
@@ -125,7 +126,7 @@ class TableEmployeers: UIViewController {
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         activityIndicator.frame = view.bounds
-        activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
+        activityIndicator.backgroundColor = UIColor(white: 255, alpha: 1)
         
         Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
             if user != nil {
