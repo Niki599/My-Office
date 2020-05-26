@@ -122,11 +122,7 @@ class TableEmployeer: UIViewController {
     // MARK: - Private Methods
     
     private func setupView() {
-        
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        leftSwipe.direction = .left
-        self.view.addGestureRecognizer(leftSwipe)
-        
+                
         backgroundView = UIView()
         backgroundView.backgroundColor = .white
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -200,6 +196,9 @@ class TableEmployeer: UIViewController {
         if typeOfShowVC {
             for i in 0...data.users.count - 1 {
                 if data.users[i].info.email == UserDefaults.standard.string(forKey: "login") {
+                    let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+                    leftSwipe.direction = .left
+                    self.view.addGestureRecognizer(leftSwipe)
                     labelQuantityHoursWeek.text = "\(data.users[i].work.weekHours!)"
                     labelQuantityAllOfHours.text = "\(data.users[i].work.totalHours!)"
                     labelQuantityHoursMonth.text = "\(data.users[i].work.monthHours!)"

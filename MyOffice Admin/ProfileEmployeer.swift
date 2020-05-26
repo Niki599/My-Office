@@ -23,7 +23,9 @@ class ProfileEmployeer: UIViewController {
     private var labelBirthdayDate = UILabel()
     private var labelPhoneNumber = UILabel()
     private var labelNumberOfPass = UILabel()
+    private var labelStringPassAdmin = UILabel()
     private var deleteAccButton = UIButton()
+    private var buttonExit = UIButton()
     
     // MARK: - Lifecycle
     
@@ -57,6 +59,14 @@ class ProfileEmployeer: UIViewController {
                 labelBirthdayDate.text = "\(user.info.date!)"
                 labelPhoneNumber.text = "\(user.info.phone!)"
                 labelNumberOfPass.text = "\(user.info.pass!)"
+                if user.work.admin! {
+                    labelStringPassAdmin.text = "Обладает правами администратора"
+                    labelStringPassAdmin.textColor = .systemGreen
+                } else {
+                    labelStringPassAdmin.text = "Не обладает правами администратора"
+                    labelStringPassAdmin.textColor = .systemRed
+                }
+                buttonExit.isHidden = true
             }
         }
     }
@@ -68,11 +78,7 @@ class ProfileEmployeer: UIViewController {
     // MARK: - Private Methods
     
     private func setupView() {
-        
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        rightSwipe.direction = .right
-        self.view.addGestureRecognizer(rightSwipe)
-        
+                
         view.backgroundColor = .white
         let title = UILabel()
         title.text = "Информация о сотруднике"
@@ -145,7 +151,6 @@ class ProfileEmployeer: UIViewController {
         labelNumberOfPass.font.withSize(8)
         labelNumberOfPass.translatesAutoresizingMaskIntoConstraints = false
         
-        let buttonExit = UIButton()
         buttonExit.setTitle("Выход", for: .normal)
         buttonExit.setTitleColor(.red, for: .normal)
         buttonExit.setTitleColor(UIColor(red: 255, green: 0, blue: 0, alpha: 0.5), for: .highlighted)
@@ -154,6 +159,20 @@ class ProfileEmployeer: UIViewController {
         buttonExit.translatesAutoresizingMaskIntoConstraints = false
         buttonExit.clipsToBounds = true
         view.addSubview(buttonExit)
+        
+        let labelPassAdmin = UILabel()
+        labelPassAdmin.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        labelPassAdmin.font.withSize(6)
+        labelPassAdmin.numberOfLines = 0
+        labelPassAdmin.lineBreakMode = .byWordWrapping
+        labelPassAdmin.text = "Права администратора:"
+        labelPassAdmin.textAlignment = .left
+        labelPassAdmin.translatesAutoresizingMaskIntoConstraints = false
+        
+        labelStringPassAdmin.font = UIFont(name: "Roboto-Regular", size: 8)
+        labelStringPassAdmin.translatesAutoresizingMaskIntoConstraints = false
+        labelStringPassAdmin.numberOfLines = 0
+        labelStringPassAdmin.lineBreakMode = .byWordWrapping
         
         let stackViewName = UIStackView(arrangedSubviews: [labelName, labelFullName])
         stackViewName.axis = .horizontal
@@ -191,7 +210,16 @@ class ProfileEmployeer: UIViewController {
         stackViewPass.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackViewPass)
         
-        let groupStackViewInfo = UIStackView(arrangedSubviews: [stackViewName, stackViewBirthday, stackViewPhone, stackViewPass])
+        let stackViewPassAdmin = UIStackView(arrangedSubviews: [labelPassAdmin, labelStringPassAdmin])
+        stackViewPassAdmin.axis = .horizontal
+        stackViewPassAdmin.distribution = .fill
+        stackViewPassAdmin.spacing = 10
+        stackViewPassAdmin.alignment = .center
+        stackViewPassAdmin.backgroundColor = .black
+        stackViewPassAdmin.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackViewPassAdmin)
+        
+        let groupStackViewInfo = UIStackView(arrangedSubviews: [stackViewName, stackViewBirthday, stackViewPhone, stackViewPass, stackViewPassAdmin])
         groupStackViewInfo.axis = .vertical
         groupStackViewInfo.distribution = .equalSpacing
         groupStackViewInfo.spacing = 10
@@ -209,10 +237,20 @@ class ProfileEmployeer: UIViewController {
         if typeOfShowVC {
             for user in data.users {
                 if user.info.email == UserDefaults.standard.string(forKey: "login") {
+                    let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+                    rightSwipe.direction = .right
+                    self.view.addGestureRecognizer(rightSwipe)
                     labelFullName.text = "\(user.info.name!) \(user.info.surname!)"
                     labelBirthdayDate.text = "\(user.info.date!)"
                     labelPhoneNumber.text = "\(user.info.phone!)"
                     labelNumberOfPass.text = "\(user.info.pass!)"
+                    if user.work.admin! {
+                        labelStringPassAdmin.text = "Обладает правами администратора"
+                        labelStringPassAdmin.textColor = .systemGreen
+                    } else {
+                        labelStringPassAdmin.text = "Не обладает правами администратора"
+                        labelStringPassAdmin.textColor = .systemRed
+                    }
                     backButton.isHidden = true
                 }
             }
@@ -248,6 +286,9 @@ class ProfileEmployeer: UIViewController {
             
             stackViewPass.leadingAnchor.constraint(equalTo: groupStackViewInfo.leadingAnchor),
             stackViewPass.trailingAnchor.constraint(equalTo: groupStackViewInfo.trailingAnchor),
+            
+            stackViewPassAdmin.leadingAnchor.constraint(equalTo: groupStackViewInfo.leadingAnchor),
+            stackViewPassAdmin.trailingAnchor.constraint(equalTo: groupStackViewInfo.trailingAnchor),
             
             groupStackViewInfo.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 40),
             groupStackViewInfo.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.2),

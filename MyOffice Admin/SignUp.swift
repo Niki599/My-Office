@@ -324,7 +324,7 @@ class SignUp: UIViewController {
     
     @objc private func didNextButtonTap() {
         if endOfEditing {
-            if !(nameTextField.text! == "" || surnameTextField.text! == "" || dateTextField.text! == "" || emailTextField.text! == "" || phoneTextField.text! == "" || passportTextField.text! == "" || passwordTextField.text! == "" || patronymicTextField.text! == "" || wifiTextField.text! == "") {
+            if !(nameTextField.text! == "" || surnameTextField.text! == "" || dateTextField.text! == "" || emailTextField.text! == "" || phoneTextField.text! == "" || passportTextField.text! == "" || passwordTextField.text! == "" || patronymicTextField.text! == "" || wifiTextField.text! == "" || !emailTextField.text!.contains("@") || !emailTextField.text!.contains(".ru") || !emailTextField.text!.contains(".com") || passwordTextField.text!.count < 6) {
                 let activityIndicator = UIActivityIndicatorView(style: .large)
                 view.addSubview(activityIndicator)
                 activityIndicator.startAnimating()
@@ -564,11 +564,11 @@ class SignUp: UIViewController {
                     wifiTextField.backgroundColor = .systemRed
                     wifiTextField.endEditing(true);
                 }
-                if (emailTextField.text == "") {
+                if (emailTextField.text == "" || !emailTextField.text!.contains("@") || !emailTextField.text!.contains(".ru") || !emailTextField.text!.contains(".com")) {
                     emailTextField.backgroundColor = .systemRed
                     emailTextField.endEditing(true);
                 }
-                if (passwordTextField.text == "") {
+                if (passwordTextField.text == "" || passwordTextField.text!.count < 6) {
                     passwordTextField.backgroundColor = .systemRed
                     passwordTextField.endEditing(true);
                 }
