@@ -260,29 +260,29 @@ class TableEmployeers: UIViewController {
         var dateNow: String
         switch Calendar.current.component(.month, from: Date()) {
         case 1:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) января"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) january"
         case 2:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) февраля"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) february"
         case 3:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) марта"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) march"
         case 4:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) апреля"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) april"
         case 5:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) мая"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) may"
         case 6:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) июня"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) june"
         case 7:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) июля"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) july"
         case 8:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) августа"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) augustа"
         case 9:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) сентября"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) september"
         case 10:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) октября"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) october"
         case 11:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) ноября"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) november"
         case 12:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) декабря"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) december"
         default:
             dateNow = "0" // Невозможное невозможно
         }
@@ -315,29 +315,29 @@ extension TableEmployeers : UITableViewDelegate {
         labelHeader.textColor = .black
         switch Calendar.current.component(.month, from: Date()) {
         case 1:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) января"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) january"
         case 2:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) февраля"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) february"
         case 3:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) марта"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) march"
         case 4:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) апреля"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) april"
         case 5:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) мая"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) may"
         case 6:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) июня"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) june"
         case 7:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) июля"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) july"
         case 8:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) августа"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) augustа"
         case 9:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) сентября"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) september"
         case 10:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) октября"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) october"
         case 11:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) ноября"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) november"
         case 12:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) декабря"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) december"
         default:
             print("Что сейчас происходит?")//Не вызовется
         }

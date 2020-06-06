@@ -69,7 +69,7 @@ class SignIn: UIViewController {
                                 }
                             }
                         }
-//                        var a = dict.value(forKeyPath: "\(currentCompany).\(hams).coming") as! NSDictionary
+//                        var a = dict.value(forKeyPath: "\(currentCompany).\(hams).coming") as! NSDictionary В последствии, обнаружил как взять значения без циклов, но не успеваю переписать до диплома
                         if Calendar.current.component(.weekday, from: Date()) == 2 {
                             base.child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work").updateChildValues(["weekHours": 0])
                         }
@@ -451,7 +451,7 @@ class SignIn: UIViewController {
                             }
                         }
 
-                        UserDefaults.standard.set(true, forKey: "autoSignIn")
+                        UserDefaults.standard.set(true, forKey: "autoSignIn") // Уже после того, как сделал автовход узнал про KeyChain, но также поджимают сроки написания программы
                         UserDefaults.standard.set(self.loginTextField.text?.lowercased(), forKey: "login")
                         UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
                         activityIndicator.stopAnimating() // TODO: - Вовремя
@@ -496,29 +496,29 @@ class SignIn: UIViewController {
         var dateNow: String
         switch Calendar.current.component(.month, from: Date()) {
         case 1:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) января"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) january"
         case 2:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) февраля"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) february"
         case 3:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) марта"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) march"
         case 4:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) апреля"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) april"
         case 5:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) мая"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) may"
         case 6:
             dateNow = "\(Calendar.current.component(.day, from: Date())) июня"
         case 7:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) июля"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) july"
         case 8:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) августа"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) augustа"
         case 9:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) сентября"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) september"
         case 10:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) октября"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) october"
         case 11:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) ноября"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) november"
         case 12:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) декабря"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) december"
         default:
             dateNow = "0"
             // Невозможное невозможно

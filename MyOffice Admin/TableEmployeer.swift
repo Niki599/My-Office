@@ -90,6 +90,7 @@ class TableEmployeer: UIViewController {
         }
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
+        didUpdateButtonTap()
     }
     
     override func viewWillLayoutSubviews() {
@@ -309,7 +310,7 @@ class TableEmployeer: UIViewController {
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         activityIndicator.frame = view.bounds
-        activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
+        activityIndicator.backgroundColor = UIColor(white: 255, alpha: 1)
         
         Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
             if user != nil {
@@ -432,29 +433,29 @@ class TableEmployeer: UIViewController {
         var dateNow: String
         switch Calendar.current.component(.month, from: Date()) {
         case 1:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) января"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) january"
         case 2:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) февраля"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) february"
         case 3:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) марта"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) march"
         case 4:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) апреля"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) april"
         case 5:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) мая"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) may"
         case 6:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) июня"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) june"
         case 7:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) июля"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) july"
         case 8:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) августа"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) augustа"
         case 9:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) сентября"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) september"
         case 10:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) октября"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) october"
         case 11:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) ноября"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) november"
         case 12:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) декабря"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) december"
         default:
             dateNow = "0"
             // Невозможное невозможно
