@@ -328,7 +328,7 @@ class MainScreen: UIViewController {
     }
         
     @objc private func didTapJoinButton(_ sender: UIButton) {
-        if getIp() == wifi {
+//        if getIp() == wifi {
         let activityIndicator = UIActivityIndicatorView(style: .large)
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
@@ -423,10 +423,10 @@ class MainScreen: UIViewController {
                     let base = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("coming")
                     let baseWork = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work")
                     baseWork.updateChildValues(["check": true])
+                    activityIndicator.stopAnimating()
                     base.observe(.value, with:  { (snapshot) in
                         guard let value = snapshot.value, snapshot.exists() else { return }
                         let dict: NSDictionary = value as! NSDictionary
-                        activityIndicator.stopAnimating()
                         for i in dict.allKeys {
                             switch Calendar.current.component(.month, from: Date()) {
                             case 1:
@@ -527,20 +527,20 @@ class MainScreen: UIViewController {
                 }
             })
         }
-        } else {
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                self.alertView.alpha = 1
-                self.alertView.center.y += 120
-                self.connectionButton.isUserInteractionEnabled = false
-            }, completion: { (bool) in
-                UIView.animate(withDuration: 0.5, delay: 1, options: .curveEaseOut, animations: {
-                    self.alertView.alpha = 0
-                    self.alertView.center.y -= 120
-                }, completion: { (bool) in
-                    self.connectionButton.isUserInteractionEnabled = true
-                })
-            })
-        }
+//        } else {
+//            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+//                self.alertView.alpha = 1
+//                self.alertView.center.y += 120
+//                self.connectionButton.isUserInteractionEnabled = false
+//            }, completion: { (bool) in
+//                UIView.animate(withDuration: 0.5, delay: 1, options: .curveEaseOut, animations: {
+//                    self.alertView.alpha = 0
+//                    self.alertView.center.y -= 120
+//                }, completion: { (bool) in
+//                    self.connectionButton.isUserInteractionEnabled = true
+//                })
+//            })
+//        }
     }
     
     //Функция по нахождению ip-адреса

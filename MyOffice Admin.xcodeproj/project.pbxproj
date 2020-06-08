@@ -91,6 +91,7 @@
 		479557352475998200CC2C79 /* Rectangle 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle 2.png"; sourceTree = "<group>"; };
 		479557362475998200CC2C79 /* Rectangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rectangle.png; sourceTree = "<group>"; };
 		47C2731223CDEAFE005361B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		47C6F687248E634C0070C3BB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47D830982392AF2900DB9168 /* MyOffice Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyOffice Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47D8309B2392AF2900DB9168 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47D8309D2392AF2900DB9168 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -229,6 +230,7 @@
 				47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */,
 				47D830A12392AF2900DB9168 /* Main.storyboard */,
 				3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */,
+				47C6F687248E634C0070C3BB /* Info.plist */,
 				47C2731223CDEAFE005361B7 /* GoogleService-Info.plist */,
 			);
 			path = "MyOffice Admin";
@@ -707,14 +709,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M4W3BABN5H;
+				DEVELOPMENT_TEAM = 5E784ARYMB;
 				INFOPLIST_FILE = "MyOffice Admin/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "aleph0.MyOffice-Admin";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sebbia.myOfficeAdmin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -729,14 +731,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M4W3BABN5H;
+				DEVELOPMENT_TEAM = 5E784ARYMB;
 				INFOPLIST_FILE = "MyOffice Admin/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "aleph0.MyOffice-Admin";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sebbia.myOfficeAdmin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
