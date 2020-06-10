@@ -24,7 +24,6 @@ class SignIn: UIViewController {
     private var authorizationButton: UIButton!
     private var backgroundView: UIView!
     private var enteryLabel: UILabel!
-    private var createCompanyButton: UIButton!
     
     private let logoImage = UIImage(imageLiteralResourceName: "donkomlekt.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     private let checkBoxImage = UIImage(imageLiteralResourceName: "checkBox.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch)
@@ -69,7 +68,25 @@ class SignIn: UIViewController {
                                 }
                             }
                         }
-//                        var a = dict.value(forKeyPath: "\(currentCompany).\(hams).coming") as! NSDictionary В последствии, обнаружил как взять значения без циклов, но не успеваю переписать до диплома
+//                        var a = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company") ?? "").\(hams).coming") as! NSDictionary //В последствии, обнаружил как взять значения без циклов, но не успеваю переписать до диплома
+                       /** self.oneOfUsers.work.check = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).work.check") as? Bool
+                        if hams == uid as? String {
+                            UserDefaults.standard.set(dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).work.admin"), forKey: "admin")
+                        }
+                        self.oneOfUsers.work.admin = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).work.admin") as? Bool
+                        self.oneOfUsers.info.patronymic = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).info.patronymic") as? String
+                        self.oneOfUsers.work.wifi = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).work.wifi") as? String
+                        self.oneOfUsers.work.monthHours = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).work.monthHours") as? Double
+                        self.oneOfUsers.work.weekHours = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).work.weekHours") as? Double
+                        self.oneOfUsers.work.totalHours = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).work.totalHours") as? Double
+                        self.oneOfUsers.info.date = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).info.date") as? String
+                        self.oneOfUsers.info.email = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).info.email") as? String
+                        self.oneOfUsers.info.name = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).info.name") as? String
+                        self.oneOfUsers.info.pass = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).info.pass") as? String
+                        self.oneOfUsers.info.phone = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).info.phone") as? String
+                        self.oneOfUsers.info.surname = dict.value(forKeyPath: "\(UserDefaults.standard.string(forKey: "company")!).\(uid).info.surname") as? String
+                         **/
+
                         if Calendar.current.component(.weekday, from: Date()) == 2 {
                             base.child(UserDefaults.standard.string(forKey: "company")!).child(hams!).child("work").updateChildValues(["weekHours": 0])
                         }
@@ -171,8 +188,10 @@ class SignIn: UIViewController {
                         MainScreenTabBarVC.modalTransitionStyle = .flipHorizontal
                         self.present(MainScreenTabBarVC, animated: true, completion: nil)
                     })
-                }
-                else {
+                } else {
+                    let alert = UIAlertController(title: "Вход не удался", message: "Автовход был очищен", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Хорошо", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                     // Очистка всего UserDefaults, если вход не был выполнен
                     if let appDomain = Bundle.main.bundleIdentifier {
                         UserDefaults.standard.removePersistentDomain(forName: appDomain)
@@ -228,11 +247,7 @@ class SignIn: UIViewController {
             passwordTextField.leadingAnchor.constraint(equalTo: loginTextField.leadingAnchor),
             passwordTextField.trailingAnchor.constraint(equalTo: loginTextField.trailingAnchor),
             passwordTextField.heightAnchor.constraint(equalTo: loginTextField.heightAnchor),
-            createCompanyButton.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor, constant: -50),
-            createCompanyButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
-            createCompanyButton.widthAnchor.constraint(equalTo: enteryLabel.widthAnchor),
-            createCompanyButton.heightAnchor.constraint(equalTo: passwordTextField.heightAnchor, constant: -20),
-            authorizationButton.bottomAnchor.constraint(equalTo: createCompanyButton.topAnchor, constant: -10),
+            authorizationButton.bottomAnchor.constraint(equalTo: view.safeArea.bottomAnchor, constant: -25),
             authorizationButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             authorizationButton.widthAnchor.constraint(equalTo: enteryLabel.widthAnchor),
             authorizationButton.heightAnchor.constraint(equalTo: passwordTextField.heightAnchor),
@@ -317,17 +332,7 @@ class SignIn: UIViewController {
         authorizationButton.translatesAutoresizingMaskIntoConstraints = false
         authorizationButton.addTarget(self, action:#selector(didAuthButtonTap), for: .touchUpInside)
         view.addSubview(authorizationButton)
-        
-        createCompanyButton = UIButton()
-        createCompanyButton.setTitle("Регистрация филиала", for: .normal)
-        createCompanyButton.setTitleColor(.black, for: .normal)
-        createCompanyButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.4) , for: .highlighted)
-        createCompanyButton.backgroundColor = .none
-        createCompanyButton.translatesAutoresizingMaskIntoConstraints = false
-        createCompanyButton.clipsToBounds = true
-        createCompanyButton.addTarget(self, action:#selector(didCreateCompanyButtonTap), for: .touchUpInside)
-        view.addSubview(createCompanyButton)
-        
+                
     }
             
     @objc private func didAuthButtonTap() {
@@ -461,8 +466,10 @@ class SignIn: UIViewController {
                         MainScreenTabBarVC.modalTransitionStyle = .flipHorizontal
                         self.present(MainScreenTabBarVC, animated: true, completion: nil)
                     })
-                }
-                else {
+                } else {
+                    let alert = UIAlertController(title: "Вход не удался", message: "Автовход был очищен", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Хорошо", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                     // Очистка всего UserDefaults, если вход не был выполнен
                     if let appDomain = Bundle.main.bundleIdentifier {
                         UserDefaults.standard.removePersistentDomain(forName: appDomain)
@@ -486,12 +493,6 @@ class SignIn: UIViewController {
         }
     }
     
-    @objc private func didCreateCompanyButtonTap() {
-        let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "SignUp") as! SignUp
-        signUpVC.typeOfSignUp = true
-        self.navigationController?.pushViewController(signUpVC, animated: true)
-    }
-    
     private func dateNow(baseDate: String) -> Bool {
         var dateNow: String
         switch Calendar.current.component(.month, from: Date()) {
@@ -506,11 +507,11 @@ class SignIn: UIViewController {
         case 5:
             dateNow = "\(Calendar.current.component(.day, from: Date())) may"
         case 6:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) июня"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) june"
         case 7:
             dateNow = "\(Calendar.current.component(.day, from: Date())) july"
         case 8:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) augustа"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) august"
         case 9:
             dateNow = "\(Calendar.current.component(.day, from: Date())) september"
         case 10:
@@ -521,7 +522,6 @@ class SignIn: UIViewController {
             dateNow = "\(Calendar.current.component(.day, from: Date())) december"
         default:
             dateNow = "0"
-            // Невозможное невозможно
         }
         let separatedBaseDate = baseDate.components(separatedBy: [" "])
         let separatedNowDate = dateNow.components(separatedBy: [" "])

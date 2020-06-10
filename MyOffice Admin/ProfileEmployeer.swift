@@ -26,7 +26,8 @@ class ProfileEmployeer: UIViewController {
     private var labelStringPassAdmin = UILabel()
     private var deleteAccButton = UIButton()
     private var buttonExit = UIButton()
-    
+    private var createCompanyButton = UIButton()
+
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -62,6 +63,7 @@ class ProfileEmployeer: UIViewController {
                 if user.work.admin! {
                     labelStringPassAdmin.text = "Обладает правами администратора"
                     labelStringPassAdmin.textColor = .systemGreen
+                    createCompanyButton.isHidden = false
                 } else {
                     labelStringPassAdmin.text = "Не обладает правами администратора"
                     labelStringPassAdmin.textColor = .systemRed
@@ -151,7 +153,7 @@ class ProfileEmployeer: UIViewController {
         labelNumberOfPass.font.withSize(8)
         labelNumberOfPass.translatesAutoresizingMaskIntoConstraints = false
         
-        buttonExit.setTitle("Выход", for: .normal)
+        buttonExit.setTitle("Выход из аккаунта", for: .normal)
         buttonExit.setTitleColor(.red, for: .normal)
         buttonExit.setTitleColor(UIColor(red: 255, green: 0, blue: 0, alpha: 0.5), for: .highlighted)
         buttonExit.addTarget(nil, action: #selector(exitAction), for: .touchUpInside)
@@ -173,6 +175,17 @@ class ProfileEmployeer: UIViewController {
         labelStringPassAdmin.translatesAutoresizingMaskIntoConstraints = false
         labelStringPassAdmin.numberOfLines = 0
         labelStringPassAdmin.lineBreakMode = .byWordWrapping
+        
+        createCompanyButton.setTitle("Регистрация филиала", for: .normal)
+        createCompanyButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.4) , for: .highlighted)
+        createCompanyButton.setTitleColor(.yellow, for: .normal)
+        createCompanyButton.layer.cornerRadius = 6
+        createCompanyButton.backgroundColor = .blue
+        createCompanyButton.translatesAutoresizingMaskIntoConstraints = false
+        createCompanyButton.clipsToBounds = true
+        createCompanyButton.isHidden = true
+        createCompanyButton.addTarget(self, action:#selector(didCreateCompanyButtonTap), for: .touchUpInside)
+        view.addSubview(createCompanyButton)
         
         let stackViewName = UIStackView(arrangedSubviews: [labelName, labelFullName])
         stackViewName.axis = .horizontal
@@ -247,6 +260,7 @@ class ProfileEmployeer: UIViewController {
                     if user.work.admin! {
                         labelStringPassAdmin.text = "Обладает правами администратора"
                         labelStringPassAdmin.textColor = .systemGreen
+                        createCompanyButton.isHidden = false
                     } else {
                         labelStringPassAdmin.text = "Не обладает правами администратора"
                         labelStringPassAdmin.textColor = .systemRed
@@ -294,12 +308,26 @@ class ProfileEmployeer: UIViewController {
             groupStackViewInfo.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.2),
             groupStackViewInfo.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             
-            buttonExit.topAnchor.constraint(equalTo: groupStackViewInfo.bottomAnchor, constant: 20),
+            createCompanyButton.topAnchor.constraint(equalTo: groupStackViewInfo.bottomAnchor, constant: 20),
+            createCompanyButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
+            createCompanyButton.widthAnchor.constraint(equalTo: groupStackViewInfo.widthAnchor),
+            createCompanyButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            buttonExit.topAnchor.constraint(equalTo: createCompanyButton.bottomAnchor, constant: 10),
             buttonExit.heightAnchor.constraint(equalToConstant: 40),
-            buttonExit.widthAnchor.constraint(equalToConstant: 60),
+            buttonExit.widthAnchor.constraint(equalToConstant: 170),
             buttonExit.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
         ]
     }
+    
+    @objc private func didCreateCompanyButtonTap() {
+        let signUpVC = self.storyboard?.instantiateViewController(withIdentifier: "SignUp") as! SignUp
+        signUpVC.typeOfSignUp = true
+        signUpVC.modalPresentationStyle = .fullScreen
+        signUpVC.modalTransitionStyle = .flipHorizontal
+        self.present(signUpVC, animated: true, completion: nil)
+    }
+    
     
     @objc private func handleSwipes(_ sender:UISwipeGestureRecognizer) {
         if sender.direction == .right {
@@ -309,17 +337,21 @@ class ProfileEmployeer: UIViewController {
     
     @objc private func exitAction() {
         
-        do {
-            try Auth.auth().signOut()
-            UserDefaults.standard.set(false, forKey: "dataAvailability")
-            if let appDomain = Bundle.main.bundleIdentifier {
-                UserDefaults.standard.removePersistentDomain(forName: appDomain)
+        let alert = UIAlertController(title: "Выход из аккаунта", message: "Вы уверены, что хотите выйти?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Да", style: .destructive, handler: { (alertAction) in
+            do {
+                try Auth.auth().signOut()
+                UserDefaults.standard.set(false, forKey: "dataAvailability")
+                if let appDomain = Bundle.main.bundleIdentifier {
+                    UserDefaults.standard.removePersistentDomain(forName: appDomain)
+                }
+                self.dismiss(animated: true, completion: nil)
+            } catch let signOutError as NSError {
+              print ("Error signing out: \(signOutError)")
             }
-            self.dismiss(animated: true, completion: nil)
-        } catch let signOutError as NSError {
-          print ("Error signing out: \(signOutError)")
-        }
-        
+        }) )
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc private func didBackButtonTap() {
@@ -327,13 +359,17 @@ class ProfileEmployeer: UIViewController {
     }
 
     @objc private func didDeleteAccButtonTap() {
-        
-        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
-            _ = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(String( Auth.auth().currentUser!.uid)).removeValue()
-            Auth.auth().currentUser?.delete(completion: { (error) in
-                self.dismiss(animated: true, completion: nil)
-            })
-        }
+        let alert = UIAlertController(title: "Удаление аккаунта", message: "Вы уверены, что хотите удалить аккаунт без возможности восстановления?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Да", style: .destructive, handler: { (alertAction) in
+            Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
+                _ = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(String( Auth.auth().currentUser!.uid)).removeValue()
+                Auth.auth().currentUser?.delete(completion: { (error) in
+                    self.dismiss(animated: true, completion: nil)
+                })
+            }
+        }) )
+        self.present(alert, animated: true, completion: nil)
         
     }
     

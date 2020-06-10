@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28F2C2BC78E1E69D19641D73 /* Pods_MyOffice_AdminTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A44275E30DC687723EA5733 /* Pods_MyOffice_AdminTests.framework */; };
 		3A03FFAB239ED26600FB59FF /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A03FFAA239ED26600FB59FF /* UIView.swift */; };
 		3A3637AC2396604C00C7E7E4 /* employee.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637A12396604B00C7E7E4 /* employee.png */; };
 		3A3637AD2396604C00C7E7E4 /* sebbia-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A3637A22396604B00C7E7E4 /* sebbia-logo.jpg */; };
@@ -32,7 +31,6 @@
 		4795573424758EE400CC2C79 /* mdi_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 4795573324758EE400CC2C79 /* mdi_error.png */; };
 		479557372475998200CC2C79 /* Rectangle 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 479557352475998200CC2C79 /* Rectangle 2.png */; };
 		479557382475998200CC2C79 /* Rectangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 479557362475998200CC2C79 /* Rectangle.png */; };
-		47C2731323CDEAFE005361B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47C2731223CDEAFE005361B7 /* GoogleService-Info.plist */; };
 		47D8309C2392AF2900DB9168 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D8309B2392AF2900DB9168 /* AppDelegate.swift */; };
 		47D8309E2392AF2900DB9168 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D8309D2392AF2900DB9168 /* SceneDelegate.swift */; };
 		47D830A02392AF2900DB9168 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D8309F2392AF2900DB9168 /* SignIn.swift */; };
@@ -41,8 +39,10 @@
 		47D830B32392AF2B00DB9168 /* MyOffice_AdminTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D830B22392AF2B00DB9168 /* MyOffice_AdminTests.swift */; };
 		47D830BE2392AF2B00DB9168 /* MyOffice_AdminUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D830BD2392AF2B00DB9168 /* MyOffice_AdminUITests.swift */; };
 		47D830CC2392B31000DB9168 /* MainScreenTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D830CB2392B31000DB9168 /* MainScreenTabBar.swift */; };
-		A02971801F369B46B76DCAB9 /* Pods_MyOffice_Admin_MyOffice_AdminUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04AF321AD078B289D97CB9C /* Pods_MyOffice_Admin_MyOffice_AdminUITests.framework */; };
-		D39D7EFBE174285EE301BA7C /* Pods_MyOffice_Admin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F2AB35DD6E15B25D71E0D3 /* Pods_MyOffice_Admin.framework */; };
+		47F14578248FFCD700A7DE9F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47F14577248FFCD700A7DE9F /* GoogleService-Info.plist */; };
+		6074BABF41C5B0F46B8CA445 /* Pods_MyOffice_Admin_MyOffice_AdminUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62E86830958D8C7B29173DF7 /* Pods_MyOffice_Admin_MyOffice_AdminUITests.framework */; };
+		F0F6FA725A927C0DA89A40BA /* Pods_MyOffice_Admin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD602C66069EC2380C151CB /* Pods_MyOffice_Admin.framework */; };
+		F613673019CD7A691C345D84 /* Pods_MyOffice_AdminTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4240CF0DB9C449D30ABB6ECF /* Pods_MyOffice_AdminTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,9 +63,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3001DE43C614AF3D96CA17E3 /* Pods-MyOffice AdminTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice AdminTests.release.xcconfig"; path = "Target Support Files/Pods-MyOffice AdminTests/Pods-MyOffice AdminTests.release.xcconfig"; sourceTree = "<group>"; };
-		35A38B5DE0AEE19151B5A8A7 /* Pods-MyOffice Admin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice Admin.release.xcconfig"; path = "Target Support Files/Pods-MyOffice Admin/Pods-MyOffice Admin.release.xcconfig"; sourceTree = "<group>"; };
-		38806FAB2C2B6DEB173A4371 /* Pods-MyOffice AdminTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice AdminTests.debug.xcconfig"; path = "Target Support Files/Pods-MyOffice AdminTests/Pods-MyOffice AdminTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1BAC89084B1D8A678D780939 /* Pods-MyOffice Admin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice Admin.release.xcconfig"; path = "Target Support Files/Pods-MyOffice Admin/Pods-MyOffice Admin.release.xcconfig"; sourceTree = "<group>"; };
+		1F4B8C5C4EFA214E3AB8307D /* Pods-MyOffice Admin-MyOffice AdminUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice Admin-MyOffice AdminUITests.debug.xcconfig"; path = "Target Support Files/Pods-MyOffice Admin-MyOffice AdminUITests/Pods-MyOffice Admin-MyOffice AdminUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		223E2BEA2D735D6D046A5ABE /* Pods-MyOffice Admin-MyOffice AdminUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice Admin-MyOffice AdminUITests.release.xcconfig"; path = "Target Support Files/Pods-MyOffice Admin-MyOffice AdminUITests/Pods-MyOffice Admin-MyOffice AdminUITests.release.xcconfig"; sourceTree = "<group>"; };
 		3A03FFAA239ED26600FB59FF /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		3A3637A12396604B00C7E7E4 /* employee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = employee.png; sourceTree = "<group>"; };
 		3A3637A22396604B00C7E7E4 /* sebbia-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sebbia-logo.jpg"; sourceTree = "<group>"; };
@@ -81,6 +81,7 @@
 		3A623B2E2449C1ED001AF800 /* donkomlekt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donkomlekt.png; sourceTree = "<group>"; };
 		3A9E503923B25FDF00B41754 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		3AC495EF23BA412700A5974F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4240CF0DB9C449D30ABB6ECF /* Pods_MyOffice_AdminTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyOffice_AdminTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4703C440240D0B1100B9B70E /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		4728B04323F86C1E002E7D76 /* TableEmployeers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableEmployeers.swift; sourceTree = "<group>"; };
 		47414E9623D70DBD00C1EE7D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -90,7 +91,6 @@
 		4795573324758EE400CC2C79 /* mdi_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mdi_error.png; sourceTree = "<group>"; };
 		479557352475998200CC2C79 /* Rectangle 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle 2.png"; sourceTree = "<group>"; };
 		479557362475998200CC2C79 /* Rectangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rectangle.png; sourceTree = "<group>"; };
-		47C2731223CDEAFE005361B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		47C6F687248E634C0070C3BB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47D830982392AF2900DB9168 /* MyOffice Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MyOffice Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47D8309B2392AF2900DB9168 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,12 +105,12 @@
 		47D830BD2392AF2B00DB9168 /* MyOffice_AdminUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOffice_AdminUITests.swift; sourceTree = "<group>"; };
 		47D830BF2392AF2B00DB9168 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47D830CB2392B31000DB9168 /* MainScreenTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenTabBar.swift; sourceTree = "<group>"; };
-		58610CA29230E214E49E8A5D /* Pods-MyOffice Admin-MyOffice AdminUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice Admin-MyOffice AdminUITests.debug.xcconfig"; path = "Target Support Files/Pods-MyOffice Admin-MyOffice AdminUITests/Pods-MyOffice Admin-MyOffice AdminUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		7A44275E30DC687723EA5733 /* Pods_MyOffice_AdminTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyOffice_AdminTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		92F2AB35DD6E15B25D71E0D3 /* Pods_MyOffice_Admin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyOffice_Admin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E04AF321AD078B289D97CB9C /* Pods_MyOffice_Admin_MyOffice_AdminUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyOffice_Admin_MyOffice_AdminUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3EDC7849792BF89CEA0BE5A /* Pods-MyOffice Admin-MyOffice AdminUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice Admin-MyOffice AdminUITests.release.xcconfig"; path = "Target Support Files/Pods-MyOffice Admin-MyOffice AdminUITests/Pods-MyOffice Admin-MyOffice AdminUITests.release.xcconfig"; sourceTree = "<group>"; };
-		F3603210D2630BA0624F380D /* Pods-MyOffice Admin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice Admin.debug.xcconfig"; path = "Target Support Files/Pods-MyOffice Admin/Pods-MyOffice Admin.debug.xcconfig"; sourceTree = "<group>"; };
+		47F14577248FFCD700A7DE9F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		62E86830958D8C7B29173DF7 /* Pods_MyOffice_Admin_MyOffice_AdminUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyOffice_Admin_MyOffice_AdminUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B4C4D4CC49056C210B84227 /* Pods-MyOffice Admin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice Admin.debug.xcconfig"; path = "Target Support Files/Pods-MyOffice Admin/Pods-MyOffice Admin.debug.xcconfig"; sourceTree = "<group>"; };
+		84E186D1261BD3B0F9F2FF1C /* Pods-MyOffice AdminTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice AdminTests.release.xcconfig"; path = "Target Support Files/Pods-MyOffice AdminTests/Pods-MyOffice AdminTests.release.xcconfig"; sourceTree = "<group>"; };
+		8CE24DAF6541A6110FF6575D /* Pods-MyOffice AdminTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOffice AdminTests.debug.xcconfig"; path = "Target Support Files/Pods-MyOffice AdminTests/Pods-MyOffice AdminTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CCD602C66069EC2380C151CB /* Pods_MyOffice_Admin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyOffice_Admin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D39D7EFBE174285EE301BA7C /* Pods_MyOffice_Admin.framework in Frameworks */,
+				F0F6FA725A927C0DA89A40BA /* Pods_MyOffice_Admin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28F2C2BC78E1E69D19641D73 /* Pods_MyOffice_AdminTests.framework in Frameworks */,
+				F613673019CD7A691C345D84 /* Pods_MyOffice_AdminTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,19 +134,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A02971801F369B46B76DCAB9 /* Pods_MyOffice_Admin_MyOffice_AdminUITests.framework in Frameworks */,
+				6074BABF41C5B0F46B8CA445 /* Pods_MyOffice_Admin_MyOffice_AdminUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0AC54D6911E56DF3E41E537E /* Frameworks */ = {
+		315D529C22878E5F98EBDCDA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				92F2AB35DD6E15B25D71E0D3 /* Pods_MyOffice_Admin.framework */,
-				E04AF321AD078B289D97CB9C /* Pods_MyOffice_Admin_MyOffice_AdminUITests.framework */,
-				7A44275E30DC687723EA5733 /* Pods_MyOffice_AdminTests.framework */,
+				CCD602C66069EC2380C151CB /* Pods_MyOffice_Admin.framework */,
+				62E86830958D8C7B29173DF7 /* Pods_MyOffice_Admin_MyOffice_AdminUITests.framework */,
+				4240CF0DB9C449D30ABB6ECF /* Pods_MyOffice_AdminTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -198,7 +198,7 @@
 				47D830BC2392AF2B00DB9168 /* MyOffice AdminUITests */,
 				47D830992392AF2900DB9168 /* Products */,
 				8CB849FD6C7165B41EDAC70D /* Pods */,
-				0AC54D6911E56DF3E41E537E /* Frameworks */,
+				315D529C22878E5F98EBDCDA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,8 +230,8 @@
 				47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */,
 				47D830A12392AF2900DB9168 /* Main.storyboard */,
 				3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */,
+				47F14577248FFCD700A7DE9F /* GoogleService-Info.plist */,
 				47C6F687248E634C0070C3BB /* Info.plist */,
-				47C2731223CDEAFE005361B7 /* GoogleService-Info.plist */,
 			);
 			path = "MyOffice Admin";
 			sourceTree = "<group>";
@@ -257,12 +257,12 @@
 		8CB849FD6C7165B41EDAC70D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F3603210D2630BA0624F380D /* Pods-MyOffice Admin.debug.xcconfig */,
-				35A38B5DE0AEE19151B5A8A7 /* Pods-MyOffice Admin.release.xcconfig */,
-				58610CA29230E214E49E8A5D /* Pods-MyOffice Admin-MyOffice AdminUITests.debug.xcconfig */,
-				E3EDC7849792BF89CEA0BE5A /* Pods-MyOffice Admin-MyOffice AdminUITests.release.xcconfig */,
-				38806FAB2C2B6DEB173A4371 /* Pods-MyOffice AdminTests.debug.xcconfig */,
-				3001DE43C614AF3D96CA17E3 /* Pods-MyOffice AdminTests.release.xcconfig */,
+				6B4C4D4CC49056C210B84227 /* Pods-MyOffice Admin.debug.xcconfig */,
+				1BAC89084B1D8A678D780939 /* Pods-MyOffice Admin.release.xcconfig */,
+				1F4B8C5C4EFA214E3AB8307D /* Pods-MyOffice Admin-MyOffice AdminUITests.debug.xcconfig */,
+				223E2BEA2D735D6D046A5ABE /* Pods-MyOffice Admin-MyOffice AdminUITests.release.xcconfig */,
+				8CE24DAF6541A6110FF6575D /* Pods-MyOffice AdminTests.debug.xcconfig */,
+				84E186D1261BD3B0F9F2FF1C /* Pods-MyOffice AdminTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -274,11 +274,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 47D830C22392AF2B00DB9168 /* Build configuration list for PBXNativeTarget "MyOffice Admin" */;
 			buildPhases = (
-				013B907B637CDEEE27ED61D8 /* [CP] Check Pods Manifest.lock */,
+				CE195096807174D379F720BD /* [CP] Check Pods Manifest.lock */,
 				47D830942392AF2900DB9168 /* Sources */,
 				47D830952392AF2900DB9168 /* Frameworks */,
 				47D830962392AF2900DB9168 /* Resources */,
-				D1B7E39EBAD9891CCF769739 /* [CP] Embed Pods Frameworks */,
+				57C978E642AFED2858FA183F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -293,7 +293,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 47D830C52392AF2B00DB9168 /* Build configuration list for PBXNativeTarget "MyOffice AdminTests" */;
 			buildPhases = (
-				4E84D0E0A162EEA561B4A06F /* [CP] Check Pods Manifest.lock */,
+				030066AC21DD4287DA5DE093 /* [CP] Check Pods Manifest.lock */,
 				47D830AA2392AF2A00DB9168 /* Sources */,
 				47D830AB2392AF2A00DB9168 /* Frameworks */,
 				47D830AC2392AF2A00DB9168 /* Resources */,
@@ -312,11 +312,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 47D830C82392AF2B00DB9168 /* Build configuration list for PBXNativeTarget "MyOffice AdminUITests" */;
 			buildPhases = (
-				3770211AD2AAE2B3D565A448 /* [CP] Check Pods Manifest.lock */,
+				49882D064DBD324A716DE570 /* [CP] Check Pods Manifest.lock */,
 				47D830B52392AF2B00DB9168 /* Sources */,
 				47D830B62392AF2B00DB9168 /* Frameworks */,
 				47D830B72392AF2B00DB9168 /* Resources */,
-				D053595171AF8E72BF5B490B /* [CP] Embed Pods Frameworks */,
+				D2D61BA8E7248BC7CD4D3946 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -381,13 +381,13 @@
 				3A3637AE2396604C00C7E7E4 /* settings.png in Resources */,
 				479557382475998200CC2C79 /* Rectangle.png in Resources */,
 				479557372475998200CC2C79 /* Rectangle 2.png in Resources */,
-				47C2731323CDEAFE005361B7 /* GoogleService-Info.plist in Resources */,
 				3AC495F023BA412700A5974F /* LaunchScreen.storyboard in Resources */,
 				3A3637B42396604C00C7E7E4 /* arrowLeft.png in Resources */,
 				3A3637B62396604C00C7E7E4 /* update.png in Resources */,
 				3A3637B22396604C00C7E7E4 /* icons8-Ð¾ÑÐ¼ÐµÑÐµÐ½Ð½ÑÐ¹-ÑÐµÐºÐ±Ð¾ÐºÑ-100.png in Resources */,
 				3A3637B12396604C00C7E7E4 /* addRound.png in Resources */,
 				47D830A52392AF2A00DB9168 /* Assets.xcassets in Resources */,
+				47F14578248FFCD700A7DE9F /* GoogleService-Info.plist in Resources */,
 				3A623B2F2449C1ED001AF800 /* donkomlekt.png in Resources */,
 				3A3637AC2396604C00C7E7E4 /* employee.png in Resources */,
 				3A3637B52396604C00C7E7E4 /* sigma.png in Resources */,
@@ -415,51 +415,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		013B907B637CDEEE27ED61D8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyOffice Admin-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3770211AD2AAE2B3D565A448 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyOffice Admin-MyOffice AdminUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4E84D0E0A162EEA561B4A06F /* [CP] Check Pods Manifest.lock */ = {
+		030066AC21DD4287DA5DE093 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -481,24 +437,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D053595171AF8E72BF5B490B /* [CP] Embed Pods Frameworks */ = {
+		49882D064DBD324A716DE570 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyOffice Admin-MyOffice AdminUITests/Pods-MyOffice Admin-MyOffice AdminUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyOffice Admin-MyOffice AdminUITests/Pods-MyOffice Admin-MyOffice AdminUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyOffice Admin-MyOffice AdminUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyOffice Admin-MyOffice AdminUITests/Pods-MyOffice Admin-MyOffice AdminUITests-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D1B7E39EBAD9891CCF769739 /* [CP] Embed Pods Frameworks */ = {
+		57C978E642AFED2858FA183F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -513,6 +474,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyOffice Admin/Pods-MyOffice Admin-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE195096807174D379F720BD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyOffice Admin-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2D61BA8E7248BC7CD4D3946 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyOffice Admin-MyOffice AdminUITests/Pods-MyOffice Admin-MyOffice AdminUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyOffice Admin-MyOffice AdminUITests/Pods-MyOffice Admin-MyOffice AdminUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyOffice Admin-MyOffice AdminUITests/Pods-MyOffice Admin-MyOffice AdminUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -704,11 +704,12 @@
 		};
 		47D830C32392AF2B00DB9168 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3603210D2630BA0624F380D /* Pods-MyOffice Admin.debug.xcconfig */;
+			baseConfigurationReference = 6B4C4D4CC49056C210B84227 /* Pods-MyOffice Admin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5E784ARYMB;
 				INFOPLIST_FILE = "MyOffice Admin/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -716,6 +717,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.001;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sebbia.myOfficeAdmin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -726,11 +728,12 @@
 		};
 		47D830C42392AF2B00DB9168 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35A38B5DE0AEE19151B5A8A7 /* Pods-MyOffice Admin.release.xcconfig */;
+			baseConfigurationReference = 1BAC89084B1D8A678D780939 /* Pods-MyOffice Admin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5E784ARYMB;
 				INFOPLIST_FILE = "MyOffice Admin/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -738,6 +741,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.001;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sebbia.myOfficeAdmin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -748,7 +752,7 @@
 		};
 		47D830C62392AF2B00DB9168 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 38806FAB2C2B6DEB173A4371 /* Pods-MyOffice AdminTests.debug.xcconfig */;
+			baseConfigurationReference = 8CE24DAF6541A6110FF6575D /* Pods-MyOffice AdminTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -771,7 +775,7 @@
 		};
 		47D830C72392AF2B00DB9168 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3001DE43C614AF3D96CA17E3 /* Pods-MyOffice AdminTests.release.xcconfig */;
+			baseConfigurationReference = 84E186D1261BD3B0F9F2FF1C /* Pods-MyOffice AdminTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -794,7 +798,7 @@
 		};
 		47D830C92392AF2B00DB9168 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58610CA29230E214E49E8A5D /* Pods-MyOffice Admin-MyOffice AdminUITests.debug.xcconfig */;
+			baseConfigurationReference = 1F4B8C5C4EFA214E3AB8307D /* Pods-MyOffice Admin-MyOffice AdminUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -815,7 +819,7 @@
 		};
 		47D830CA2392AF2B00DB9168 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E3EDC7849792BF89CEA0BE5A /* Pods-MyOffice Admin-MyOffice AdminUITests.release.xcconfig */;
+			baseConfigurationReference = 223E2BEA2D735D6D046A5ABE /* Pods-MyOffice Admin-MyOffice AdminUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -324,7 +324,7 @@ class TableEmployeer: UIViewController {
                 base.observe(.value, with:  { (snapshot) in
                     guard let value = snapshot.value, snapshot.exists() else { return }
                     let dict: NSDictionary = value as! NSDictionary
-                    for (uid, categories) in dict as! NSDictionary {
+                    for (uid, categories) in dict {
                         for (category, fields) in categories as! NSDictionary {
                             if category as? String == "coming" {
                                 for (nameOfField, valueOfField) in fields as! NSDictionary {
@@ -411,9 +411,9 @@ class TableEmployeer: UIViewController {
                     self.tableEmployeer.reloadData()
                 })
                 activityIndicator.stopAnimating() // TODO: - Вовремя
-            }
-            else {
+            } else {
                 print(error as Any)
+                activityIndicator.stopAnimating() // TODO: - Вовремя
             }
         }        
     }
@@ -447,7 +447,7 @@ class TableEmployeer: UIViewController {
         case 7:
             dateNow = "\(Calendar.current.component(.day, from: Date())) july"
         case 8:
-            dateNow = "\(Calendar.current.component(.day, from: Date())) augustа"
+            dateNow = "\(Calendar.current.component(.day, from: Date())) august"
         case 9:
             dateNow = "\(Calendar.current.component(.day, from: Date())) september"
         case 10:

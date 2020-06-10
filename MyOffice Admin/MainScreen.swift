@@ -43,8 +43,6 @@ class MainScreen: UIViewController {
         for i in 0...data.users.count - 1 {
             if data.users[i].info.email == UserDefaults.standard.string(forKey: "login") {
                 if (data.users[i].work.check == true) {
-                    timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerUpdate), userInfo: NSDate(), repeats: true)
-                    // TODO: - Продумать логику
                     infoConnection.text = "На работе"
                     infoConnection.textColor = .green
                     connectionButton.isSelected = true
@@ -264,7 +262,7 @@ class MainScreen: UIViewController {
         /**
          Уверен, что этот код можно сократить, я писал в лоб, чтобы просто добиться формата "00:00:00"
          */
-//        guard self.timer != nil else { return }
+        
         let elapsed = -(self.timer.userInfo as! NSDate).timeIntervalSinceNow
         minutesIsJob = floor(elapsed / 60)
         
@@ -383,7 +381,7 @@ class MainScreen: UIViewController {
                         baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) july": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         return
                     case 8:
-                        baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) augustа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                        baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) august": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         return
                     case 9:
                         baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) september": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
@@ -465,7 +463,7 @@ class MainScreen: UIViewController {
                                     return
                                 }
                             case 8:
-                                if i as? String == "\(Calendar.current.component(.day, from: Date())) augustа" {
+                                if i as? String == "\(Calendar.current.component(.day, from: Date())) august" {
                                     print(i)
                                     return
                                 }
@@ -509,7 +507,7 @@ class MainScreen: UIViewController {
                         case 7:
                             base.updateChildValues(["\(Calendar.current.component(.day, from: Date())) july": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 8:
-                            base.updateChildValues(["\(Calendar.current.component(.day, from: Date())) augustа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            base.updateChildValues(["\(Calendar.current.component(.day, from: Date())) august": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 9:
                             base.updateChildValues(["\(Calendar.current.component(.day, from: Date())) september": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 10:

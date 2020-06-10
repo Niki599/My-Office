@@ -189,7 +189,6 @@ class SignUp: UIViewController {
             infoLabel.text = "Руководитель филиала"
             buttonAdmin.isHidden = true
             labelAdmin.isHidden = true
-            backButton.isHidden = true
         } else {
             // Регистрация человека
             endOfEditing = true
@@ -198,7 +197,6 @@ class SignUp: UIViewController {
             infoLabel.text = "Новый сотрудник"
             buttonAdmin.isHidden = false
             labelAdmin.isHidden = false
-            backButton.isHidden = false
         }
         
         constraints = [
@@ -292,21 +290,13 @@ class SignUp: UIViewController {
         ]
     }
     
-    private func standartTextField(_ placeholder: String) -> UITextField {
-        let textField = UITextField()
-        textField.borderStyle = .none
-        textField.layer.backgroundColor = UIColor.white.cgColor
-        textField.layer.masksToBounds = false
-        textField.delegate = self
-        textField.layer.shadowColor = UIColor.gray.cgColor
-        textField.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        textField.layer.shadowOpacity = 1.0
-        textField.layer.shadowRadius = 0.0
-        textField.textAlignment = .center
-        textField.delegate = self
-        textField.placeholder = placeholder
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+    private func validator() -> Bool {
+        let ruCharacters = CharacterSet.init(charactersIn: "йцукенгшщзхъфывапролджэёячсмитьбюЙЦУКЕНГШЩЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ")
+        if !(nameTextField.text! == "" || surnameTextField.text! == "" || dateTextField.text! == "" || emailTextField.text! == "" || phoneTextField.text! == "" || passportTextField.text! == "" || passwordTextField.text! == "" || patronymicTextField.text! == "" || wifiTextField.text! == "" || !emailTextField.text!.contains("@") || !(emailTextField.text!.contains(".ru") || emailTextField.text!.contains(".com")) || passwordTextField.text!.count < 6 || (emailTextField.text!.rangeOfCharacter(from: ruCharacters) != nil)) {
+            return true
+        } else {
+            return false
+        }
     }
     
     @objc private func didBackButtonTap() {
@@ -324,7 +314,7 @@ class SignUp: UIViewController {
     
     @objc private func didNextButtonTap() {
         if endOfEditing {
-            if !(nameTextField.text! == "" || surnameTextField.text! == "" || dateTextField.text! == "" || emailTextField.text! == "" || phoneTextField.text! == "" || passportTextField.text! == "" || passwordTextField.text! == "" || patronymicTextField.text! == "" || wifiTextField.text! == "" || !emailTextField.text!.contains("@") || !(emailTextField.text!.contains(".ru") || emailTextField.text!.contains(".com")) || passwordTextField.text!.count < 6) {
+            if validator() {
                 let activityIndicator = UIActivityIndicatorView(style: .large)
                 view.addSubview(activityIndicator)
                 activityIndicator.startAnimating()
@@ -363,8 +353,8 @@ class SignUp: UIViewController {
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) july": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                             baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) july": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 8:
-                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) augustа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) augustа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) august": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) august": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 9:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) september": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                             baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) september": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
@@ -393,7 +383,7 @@ class SignUp: UIViewController {
                                 base.observe(.value, with:  { (snapshot) in
                                     guard let value = snapshot.value, snapshot.exists() else { return }
                                     let dict: NSDictionary = value as! NSDictionary
-                                    for (uid, categories) in dict as! NSDictionary {
+                                    for (uid, categories) in dict {
                                         for (category, fields) in categories as! NSDictionary {
                                             for (nameOfField, valueOfField) in fields as! NSDictionary {
                                                 if nameOfField as? String == "admin" {
@@ -470,8 +460,10 @@ class SignUp: UIViewController {
                                     MainScreenTabBarVC.modalTransitionStyle = .flipHorizontal
                                     self.present(MainScreenTabBarVC, animated: true, completion: nil)
                                 })
-                            }
-                            else {
+                            } else {
+                                let alert = UIAlertController(title: "Ошибка регистрации", message: "Ошибка ", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "Продолжить", style: .default, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
                                 /**
                                  Очистка всего UserDefaults, если вход не был выполнен
                                  */
@@ -514,8 +506,8 @@ class SignUp: UIViewController {
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) july": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                             baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) july": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 8:
-                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) augustа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
-                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) augustа": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) august": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
+                            baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) august": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                         case 9:
                             baseComing.updateChildValues(["\(Calendar.current.component(.day, from: Date())) september": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
                             baseLeaving.updateChildValues(["\(Calendar.current.component(.day, from: Date())) september": "\(Calendar.current.component(.hour, from: Date())):\(Calendar.current.component(.minute, from: Date()))"])
@@ -536,6 +528,7 @@ class SignUp: UIViewController {
                 }
                 activityIndicator.stopAnimating() // TODO: - Вовремя
             } else {
+                let ruCharacters = CharacterSet.init(charactersIn: "йцукенгшщзхъфывапролджэёячсмитьбюЙЦУКЕНГШЩЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ")
                 if (nameTextField.text == "") {
                     nameTextField.backgroundColor = .systemRed
                     nameTextField.endEditing(true);
@@ -564,7 +557,7 @@ class SignUp: UIViewController {
                     wifiTextField.backgroundColor = .systemRed
                     wifiTextField.endEditing(true);
                 }
-                if (emailTextField.text == "" || !emailTextField.text!.contains("@") || !emailTextField.text!.contains(".ru") || !emailTextField.text!.contains(".com")) {
+                if (emailTextField.text == "" || !emailTextField.text!.contains("@") || !emailTextField.text!.contains(".ru") || !emailTextField.text!.contains(".com") || (emailTextField.text!.rangeOfCharacter(from: ruCharacters) != nil) ) {
                     emailTextField.backgroundColor = .systemRed
                     emailTextField.endEditing(true);
                 }
@@ -573,8 +566,7 @@ class SignUp: UIViewController {
                     passwordTextField.endEditing(true);
                 }
             }
-        }
-        else {
+        } else {
             if companyTextField.text! == "" { companyTextField.backgroundColor = .systemRed; companyTextField.endEditing(true); return }
             UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
                 self.companyView.alpha = 0.0
@@ -587,6 +579,25 @@ class SignUp: UIViewController {
                 })
             })
         }
+    }
+    
+    // MARK: - Public Methods
+    
+    private func standartTextField(_ placeholder: String) -> UITextField {
+        let textField = UITextField()
+        textField.borderStyle = .none
+        textField.layer.backgroundColor = UIColor.white.cgColor
+        textField.layer.masksToBounds = false
+        textField.delegate = self
+        textField.layer.shadowColor = UIColor.gray.cgColor
+        textField.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        textField.layer.shadowOpacity = 1.0
+        textField.layer.shadowRadius = 0.0
+        textField.textAlignment = .center
+        textField.delegate = self
+        textField.placeholder = placeholder
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
     }
     
 }
