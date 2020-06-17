@@ -277,7 +277,7 @@ class ProfileEmployeer: UIViewController {
             title.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             
             deleteAccButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
-            deleteAccButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
+            deleteAccButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 25),
             
             backButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 10),
             backButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
@@ -348,7 +348,7 @@ class ProfileEmployeer: UIViewController {
                 }
                 self.dismiss(animated: true, completion: nil)
             } catch let signOutError as NSError {
-              print ("Error signing out: \(signOutError)")
+                print ("Error signing out: \(signOutError)")
             }
         }) )
         self.present(alert, animated: true, completion: nil)

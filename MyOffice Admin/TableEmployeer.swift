@@ -144,11 +144,13 @@ class TableEmployeer: UIViewController {
         updateButton = UIButton()
         updateButton.addTarget(self, action: #selector(didUpdateButtonTap), for: .touchUpInside)
         updateButton.translatesAutoresizingMaskIntoConstraints = false
-        updateButton.setImage(UIImage(imageLiteralResourceName: "update.png").resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
+        updateButton.setImage(UIImage(imageLiteralResourceName: "update.png"), for: .normal)
         view.addSubview(updateButton)
         
         let profileButton = UIButton()
         profileButton.addTarget(self, action: #selector(didProfileButtonTaped), for: .touchUpInside)
+        profileButton.layer.borderWidth = 2
+        profileButton.layer.cornerRadius = 12
         profileButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileButton)
         
@@ -410,10 +412,10 @@ class TableEmployeer: UIViewController {
                     }
                     self.tableEmployeer.reloadData()
                 })
-                activityIndicator.stopAnimating() // TODO: - Вовремя
+                activityIndicator.stopAnimating()
             } else {
                 print(error as Any)
-                activityIndicator.stopAnimating() // TODO: - Вовремя
+                activityIndicator.stopAnimating()
             }
         }        
     }

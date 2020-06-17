@@ -2,7 +2,7 @@
 //  MainScreen.swift
 //  MyOffice Admin
 //
-//  Created by Nikita on 24/12/2019.
+//  Created by Андрей Гаврилов on 24/12/2019.
 //  Copyright © 2019 Андрей Гаврилов. All rights reserved.
 //
 
@@ -57,14 +57,22 @@ class MainScreen: UIViewController {
     // MARK: - Private Methods
     
     private func setupViews() {
-                
+        
+        for i in 0...data.users.count - 1 {
+            if data.users[i].info.email == UserDefaults.standard.string(forKey: "login") {
+                if (data.users[i].work.check == true) {
+                    timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerUpdate), userInfo: NSDate(), repeats: true)
+                }
+            }
+        }
+
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         leftSwipe.direction = .left
         rightSwipe.direction = .right
         self.view.addGestureRecognizer(leftSwipe)
         self.view.addGestureRecognizer(rightSwipe)
-        
+
         let backgroundView = UIView()
         backgroundView.backgroundColor = .white
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -404,7 +412,6 @@ class MainScreen: UIViewController {
             })
             return
         } else {
-            // TODO: - Продумать логику
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerUpdate), userInfo: NSDate(), repeats: true)
             infoConnection.text = "На работе"
             infoConnection.textColor = .green
@@ -429,62 +436,50 @@ class MainScreen: UIViewController {
                             switch Calendar.current.component(.month, from: Date()) {
                             case 1:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) january" {
-                                    print(i)
                                     return
                                 }
                             case 2:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) february" {
-                                    print(i)
-                                    return;
+                                    return
                                 }
                             case 3:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) march" {
-                                    print(i)
                                     return
                                 }
                             case 4:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) april" {
-                                    print(i)
                                     return
                                 }
                             case 5:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) may" {
-                                    print(i)
                                     return
                                 }
                             case 6:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) june" {
-                                    print(i)
                                     return
                                 }
                             case 7:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) july" {
-                                    print(i)
                                     return
                                 }
                             case 8:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) august" {
-                                    print(i)
                                     return
                                 }
                             case 9:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) september" {
-                                    print(i)
                                     return
                                 }
                             case 10:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) october" {
-                                    print(i)
                                     return
                                 }
                             case 11:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) november" {
-                                    print(i)
                                     return
                                 }
                             case 12:
                                 if i as? String == "\(Calendar.current.component(.day, from: Date())) december" {
-                                    print(i)
                                     return
                                 }
                             default:

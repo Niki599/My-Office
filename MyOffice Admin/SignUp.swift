@@ -47,11 +47,6 @@ class SignUp: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
-        //Тап по экрану, чтобы спрятать клаву
-        let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
-        view.addGestureRecognizer(gesture)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,8 +72,11 @@ class SignUp: UIViewController {
     
     private func setupView() {
         
-        navigationController?.navigationBar.backgroundColor = .gray
-        navigationItem.title = "Создание филиала"
+        /**
+         Тап по экрану, чтобы спрятать клаву
+         */
+        let gesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(gesture)
         
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
@@ -526,48 +524,52 @@ class SignUp: UIViewController {
                         self.dismiss(animated: true, completion: nil)
                     }
                 }
-                activityIndicator.stopAnimating() // TODO: - Вовремя
+                activityIndicator.stopAnimating()
             } else {
                 let ruCharacters = CharacterSet.init(charactersIn: "йцукенгшщзхъфывапролджэёячсмитьбюЙЦУКЕНГШЩЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ")
                 if (nameTextField.text == "") {
                     nameTextField.backgroundColor = .systemRed
-                    nameTextField.endEditing(true);
+                    nameTextField.endEditing(true)
                 }
                 if (surnameTextField.text == "") {
                     surnameTextField.backgroundColor = .systemRed
-                    surnameTextField.endEditing(true);
+                    surnameTextField.endEditing(true)
                 }
                 if (patronymicTextField.text == "") {
                     patronymicTextField.backgroundColor = .systemRed
-                    patronymicTextField.endEditing(true);
+                    patronymicTextField.endEditing(true)
                 }
                 if (dateTextField.text == "") {
                     dateTextField.backgroundColor = .systemRed
-                    dateTextField.endEditing(true);
+                    dateTextField.endEditing(true)
                 }
                 if (passportTextField.text == "") {
                     passportTextField.backgroundColor = .systemRed
-                    passportTextField.endEditing(true);
+                    passportTextField.endEditing(true)
                 }
                 if (phoneTextField.text == "") {
                     phoneTextField.backgroundColor = .systemRed
-                    phoneTextField.endEditing(true);
+                    phoneTextField.endEditing(true)
                 }
                 if (wifiTextField.text == "") {
                     wifiTextField.backgroundColor = .systemRed
-                    wifiTextField.endEditing(true);
+                    wifiTextField.endEditing(true)
                 }
                 if (emailTextField.text == "" || !emailTextField.text!.contains("@") || !emailTextField.text!.contains(".ru") || !emailTextField.text!.contains(".com") || (emailTextField.text!.rangeOfCharacter(from: ruCharacters) != nil) ) {
                     emailTextField.backgroundColor = .systemRed
-                    emailTextField.endEditing(true);
+                    emailTextField.endEditing(true)
                 }
                 if (passwordTextField.text == "" || passwordTextField.text!.count < 6) {
                     passwordTextField.backgroundColor = .systemRed
-                    passwordTextField.endEditing(true);
+                    passwordTextField.endEditing(true)
                 }
             }
         } else {
-            if companyTextField.text! == "" { companyTextField.backgroundColor = .systemRed; companyTextField.endEditing(true); return }
+            if companyTextField.text! == "" {
+                companyTextField.backgroundColor = .systemRed
+                companyTextField.endEditing(true)
+                return
+            }
             UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
                 self.companyView.alpha = 0.0
                 self.companyView.center.y = 200

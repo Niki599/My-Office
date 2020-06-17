@@ -227,10 +227,10 @@ class TableEmployeers: UIViewController {
                     self.staffCount()
                     self.tableEmployeers.reloadData()
                 })
-                activityIndicator.stopAnimating() // TODO: - Вовремя
+                activityIndicator.stopAnimating()
             } else {
                 print(error as Any)
-                activityIndicator.stopAnimating() // TODO: - Вовремя
+                activityIndicator.stopAnimating()
             }
         }        
     }
@@ -315,31 +315,31 @@ extension TableEmployeers : UITableViewDelegate {
         labelHeader.textColor = .black
         switch Calendar.current.component(.month, from: Date()) {
         case 1:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) january"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) января"
         case 2:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) february"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) февраля"
         case 3:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) march"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) марта"
         case 4:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) april"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) апреля"
         case 5:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) may"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) мая"
         case 6:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) june"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) июня"
         case 7:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) july"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) июля"
         case 8:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) august"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) августа"
         case 9:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) september"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) сентября"
         case 10:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) october"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) октября"
         case 11:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) november"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) ноября"
         case 12:
-            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) december"
+            labelHeader.text = "Сегодня: \((Calendar.current.component(.day, from: Date()))) декабря"
         default:
-            print("Что сейчас происходит?")//Не вызовется
+            print("Что сейчас происходит?")
         }
         labelHeader.textAlignment = .center
         labelHeader.translatesAutoresizingMaskIntoConstraints = false
