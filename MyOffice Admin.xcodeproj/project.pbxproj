@@ -24,6 +24,7 @@
 		3AC495F023BA412700A5974F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC495EE23BA412700A5974F /* LaunchScreen.storyboard */; };
 		4703C441240D0B1100B9B70E /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4703C440240D0B1100B9B70E /* UserModel.swift */; };
 		4728B04423F86C1E002E7D76 /* TableEmployeers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728B04323F86C1E002E7D76 /* TableEmployeers.swift */; };
+		472BFC84249ABF4B00C36AAB /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = 472BFC83249ABF4B00C36AAB /* right.png */; };
 		47414E9723D70DBD00C1EE7D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47414E9623D70DBD00C1EE7D /* TableViewCell.swift */; };
 		47414E9923D7155D00C1EE7D /* ProfileEmployeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */; };
 		47459ADD23F2CBB800164823 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47459ADC23F2CBB800164823 /* SignUp.swift */; };
@@ -84,6 +85,7 @@
 		4240CF0DB9C449D30ABB6ECF /* Pods_MyOffice_AdminTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyOffice_AdminTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4703C440240D0B1100B9B70E /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		4728B04323F86C1E002E7D76 /* TableEmployeers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableEmployeers.swift; sourceTree = "<group>"; };
+		472BFC83249ABF4B00C36AAB /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
 		47414E9623D70DBD00C1EE7D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		47414E9823D7155D00C1EE7D /* ProfileEmployeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEmployeer.swift; sourceTree = "<group>"; };
 		47459ADC23F2CBB800164823 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				3A3637AB2396604C00C7E7E4 /* update.png */,
 				479557352475998200CC2C79 /* Rectangle 2.png */,
 				479557362475998200CC2C79 /* Rectangle.png */,
+				472BFC83249ABF4B00C36AAB /* right.png */,
 				47D830A42392AF2A00DB9168 /* Assets.xcassets */,
 			);
 			path = Resourses;
@@ -386,6 +389,7 @@
 				3A3637B62396604C00C7E7E4 /* update.png in Resources */,
 				3A3637B22396604C00C7E7E4 /* icons8-Ð¾ÑÐ¼ÐµÑÐµÐ½Ð½ÑÐ¹-ÑÐµÐºÐ±Ð¾ÐºÑ-100.png in Resources */,
 				3A3637B12396604C00C7E7E4 /* addRound.png in Resources */,
+				472BFC84249ABF4B00C36AAB /* right.png in Resources */,
 				47D830A52392AF2A00DB9168 /* Assets.xcassets in Resources */,
 				47F14578248FFCD700A7DE9F /* GoogleService-Info.plist in Resources */,
 				3A623B2F2449C1ED001AF800 /* donkomlekt.png in Resources */,

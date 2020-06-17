@@ -201,8 +201,8 @@ class SignUp: UIViewController {
             
             backButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 10),
             backButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
-            backButton.widthAnchor.constraint(equalToConstant: 40),
-            backButton.heightAnchor.constraint(equalToConstant: 40),
+            backButton.widthAnchor.constraint(equalToConstant: 32),
+            backButton.heightAnchor.constraint(equalToConstant: 32),
             
             companyView.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             companyView.centerYAnchor.constraint(equalTo: view.safeArea.centerYAnchor),
@@ -319,7 +319,7 @@ class SignUp: UIViewController {
                 activityIndicator.frame = view.bounds
                 activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.2)
                 if typeOfSignUp {
-                    Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
+                    Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
                         let hams = Auth.auth().currentUser?.uid
                         let base = Database.database().reference().child(self.companyTextField.text!).child(hams!)
                         let baseComing = base.child("coming")
@@ -368,108 +368,7 @@ class SignUp: UIViewController {
                         default:
                             print("Быть такого не может")
                         }
-
-                        Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
-                            if user != nil {
-                                let hams = Auth.auth().currentUser?.uid
-                                let base = Database.database().reference().child((self.companyTextField.text!))
-                                self.data.users.removeAll()
-                                self.oneOfUsers.coming.removeAll()
-                                self.oneOfUsers.days.removeAll()
-                                self.oneOfUsers.leaving.removeAll()
-                                // TODO: Вынести в отдельную функцию
-                                base.observe(.value, with:  { (snapshot) in
-                                    guard let value = snapshot.value, snapshot.exists() else { return }
-                                    let dict: NSDictionary = value as! NSDictionary
-                                    for (uid, categories) in dict {
-                                        for (category, fields) in categories as! NSDictionary {
-                                            for (nameOfField, valueOfField) in fields as! NSDictionary {
-                                                if nameOfField as? String == "admin" {
-                                                    // Всегда true
-                                                    if hams == uid as? String {
-                                                        UserDefaults.standard.set(valueOfField, forKey: "admin")
-                                                        UserDefaults.standard.set((self.companyTextField.text!), forKey: "company")
-                                                    }
-                                                    self.oneOfUsers.work.admin = valueOfField as? Bool
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "check" {
-                                                    self.oneOfUsers.work.check = valueOfField as? Bool
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "patronymic" {
-                                                    self.oneOfUsers.info.patronymic = valueOfField as? String
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "wifi" {
-                                                    self.oneOfUsers.work.wifi = valueOfField as? String
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "monthHours" {
-                                                    self.oneOfUsers.work.monthHours = valueOfField as? Double
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "totalHours" {
-                                                    self.oneOfUsers.work.totalHours = valueOfField as? Double
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "weekHours" {
-                                                    self.oneOfUsers.work.weekHours = valueOfField as? Double
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "date" {
-                                                    self.oneOfUsers.info.date = valueOfField as? String
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "email" {
-                                                    self.oneOfUsers.info.email = valueOfField as? String
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "name" {
-                                                    self.oneOfUsers.info.name = valueOfField as? String
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "pass" {
-                                                    self.oneOfUsers.info.pass = valueOfField as? String
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "phone" {
-                                                    self.oneOfUsers.info.phone = valueOfField as? String
-                                                    continue
-                                                }
-                                                if nameOfField as? String == "surname" {
-                                                    self.oneOfUsers.info.surname = valueOfField as? String
-                                                    continue
-                                                }
-                                            }
-                                        }
-                                        self.data.users.append(self.oneOfUsers)
-                                        self.oneOfUsers.coming.removeAll()
-                                        self.oneOfUsers.days.removeAll()
-                                        self.oneOfUsers.leaving.removeAll()
-                                    }
-                                    
-                                    UserDefaults.standard.set(true, forKey: "autoSignIn")
-                                    UserDefaults.standard.set(self.emailTextField.text!.lowercased(), forKey: "login")
-                                    UserDefaults.standard.set(self.passwordTextField.text, forKey: "password")
-                                    let MainScreenTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainScreenTabBar") as! MainScreenTabBar
-                                    MainScreenTabBarVC.data = self.data
-                                    MainScreenTabBarVC.modalPresentationStyle = .fullScreen
-                                    MainScreenTabBarVC.modalTransitionStyle = .flipHorizontal
-                                    self.present(MainScreenTabBarVC, animated: true, completion: nil)
-                                })
-                            } else {
-                                let alert = UIAlertController(title: "Ошибка регистрации", message: "Ошибка ", preferredStyle: .alert)
-                                alert.addAction(UIAlertAction(title: "Продолжить", style: .default, handler: nil))
-                                self.present(alert, animated: true, completion: nil)
-                                /**
-                                 Очистка всего UserDefaults, если вход не был выполнен
-                                 */
-                                if let appDomain = Bundle.main.bundleIdentifier {
-                                    UserDefaults.standard.removePersistentDomain(forName: appDomain)
-                                }
-                            }
-                        }
+                        self.dismiss(animated: true, completion: nil)
                     }
                 } else {
                     Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (result, error) in
@@ -555,7 +454,7 @@ class SignUp: UIViewController {
                     wifiTextField.backgroundColor = .systemRed
                     wifiTextField.endEditing(true)
                 }
-                if (emailTextField.text == "" || !emailTextField.text!.contains("@") || !emailTextField.text!.contains(".ru") || !emailTextField.text!.contains(".com") || (emailTextField.text!.rangeOfCharacter(from: ruCharacters) != nil) ) {
+                if (emailTextField.text == "" || !emailTextField.text!.contains("@") || !(emailTextField.text!.contains(".ru") || emailTextField.text!.contains(".com")) || (emailTextField.text!.rangeOfCharacter(from: ruCharacters) != nil) ) {
                     emailTextField.backgroundColor = .systemRed
                     emailTextField.endEditing(true)
                 }

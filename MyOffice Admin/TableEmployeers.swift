@@ -97,14 +97,14 @@ class TableEmployeers: UIViewController {
             titleLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
             
             updateButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            updateButton.heightAnchor.constraint(equalToConstant: 40),
-            updateButton.widthAnchor.constraint(equalToConstant: 40),
-            updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -5),
+            updateButton.heightAnchor.constraint(equalToConstant: 32),
+            updateButton.widthAnchor.constraint(equalToConstant: 32),
+            updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -10),
             
             addEmployee.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            addEmployee.heightAnchor.constraint(equalToConstant: 40),
-            addEmployee.widthAnchor.constraint(equalToConstant: 40),
-            addEmployee.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 5),
+            addEmployee.heightAnchor.constraint(equalToConstant: 32),
+            addEmployee.widthAnchor.constraint(equalToConstant: 32),
+            addEmployee.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
             
             tableEmployeers.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25),
             tableEmployeers.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),

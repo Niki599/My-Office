@@ -149,8 +149,6 @@ class TableEmployeer: UIViewController {
         
         let profileButton = UIButton()
         profileButton.addTarget(self, action: #selector(didProfileButtonTaped), for: .touchUpInside)
-        profileButton.layer.borderWidth = 2
-        profileButton.layer.cornerRadius = 12
         profileButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileButton)
         
@@ -162,6 +160,10 @@ class TableEmployeer: UIViewController {
         labelOfProfileButton.textAlignment = .center
         labelOfProfileButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(labelOfProfileButton)
+        
+        let imageArrowRightProfileButton = UIImageView(image: UIImage(named: "right.png"))
+        imageArrowRightProfileButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageArrowRightProfileButton)
         
         let labelHoursWeek = UILabel()
         labelHoursWeek.text = "за неделю"
@@ -260,19 +262,19 @@ class TableEmployeer: UIViewController {
             backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
-            backButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 10),
+            backButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             backButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
-            backButton.widthAnchor.constraint(equalToConstant: 40),
-            backButton.heightAnchor.constraint(equalToConstant: 40),
+            backButton.widthAnchor.constraint(equalToConstant: 32),
+            backButton.heightAnchor.constraint(equalToConstant: 32),
             
             titleLabel.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
             
             updateButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            updateButton.heightAnchor.constraint(equalToConstant: 40),
-            updateButton.widthAnchor.constraint(equalToConstant: 40),
-            updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -5),
+            updateButton.heightAnchor.constraint(equalToConstant: 32),
+            updateButton.widthAnchor.constraint(equalToConstant: 32),
+            updateButton.trailingAnchor.constraint(equalTo: view.safeArea.trailingAnchor, constant: -10),
             
             profileButton.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             profileButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
@@ -287,6 +289,11 @@ class TableEmployeer: UIViewController {
             
             labelOfProfileButton.centerXAnchor.constraint(equalTo: profileButton.centerXAnchor),
             labelOfProfileButton.centerYAnchor.constraint(equalTo: profileButton.centerYAnchor),
+            
+            imageArrowRightProfileButton.heightAnchor.constraint(equalToConstant: 25),
+            imageArrowRightProfileButton.widthAnchor.constraint(equalToConstant: 25),
+            imageArrowRightProfileButton.centerYAnchor.constraint(equalTo: profileButton.centerYAnchor),
+            imageArrowRightProfileButton.trailingAnchor.constraint(equalTo: profileButton.trailingAnchor, constant: -2),
             
             groupStackViewStatistic.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             groupStackViewStatistic.topAnchor.constraint(equalTo: profileButton.bottomAnchor, constant: 44),

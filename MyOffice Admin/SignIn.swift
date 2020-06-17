@@ -323,7 +323,7 @@ class SignIn: UIViewController {
         view.addSubview(passwordTextField)
         
         authorizationButton = UIButton()
-        authorizationButton.setTitle("Присоединиться", for: .normal)
+        authorizationButton.setTitle("Авторизироваться", for: .normal)
         authorizationButton.setTitleColor(.yellow, for: .normal)
         authorizationButton.setTitleColor(.lightGray, for: .highlighted)
         authorizationButton.layer.cornerRadius = 6

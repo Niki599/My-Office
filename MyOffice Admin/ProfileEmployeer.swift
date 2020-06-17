@@ -24,7 +24,6 @@ class ProfileEmployeer: UIViewController {
     private var labelPhoneNumber = UILabel()
     private var labelNumberOfPass = UILabel()
     private var labelStringPassAdmin = UILabel()
-    private var deleteAccButton = UIButton()
     private var buttonExit = UIButton()
     private var createCompanyButton = UIButton()
 
@@ -88,14 +87,7 @@ class ProfileEmployeer: UIViewController {
         title.textAlignment = .center
         title.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(title)
-        
-        deleteAccButton = UIButton()
-        deleteAccButton.addTarget(self, action: #selector(didDeleteAccButtonTap), for: .touchUpInside)
-        deleteAccButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteAccButton.setImage(UIImage(systemName: "xmark")!.resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
-        deleteAccButton.setTitleColor(.black, for: .normal)
-        view.addSubview(deleteAccButton)
-        
+                
         let image = UIImageView(image: UIImage(named: "employee.png"))
         image.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(image)
@@ -268,24 +260,19 @@ class ProfileEmployeer: UIViewController {
                     backButton.isHidden = true
                 }
             }
-        } else {
-            deleteAccButton.isHidden = true
         }
         
         constraints = [
             title.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             title.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
             
-            deleteAccButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 25),
-            deleteAccButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 25),
-            
-            backButton.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: 10),
+            backButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
             backButton.leadingAnchor.constraint(equalTo: view.safeArea.leadingAnchor, constant: 10),
-            backButton.widthAnchor.constraint(equalToConstant: 40),
-            backButton.heightAnchor.constraint(equalToConstant: 40),
+            backButton.widthAnchor.constraint(equalToConstant: 32),
+            backButton.heightAnchor.constraint(equalToConstant: 32),
             
             image.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            image.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: UIScreen.main.bounds.height / 6.0),
+            image.topAnchor.constraint(equalTo: view.safeArea.topAnchor, constant: UIScreen.main.bounds.height / 7),
             
             labelNumberOfPass.topAnchor.constraint(equalTo: stackViewPass.topAnchor),
             
@@ -304,7 +291,7 @@ class ProfileEmployeer: UIViewController {
             stackViewPassAdmin.leadingAnchor.constraint(equalTo: groupStackViewInfo.leadingAnchor),
             stackViewPassAdmin.trailingAnchor.constraint(equalTo: groupStackViewInfo.trailingAnchor),
             
-            groupStackViewInfo.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 40),
+            groupStackViewInfo.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20),
             groupStackViewInfo.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.2),
             groupStackViewInfo.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
             
@@ -315,7 +302,7 @@ class ProfileEmployeer: UIViewController {
             
             buttonExit.topAnchor.constraint(equalTo: createCompanyButton.bottomAnchor, constant: 10),
             buttonExit.heightAnchor.constraint(equalToConstant: 40),
-            buttonExit.widthAnchor.constraint(equalToConstant: 170),
+            buttonExit.widthAnchor.constraint(equalTo: groupStackViewInfo.widthAnchor),
             buttonExit.centerXAnchor.constraint(equalTo: view.safeArea.centerXAnchor),
         ]
     }
@@ -358,19 +345,19 @@ class ProfileEmployeer: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
-    @objc private func didDeleteAccButtonTap() {
-        let alert = UIAlertController(title: "Удаление аккаунта", message: "Вы уверены, что хотите удалить аккаунт без возможности восстановления?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Да", style: .destructive, handler: { (alertAction) in
-            Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
-                _ = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(String( Auth.auth().currentUser!.uid)).removeValue()
-                Auth.auth().currentUser?.delete(completion: { (error) in
-                    self.dismiss(animated: true, completion: nil)
-                })
-            }
-        }) )
-        self.present(alert, animated: true, completion: nil)
-        
-    }
+//    @objc private func didDeleteAccButtonTap() {
+//        let alert = UIAlertController(title: "Удаление аккаунта", message: "Вы уверены, что хотите удалить аккаунт без возможности восстановления?", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: nil))
+//        alert.addAction(UIAlertAction(title: "Да", style: .destructive, handler: { (alertAction) in
+//            Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "login")!, password: UserDefaults.standard.string(forKey: "password")!) { (user, error) in
+//                _ = Database.database().reference().child(UserDefaults.standard.string(forKey: "company")!).child(String( Auth.auth().currentUser!.uid)).removeValue()
+//                Auth.auth().currentUser?.delete(completion: { (error) in
+//                    self.dismiss(animated: true, completion: nil)
+//                })
+//            }
+//        }) )
+//        self.present(alert, animated: true, completion: nil)
+//
+//    }
     
 }
